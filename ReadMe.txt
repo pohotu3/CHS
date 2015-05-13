@@ -2,10 +2,10 @@
     			HomeSystem Project
 ========================================================================
 
-HomeSystem is a project that is created by Ezra and Austin. Open Source, the
-goal of this project is to create an automated home environment with the goal
-of making life easier, more convenient, and more atuned to your own personal
-needs.
+HomeSystem is a project that is created by Ezra and Austin. Open Source under
+the CPOL Licence, the goal of this project is to create an automated home 
+environment with the goalof making life easier, more convenient, and more 
+atuned to your own personal needs.
 
 Each Shard will power one or more functions in your home. Completely voice
 controlled, the goal is to create a virtual AI to manage your home "hands
