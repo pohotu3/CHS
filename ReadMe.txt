@@ -1,40 +1,23 @@
 ========================================================================
-    CONSOLE APPLICATION : HomeSystem Project Overview
+    			HomeSystem Project
 ========================================================================
 
-AppWizard has created this HomeSystem application for you.
+HomeSystem is a project that is created by Ezra and Austin. Open Source, the
+goal of this project is to create an automated home environment with the goal
+of making life easier, more convenient, and more atuned to your own personal
+needs.
 
-This file contains a summary of what you will find in each of the files that
-make up your HomeSystem application.
+Each Shard will power one or more functions in your home. Completely voice
+controlled, the goal is to create a virtual AI to manage your home "hands
+free".
 
+Centrally controlled by a server, each Shard will accept voice commands,
+process them, and reply appropriately. The Shards will range from media control
+systems, security systems, climate control, and eventually home networking and
+computational control.
 
-HomeSystem.vcxproj
-    This is the main project file for VC++ projects generated using an Application Wizard.
-    It contains information about the version of Visual C++ that generated the file, and
-    information about the platforms, configurations, and project features selected with the
-    Application Wizard.
+///////////////////////////////////////////////////////////////////////////////
+Currently no working stages
+///////////////////////////////////////////////////////////////////////////////
 
-HomeSystem.vcxproj.filters
-    This is the filters file for VC++ projects generated using an Application Wizard. 
-    It contains information about the association between the files in your project 
-    and the filters. This association is used in the IDE to show grouping of files with
-    similar extensions under a specific node (for e.g. ".cpp" files are associated with the
-    "Source Files" filter).
-
-HomeSystem.cpp
-    This is the main application source file.
-
-/////////////////////////////////////////////////////////////////////////////
-Other standard files:
-
-StdAfx.h, StdAfx.cpp
-    These files are used to build a precompiled header (PCH) file
-    named HomeSystem.pch and a precompiled types file named StdAfx.obj.
-
-/////////////////////////////////////////////////////////////////////////////
-Other notes:
-
-AppWizard uses "TODO:" comments to indicate parts of the source code you
-should add to or customize.
-
-/////////////////////////////////////////////////////////////////////////////
+Updated on 5/13/2015 at 3:11 pm
