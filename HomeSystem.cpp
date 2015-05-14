@@ -32,7 +32,7 @@ using namespace std;
 
 int main()
 {
-	cout << systemName << " Example " << systemType << " Version " << version << "\nCreated By Ezra and Austin\n\n" << endl;
+	cout << systemName << " " << systemType << " Version " << version << "\nCreated By Ezra and Austin\n\n" << endl;
 	getchar();
 	return 0;
 }
