@@ -27,12 +27,25 @@
 #include "stdafx.h"
 #include "sysParams.h"
 #include <iostream>
+#include <windows.h>
 
 using namespace std;
 
+bool running = false;
+
 int main()
 {
-	cout << systemName << " " << systemType << " Version " << version << "\nCreated By Ezra and Austin\n\n" << endl;
+	// System Setup and Title
+	SetConsoleTitle(TEXT("Crystal Home Systems")); // set console window title to Crystal Home System
+	cout << systemName << " " << systemType << " Version " << version << "\nCreated By Ezra and Austin\n\n" << endl; 
+	runningP = &running; // set the global pointer running to the local version, for better mem management
+	*runningP = true;
+
+	// core system loop
+	while (*runningP){
+		
+	}
+
 	getchar();
 	return 0;
 }
