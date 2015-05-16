@@ -27,6 +27,8 @@
 #include "stdafx.h"
 #include "sysParams.h"
 #include <iostream>
+#include <string>
+#include <sstream>
 #include <windows.h>
 
 using namespace std;
@@ -43,7 +45,15 @@ int main()
 
 	// core system loop
 	while (*runningP){
-		
+		// retrieve user input
+		cout << "Enter a command:" << endl;
+		string command;
+		getline(cin, command);
+
+		// finding command terms in the string. to add more commands to an if statement, enter: command.find("putCommandYouWandToUseHere") != string::npos
+		if (command.find("exit") != string::npos || command.find("quit") != string::npos || command.find("close") != string::npos || command.find("stop") != string::npos){ // user wants to quit
+			return 0;
+		}
 	}
 
 	getchar();
