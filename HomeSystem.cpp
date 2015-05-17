@@ -31,12 +31,16 @@
 #include <string>
 #include <windows.h>
 
+#include <SFML/Audio.hpp>
+
 using namespace std;
+using namespace sf;
 
 bool running = false;
 
 int main()
 {
+	/*
 	// System Setup and Title
 	SetConsoleTitle(TEXT("Crystal Home Systems")); // set console window title to Crystal Home System
 	cout << systemName << " " << systemType << " Version " << version << "\nCreated By Ezra and Austin\n\n" << endl; 
@@ -68,5 +72,8 @@ int main()
 	}
 
 	getchar();
+	*/
+
+
 	return 0;
 }
