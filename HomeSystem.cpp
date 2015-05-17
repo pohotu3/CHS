@@ -62,7 +62,7 @@ int main()
 				
 			}
 			else if (command.find("song") != string::npos || command.find("music") != string::npos || command.find("album") != string::npos || command.find("artist") != string::npos){ // music
-
+				
 			}
 		}
 	}
