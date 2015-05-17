@@ -29,6 +29,6 @@ float version = 0.1;
 
 bool *runningP;
 
-//string musicPath = "";
+char musicPath[] = "";
 
-//string moviePath = "";
+char moviePath[] = "";
