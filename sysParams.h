@@ -28,3 +28,7 @@ char systemType[] = "Server";
 float version = 0.1;
 
 bool *runningP;
+
+//string musicPath = "";
+
+//string moviePath = "";

@@ -51,8 +51,17 @@ int main()
 		getline(cin, command);
 
 		// finding command terms in the string. to add more commands to an if statement, enter: command.find("putCommandYouWandToUseHere") != string::npos
-		if (command.find("exit") != string::npos || command.find("quit") != string::npos || command.find("close") != string::npos || command.find("stop") != string::npos){ // user wants to quit
+		if (command.find("exit") != string::npos || command.find("quit") != string::npos || command.find("close") != string::npos){ // user wants to quit
+			*runningP = false;
 			return 0;
+		}
+		if (command.find("play") != string::npos || command.find("start") != string::npos){ // wants to play media
+			if (command.find("movie") != string::npos || command.find("show") != string::npos){ // movie
+
+			}
+			else if (command.find("song") != string::npos || command.find("music") != string::npos || command.find("album") != string::npos || command.find("artist") != string::npos){ // music
+
+			}
 		}
 	}
 
