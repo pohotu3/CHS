@@ -1,6 +1,8 @@
 #Project Files
 Debug
 ipch
+.opensdf
+.suo
 
 # Compiled Object files
 *.slo
