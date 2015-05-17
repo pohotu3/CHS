@@ -22,7 +22,13 @@ Global System Parameters
 
 char systemName[] = "Crystal Home Systems";
 
-char systemType[] = "Shard";
-//char systemType[] = "Server";
+//char systemType[] = "Shard";
+char systemType[] = "Server";
 
 float version = 0.1;
+
+bool *runningP;
+
+//string musicPath = "";
+
+//string moviePath = "";

@@ -1,3 +1,9 @@
+#Project Files
+Debug
+ipch
+*.opensdf
+*.suo
+
 # Compiled Object files
 *.slo
 *.lo
@@ -73,3 +79,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+HomeSystem.sdf
+HomeSystem.sdf
+*.sdf
