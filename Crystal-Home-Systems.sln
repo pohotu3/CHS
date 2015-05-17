@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HomeSystem", "HomeSystem.vcxproj", "{2B08125B-31B0-4615-A7F7-6967BB220A51}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Crystal-Home-Systems", "Crystal-Home-Systems\Crystal-Home-Systems.vcxproj", "{FBC8D0D6-B148-41EA-A70C-D8E0536BF523}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2B08125B-31B0-4615-A7F7-6967BB220A51}.Debug|Win32.ActiveCfg = Debug|Win32
-		{2B08125B-31B0-4615-A7F7-6967BB220A51}.Debug|Win32.Build.0 = Debug|Win32
-		{2B08125B-31B0-4615-A7F7-6967BB220A51}.Release|Win32.ActiveCfg = Release|Win32
-		{2B08125B-31B0-4615-A7F7-6967BB220A51}.Release|Win32.Build.0 = Release|Win32
+		{FBC8D0D6-B148-41EA-A70C-D8E0536BF523}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FBC8D0D6-B148-41EA-A70C-D8E0536BF523}.Debug|Win32.Build.0 = Debug|Win32
+		{FBC8D0D6-B148-41EA-A70C-D8E0536BF523}.Release|Win32.ActiveCfg = Release|Win32
+		{FBC8D0D6-B148-41EA-A70C-D8E0536BF523}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

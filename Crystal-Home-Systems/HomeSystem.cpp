@@ -24,7 +24,6 @@
 *along with Crystal Home Systems.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "stdafx.h"
 #include "sysParams.h"
 #include <iostream>
 #include <algorithm>
@@ -43,37 +42,42 @@ int main()
 	/*
 	// System Setup and Title
 	SetConsoleTitle(TEXT("Crystal Home Systems")); // set console window title to Crystal Home System
-	cout << systemName << " " << systemType << " Version " << version << "\nCreated By Ezra and Austin\n\n" << endl; 
+	cout << systemName << " " << systemType << " Version " << version << "\nCreated By Ezra and Austin\n\n" << endl;
 	runningP = &running; // set the global pointer running to the local version, for better mem management
 	*runningP = true;
 
 	// core system loop
 	while (*runningP){
-		// retrieve user input
-		
-		cout << "Enter a command:" << endl;
-		string command; 
-		getline(cin, command);
-		transform(command.begin(), command.end(), command.begin(), ::tolower);
+	// retrieve user input
 
-		// finding command terms in the string. to add more commands to an if statement, enter: command.find("putCommandYouWandToUseHere") != string::npos
-		if (command.find("exit") != string::npos || command.find("quit") != string::npos || command.find("close") != string::npos){ // user wants to quit
-			*runningP = false;
-			return 0;
-		}
-		if (command.find("play") != string::npos || command.find("start") != string::npos){ // wants to play media
-			if (command.find("movie") != string::npos || command.find("show") != string::npos){ // movie
-				
-			}
-			else if (command.find("song") != string::npos || command.find("music") != string::npos || command.find("album") != string::npos || command.find("artist") != string::npos){ // music
-				
-			}
-		}
+	cout << "Enter a command:" << endl;
+	string command;
+	getline(cin, command);
+	transform(command.begin(), command.end(), command.begin(), ::tolower);
+
+	// finding command terms in the string. to add more commands to an if statement, enter: command.find("putCommandYouWandToUseHere") != string::npos
+	if (command.find("exit") != string::npos || command.find("quit") != string::npos || command.find("close") != string::npos){ // user wants to quit
+	*runningP = false;
+	return 0;
+	}
+	if (command.find("play") != string::npos || command.find("start") != string::npos){ // wants to play media
+	if (command.find("movie") != string::npos || command.find("show") != string::npos){ // movie
+
+	}
+	else if (command.find("song") != string::npos || command.find("music") != string::npos || command.find("album") != string::npos || command.find("artist") != string::npos){ // music
+
+	}
+	}
 	}
 
 	getchar();
+	
 	*/
-
-
+	
+	Music music;
+	if (!music.openFromFile("C:\\test.mp3"))
+		return -1;
+	music.play();
 	return 0;
+	
 }
