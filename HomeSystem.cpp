@@ -59,7 +59,7 @@ int main()
 		}
 		if (command.find("play") != string::npos || command.find("start") != string::npos){ // wants to play media
 			if (command.find("movie") != string::npos || command.find("show") != string::npos){ // movie
-
+				
 			}
 			else if (command.find("song") != string::npos || command.find("music") != string::npos || command.find("album") != string::npos || command.find("artist") != string::npos){ // music
 
