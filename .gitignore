@@ -1,5 +1,4 @@
 #Project Files
-Debug
 ipch
 *.opensdf
 *.suo
@@ -82,3 +81,5 @@ $RECYCLE.BIN/
 HomeSystem.sdf
 HomeSystem.sdf
 *.sdf
+*.tlog
+*.pdb
