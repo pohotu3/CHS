@@ -36,18 +36,20 @@
 using namespace std;
 using namespace sf;
 
+void fileOpenError();
 
 int main()
 {
 	bool running = true;
 	Music music;
-	if (!music.openFromFile("test.ogg"))
-		return -1;
-	music.play();
 
 	// System Setup and Title
 	SetConsoleTitle(TEXT("Crystal Home Systems")); // set console window title to Crystal Home System
 	cout << systemName << " " << systemType << " Version " << version << "\nCreated By Ezra and Austin\n\n" << endl;
+
+	if (!music.openFromFile("test.ogg"))
+		fileOpenError();
+	music.play();
 
 	// core system loop
 	while (running){
@@ -127,12 +129,8 @@ int main()
 	}
 
 	getchar();
+}
 
-	/*
-	Music music;
-	if (!music.openFromFile("test.ogg"))
-	return -1;
-	music.play();
-	return 0;
-	*/
+void fileOpenError(){
+	cout << "Unable to open file!" << endl;
 }
