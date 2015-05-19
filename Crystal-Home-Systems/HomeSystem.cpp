@@ -36,18 +36,19 @@
 using namespace std;
 using namespace sf;
 
-bool running = false;
 
 int main()
 {
+
+	bool running = false;
+	Music music;
+
 	// System Setup and Title
 	SetConsoleTitle(TEXT("Crystal Home Systems")); // set console window title to Crystal Home System
 	cout << systemName << " " << systemType << " Version " << version << "\nCreated By Ezra and Austin\n\n" << endl;
-	runningP = &running; // set the global pointer running to the local version, for better mem management
-	*runningP = true;
 
 	// core system loop
-	while (*runningP){
+	while (running){
 		// retrieve user input
 
 		cout << "Enter a command:" << endl;
@@ -65,7 +66,7 @@ int main()
 
 			}
 			else if (command.find("song") != string::npos || command.find("music") != string::npos || command.find("album") != string::npos || command.find("artist") != string::npos){ // music
-
+				
 			}
 		}
 	}
