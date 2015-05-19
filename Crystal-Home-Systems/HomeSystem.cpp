@@ -54,12 +54,12 @@ int main()
 	// core system loop
 	while (running){
 		// retrieve user input
-
 		cout << "Enter a command:" << endl;
 		string command;
 		getline(cin, command);
 		transform(command.begin(), command.end(), command.begin(), ::tolower);
 
+		// want to functionalize all these if statements for easier porting!
 		// finding command terms in the string. to add more commands to an if statement, enter: command.find("putCommandYouWandToUseHere") != string::npos
 		if (command.find("exit") != string::npos || command.find("quit") != string::npos || command.find("close") != string::npos){ // user wants to quit
 			if (command.find("song") != string::npos || command.find("music") != string::npos){
