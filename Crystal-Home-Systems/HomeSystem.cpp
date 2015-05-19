@@ -60,9 +60,25 @@ int main()
 
 		// finding command terms in the string. to add more commands to an if statement, enter: command.find("putCommandYouWandToUseHere") != string::npos
 		if (command.find("exit") != string::npos || command.find("quit") != string::npos || command.find("close") != string::npos){ // user wants to quit
+			if (command.find("song") != string::npos || command.find("music") != string::npos){
+				music.stop();
+				continue;
+			}
+			if (command.find("movie") != string::npos || command.find("show") != string::npos){
+				continue;
+			}
 			running = false;
 			music.stop();
 			return 0;
+		}
+		if (command.find("stop") != string::npos){
+			if (command.find("song") != string::npos || command.find("music") != string::npos){
+				music.stop();
+				continue;
+			}
+			if (command.find("movie") != string::npos || command.find("show") != string::npos){
+				continue;
+			}
 		}
 		if (command.find("play") != string::npos || command.find("start") != string::npos){ // wants to play media
 			if (command.find("movie") != string::npos || command.find("show") != string::npos){ // movie
@@ -79,7 +95,11 @@ int main()
 						music.play();
 						continue;
 					}
-					// LOAD SONG HERE
+					else if (temp.find("yes") != string::npos){
+						// LOAD SONG HERE
+						continue;
+					}
+					cout << "Please enter yes or no!" << endl;
 					continue;
 				}
 			}
