@@ -39,9 +39,11 @@ using namespace sf;
 
 int main()
 {
-
-	bool running = false;
+	bool running = true;
 	Music music;
+	if (!music.openFromFile("test.ogg"))
+		return -1;
+	music.play();
 
 	// System Setup and Title
 	SetConsoleTitle(TEXT("Crystal Home Systems")); // set console window title to Crystal Home System
@@ -58,7 +60,8 @@ int main()
 
 		// finding command terms in the string. to add more commands to an if statement, enter: command.find("putCommandYouWandToUseHere") != string::npos
 		if (command.find("exit") != string::npos || command.find("quit") != string::npos || command.find("close") != string::npos){ // user wants to quit
-			*runningP = false;
+			running = false;
+			music.stop();
 			return 0;
 		}
 		if (command.find("play") != string::npos || command.find("start") != string::npos){ // wants to play media
@@ -66,7 +69,39 @@ int main()
 
 			}
 			else if (command.find("song") != string::npos || command.find("music") != string::npos || command.find("album") != string::npos || command.find("artist") != string::npos){ // music
-				
+				// now that the loop as narrowed down that you want to play a song, make sure there's not another song already loaded, and then start the new song
+				if (music.Paused){
+					cout << "There is already a song playing. Are you sure you want to start a new one?" << endl;
+					string temp;
+					getline(cin, temp);
+					transform(temp.begin(), temp.end(), temp.begin(), ::tolower);
+					if (temp.find("no") != string::npos){ // dont play new song
+						music.play();
+						continue;
+					}
+					// LOAD SONG HERE
+					continue;
+				}
+			}
+		}
+		if (command.find("pause") != string::npos){
+			if (command.find("music") != string::npos || command.find("song") != string::npos){
+				music.pause();
+			}
+			if (command.find("movie") != string::npos || command.find("show") != string::npos || command.find("tv") != string::npos){
+
+			}
+		}
+		if (command.find("resume") != string::npos){
+			if (command.find("music") != string::npos || command.find("song") != string::npos){
+				if (music.Paused){
+					music.play();
+					continue;	
+				}
+				else{
+					cout << "There is no song to resume!" << endl;
+					continue;
+				}
 			}
 		}
 	}
