@@ -39,19 +39,19 @@ using namespace sf;
 void fileOpenError();
 string getCommand(char[]);
 void systemStartupMessage();
+void playMusic(char[]);
+
+Music music;
 
 int main()
 {
 	bool running = true;
-	Music music;
 
 	// System Setup and Title
 	systemStartupMessage();
 
 	//play the startup song
-	if (!music.openFromFile("test.ogg"))
-		fileOpenError();
-	music.play();
+	playMusic("test.ogg");
 
 	// core system loop
 	while (running){
@@ -145,4 +145,10 @@ string getCommand(char c[]){
 void systemStartupMessage(){
 	SetConsoleTitle(TEXT("Crystal Home Systems")); // set console window title to Crystal Home System
 	cout << systemName << " " << systemType << " Version " << version << "\nCreated By Ezra and Austin\n\n" << endl;
+}
+
+void playMusic(char dir[]){
+	if (!music.openFromFile(dir))
+		fileOpenError();
+	music.play();
 }
