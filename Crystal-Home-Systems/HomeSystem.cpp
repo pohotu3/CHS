@@ -37,6 +37,8 @@ using namespace std;
 using namespace sf;
 
 void fileOpenError();
+string getCommand(char[]);
+void systemStartupMessage();
 
 int main()
 {
@@ -44,9 +46,9 @@ int main()
 	Music music;
 
 	// System Setup and Title
-	SetConsoleTitle(TEXT("Crystal Home Systems")); // set console window title to Crystal Home System
-	cout << systemName << " " << systemType << " Version " << version << "\nCreated By Ezra and Austin\n\n" << endl;
+	systemStartupMessage();
 
+	//play the startup song
 	if (!music.openFromFile("test.ogg"))
 		fileOpenError();
 	music.play();
@@ -54,10 +56,7 @@ int main()
 	// core system loop
 	while (running){
 		// retrieve user input
-		cout << "Enter a command:" << endl;
-		string command;
-		getline(cin, command);
-		transform(command.begin(), command.end(), command.begin(), ::tolower);
+		string command = getCommand("Enter command here:");
 
 		// want to functionalize all these if statements for easier porting!
 		// finding command terms in the string. to add more commands to an if statement, enter: command.find("putCommandYouWandToUseHere") != string::npos
@@ -133,4 +132,17 @@ int main()
 
 void fileOpenError(){
 	cout << "Unable to open file!" << endl;
+}
+
+string getCommand(char c[]){
+	cout << c << endl;
+	string command;
+	getline(cin, command);
+	transform(command.begin(), command.end(), command.begin(), ::tolower);
+	return command;
+}
+
+void systemStartupMessage(){
+	SetConsoleTitle(TEXT("Crystal Home Systems")); // set console window title to Crystal Home System
+	cout << systemName << " " << systemType << " Version " << version << "\nCreated By Ezra and Austin\n\n" << endl;
 }
