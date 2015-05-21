@@ -3,11 +3,10 @@
 * Created by Austin and Ezra
 * Open Source with Related GitHub Repo
 * UNDER DEVELOPMENT
-*
-* Copyright© 2015 Austin VanAlstyne, Bailey Thorson
 */
 
 /*
+* Copyright© 2015 Austin VanAlstyne, Bailey Thorson
 *This file is part of Crystal Home Systems.
 *
 *Crystal Home Systems is free software: you can redistribute it and/or modify
