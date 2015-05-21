@@ -20,13 +20,13 @@
 Global System Parameters
 */
 
-char systemName[] = "Crystal Home Systems";
+const char systemName[] = "Crystal Home Systems";
 
-//char systemType[] = "Shard";
-char systemType[] = "Server";
+//const char systemType[] = "Shard";
+const char systemType[] = "Heart";
 
-float version = 0.1;
+const float version = 0.1;
 
-char musicPath[] = "";
+const char musicPath[] = "";
 
-char moviePath[] = "";
+const char moviePath[] = "";

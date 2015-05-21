@@ -23,6 +23,7 @@
 
 using namespace std;
 
+
 string getCommand(char c[]){
 	cout << c << endl;
 	string command;
