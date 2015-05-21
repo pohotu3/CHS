@@ -16,17 +16,8 @@
 *along with Crystal Home Systems.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*
-Global System Parameters
-*/
+#include <SFML/Audio.hpp>
 
-char systemName[] = "Crystal Home Systems";
+sf::Music music; // needs to be global for the playmusic function, cannot share var through passing
 
-//char systemType[] = "Shard";
-char systemType[] = "Server";
-
-float version = 0.1;
-
-char musicPath[] = "";
-
-char moviePath[] = "";
+void playMusic(char[]);

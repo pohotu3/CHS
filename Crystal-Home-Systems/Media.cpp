@@ -16,17 +16,11 @@
 *along with Crystal Home Systems.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*
-Global System Parameters
-*/
+#include "media.h"
+#include "homeSystem.h"
 
-char systemName[] = "Crystal Home Systems";
-
-//char systemType[] = "Shard";
-char systemType[] = "Server";
-
-float version = 0.1;
-
-char musicPath[] = "";
-
-char moviePath[] = "";
+void playMusic(char dir[]){
+	if (!music.openFromFile(dir))
+		fileOpenError();
+	music.play();
+}
