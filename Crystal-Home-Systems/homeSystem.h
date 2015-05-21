@@ -18,4 +18,3 @@
 
 void fileOpenError();
 void systemStartupMessage();
-void playMusic(char[]);

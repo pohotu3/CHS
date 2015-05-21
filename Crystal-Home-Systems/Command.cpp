@@ -32,7 +32,7 @@ string getCommand(char c[]){
 	return command;
 }
 
-void analyzeCommand(string command, bool running){
+void analyzeCommand(string command, bool running, sf::Music& music){
 	// finding command terms in the string. to add more commands to an if statement, enter: command.find("putCommandYouWandToUseHere") != string::npos
 
 	// exit command
@@ -77,7 +77,7 @@ void analyzeCommand(string command, bool running){
 					return;
 				}
 				else if (temp.find("yes") != string::npos){
-					playMusic("");
+					playMusic("", music);
 					return;
 				}
 				cout << "Please enter yes or no!" << endl;

@@ -18,6 +18,6 @@
 
 #include <SFML/Audio.hpp>
 
-sf::Music music; // needs to be global for the playmusic function, cannot share var through passing
+//extern sf::Music music; // needs to be global for the playmusic function, cannot share var through passing
 
-void playMusic(char[]);
+void playMusic(char[], sf::Music&);

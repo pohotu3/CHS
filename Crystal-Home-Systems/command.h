@@ -18,5 +18,5 @@
 
 #include <string>
 
-void analyzeCommand(std::string, bool);
+void analyzeCommand(std::string, bool, sf::Music&);
 std::string getCommand(char[]);

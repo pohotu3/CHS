@@ -19,7 +19,7 @@
 #include "media.h"
 #include "homeSystem.h"
 
-void playMusic(char dir[]){
+void playMusic(char dir[], sf::Music& music){
 	if (!music.openFromFile(dir))
 		fileOpenError();
 	music.play();

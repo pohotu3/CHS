@@ -31,7 +31,9 @@
 #include <iostream>
 #include <windows.h>
 
-using namespace std;
+using namespace std; 
+
+sf::Music music;
 
 int main()
 {
@@ -42,12 +44,12 @@ int main()
 	systemStartupMessage();
 
 	//play the startup song
-	playMusic("test.ogg");
+	playMusic("test.ogg", music);
 
 	// core system loop
 	while (running){
 		command = getCommand("Enter command here:");
-		analyzeCommand(command, running);
+		analyzeCommand(command, running, music);
 	}
 
 	getchar();
