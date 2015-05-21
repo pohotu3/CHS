@@ -16,17 +16,5 @@
 *along with Crystal Home Systems.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*
-Global System Parameters
-*/
-
-const char systemName[] = "Crystal Home Systems";
-
-//const char systemType[] = "Shard";
-const char systemType[] = "Heart";
-
-const float version = 0.1;
-
-const char musicPath[] = "";
-
-const char moviePath[] = "";
+void fileOpenError();
+void systemStartupMessage();
