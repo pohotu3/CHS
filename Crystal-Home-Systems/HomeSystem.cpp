@@ -28,7 +28,7 @@
 #include "command.h"
 #include "homeSystem.h"
 #include <iostream>
-#include <windows.h>
+#include <windows.h> // only for the setconsoletitle() command in the startup message
 
 using namespace std; 
 
