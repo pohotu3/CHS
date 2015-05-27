@@ -35,11 +35,11 @@ using System.Threading.Tasks;
 
 namespace HomeSystem_CSharp
 {
-    class media
+    class media : MediaPlayer
     {
-        public static void playMusic(string dir)
+        public void playMusic(string dir)
         { 
-            Program.musicPlayer.Open(new Uri(dir, UriKind.RelativeOrAbsolute));
+            this.Open(new Uri(dir, UriKind.RelativeOrAbsolute));
 
             VideoDrawing aVideoDrawing = new VideoDrawing();
 
@@ -47,14 +47,49 @@ namespace HomeSystem_CSharp
 
             aVideoDrawing.Player = Program.musicPlayer;
 
-            // Play the video once.
-            Program.musicPlayer.Play();
+            play();
         }
 
 
-        public static void playVideo()
+        public void playVideo()
         {
             //Nothing to see here at the moment. Maybe come back later.
+        }
+
+        public bool mediaFailed()
+        {
+            return this.mediaFailed();
+        }
+
+        public bool mediaEnded()
+        {
+            return this.mediaEnded();
+        }
+
+        public void pause()
+        {
+            if(canPause())
+              this.pause();
+        }
+
+        public void play()
+        {
+            this.play();
+        }
+
+        public bool isMuted()
+        {
+            return this.isMuted();
+        }
+
+        public bool canPause()
+        {
+            return this.canPause();
+        }
+
+        public void volume()
+        {
+            // not sure how to use this one
         }
     }
 }
