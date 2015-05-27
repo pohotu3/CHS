@@ -1,3 +1,0 @@
-C:\Users\pohot_000\Documents\Visual Studio 2013\Projects\HomeSystem\HomeSystem\bin\Debug\HomeSystem_CSharp.exe.config
-C:\Users\pohot_000\Documents\Visual Studio 2013\Projects\HomeSystem\HomeSystem\obj\Debug\HomeSystem_CSharp.exe
-C:\Users\pohot_000\Documents\Visual Studio 2013\Projects\HomeSystem\HomeSystem\obj\Debug\HomeSystem_CSharp.pdb

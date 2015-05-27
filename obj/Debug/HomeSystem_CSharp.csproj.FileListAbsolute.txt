@@ -1,6 +1,0 @@
-c:\users\pohot_000\documents\visual studio 2013\Projects\HomeSystem_CSharp\HomeSystem_CSharp\bin\Debug\HomeSystem_CSharp.exe.config
-c:\users\pohot_000\documents\visual studio 2013\Projects\HomeSystem_CSharp\HomeSystem_CSharp\obj\Debug\HomeSystem_CSharp.csprojResolveAssemblyReference.cache
-c:\users\pohot_000\documents\visual studio 2013\Projects\HomeSystem_CSharp\HomeSystem_CSharp\bin\Debug\HomeSystem_CSharp.exe
-c:\users\pohot_000\documents\visual studio 2013\Projects\HomeSystem_CSharp\HomeSystem_CSharp\bin\Debug\HomeSystem_CSharp.pdb
-c:\users\pohot_000\documents\visual studio 2013\Projects\HomeSystem_CSharp\HomeSystem_CSharp\obj\Debug\HomeSystem_CSharp.exe
-c:\users\pohot_000\documents\visual studio 2013\Projects\HomeSystem_CSharp\HomeSystem_CSharp\obj\Debug\HomeSystem_CSharp.pdb

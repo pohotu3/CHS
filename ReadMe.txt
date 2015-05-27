@@ -34,14 +34,6 @@ systems, security systems, climate control, and eventually home networking and
 computational control.
 
 ///////////////////////////////////////////////////////////////////////////////
-If trying to work with the SFML setup we have with our system, you must download
-the latest version (currently 2.3) from <http://www.sfml-dev.org/download/sfml/2.3/>
-and place the folder in the directory 'C:\'. Then, go to C:\SFML-2.3\bin and copy
-the .dll files into the working directory of the repository if they are not already
-present!
-///////////////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////////
 Currently no working stages
 ///////////////////////////////////////////////////////////////////////////////
 
