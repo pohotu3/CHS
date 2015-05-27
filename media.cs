@@ -35,8 +35,10 @@ using System.Threading.Tasks;
 
 namespace HomeSystem_CSharp
 {
-    class media : MediaPlayer
+    public class Media : MediaPlayer
     {
+        public Media() { }
+
         public void playMusic(string dir)
         { 
             this.Open(new Uri(dir, UriKind.RelativeOrAbsolute));
@@ -45,13 +47,13 @@ namespace HomeSystem_CSharp
 
             aVideoDrawing.Rect = new Rect(0, 0, 100, 100);
 
-            aVideoDrawing.Player = Program.musicPlayer;
+            aVideoDrawing.Player = this;
 
             play();
         }
 
 
-        public void playVideo()
+        public void playVideo(string dir)
         {
             //Nothing to see here at the moment. Maybe come back later.
         }
@@ -69,27 +71,37 @@ namespace HomeSystem_CSharp
         public void pause()
         {
             if(canPause())
-              this.pause();
+              this.Pause();
         }
 
         public void play()
         {
-            this.play();
+            this.Play();
+        }
+
+        public void stop()
+        {
+            this.Stop();
         }
 
         public bool isMuted()
         {
-            return this.isMuted();
+            return this.IsMuted;
         }
 
         public bool canPause()
         {
-            return this.canPause();
+            return this.CanPause;
         }
 
-        public void volume()
+        public double getVolume()
         {
-            // not sure how to use this one
+            return this.Volume; // this SHOULDNT be changeable such as getVolume() = 1.0   if it is, fix it
+        }
+
+        public void setVolume(double d)
+        {
+            this.Volume = d;
         }
     }
 }

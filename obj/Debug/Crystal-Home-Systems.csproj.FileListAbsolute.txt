@@ -4,3 +4,9 @@ C:\Users\pohot_000\Documents\Visual Studio 2013\Projects\HomeSystem\Crystal-Home
 C:\Users\pohot_000\Documents\Visual Studio 2013\Projects\HomeSystem\Crystal-Home-Systems\obj\Debug\Crystal-Home-Systems.csprojResolveAssemblyReference.cache
 C:\Users\pohot_000\Documents\Visual Studio 2013\Projects\HomeSystem\Crystal-Home-Systems\obj\Debug\HomeSystem_CSharp.exe
 C:\Users\pohot_000\Documents\Visual Studio 2013\Projects\HomeSystem\Crystal-Home-Systems\obj\Debug\HomeSystem_CSharp.pdb
+C:\Users\Austin\documents\visual studio 2013\Projects\Crystal-Home-Systems\bin\Debug\HomeSystem_CSharp.exe.config
+C:\Users\Austin\documents\visual studio 2013\Projects\Crystal-Home-Systems\bin\Debug\HomeSystem_CSharp.exe
+C:\Users\Austin\documents\visual studio 2013\Projects\Crystal-Home-Systems\bin\Debug\HomeSystem_CSharp.pdb
+C:\Users\Austin\documents\visual studio 2013\Projects\Crystal-Home-Systems\obj\Debug\Crystal-Home-Systems.csprojResolveAssemblyReference.cache
+C:\Users\Austin\documents\visual studio 2013\Projects\Crystal-Home-Systems\obj\Debug\HomeSystem_CSharp.exe
+C:\Users\Austin\documents\visual studio 2013\Projects\Crystal-Home-Systems\obj\Debug\HomeSystem_CSharp.pdb
