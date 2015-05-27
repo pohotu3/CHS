@@ -53,12 +53,12 @@ namespace HomeSystem_CSharp
             {
                 if (c.Contains("song") || c.Contains("music"))
                 {
-                    Program.musicPlayer.Stop();
+                    Program.getMedia().stop();
                     return true;
                 }
                 else
                 {
-                    Program.musicPlayer.Stop();
+                    Program.getMedia().stop();
                     return false;
                 }
             }
@@ -66,7 +66,7 @@ namespace HomeSystem_CSharp
             {
                 if(c.Contains("song")||c.Contains("music"))
                 {
-                    Program.musicPlayer.Stop();
+                    Program.getMedia().stop();
                     return true;
                 }
                 if(c.Contains("movie")||c.Contains("show"))
@@ -76,9 +76,9 @@ namespace HomeSystem_CSharp
             }
             if(c.Contains("play")||c.Contains("start"))
             {
-                if (c.Contains("music") || c.Contains("song") || c.Contains("album") || c.Contains("artist"))
+                if (c.Contains("music") || c.Contains("song") || c.Contains("album") || c.Contains("artist")) // note, typing 'keep playing the song' will call this function
                 {
-                        Program.musicPlayer.Play();
+                    Program.getMedia().play();
                         return true;
                 }
                 else
@@ -91,7 +91,7 @@ namespace HomeSystem_CSharp
             {
                 if(c.Contains("music")||c.Contains("song"))
                 {
-                    Program.musicPlayer.Pause();
+                    Program.getMedia().pause();
                     return true;
                 }
                 if(c.Contains("movie")||c.Contains("show")||c.Contains("tv"))
@@ -103,7 +103,7 @@ namespace HomeSystem_CSharp
             {
                 if(c.Contains("music")||c.Contains("song"))
                 {
-                    Program.musicPlayer.Play();
+                    Program.getMedia().play();
                         return true;
                 }
             }
