@@ -40,12 +40,12 @@ namespace HomeSystem_CSharp
         public Media() { }
 
         public void playMusic(string dir)
-        { 
+        {
             this.Open(new Uri(dir, UriKind.RelativeOrAbsolute));
 
             VideoDrawing aVideoDrawing = new VideoDrawing();
 
-            aVideoDrawing.Rect = new Rect(0, 0, 100, 100);
+            aVideoDrawing.Rect = new Rect(100, 100, 100, 100);
 
             aVideoDrawing.Player = this;
 
@@ -56,6 +56,7 @@ namespace HomeSystem_CSharp
         public void playVideo(string dir)
         {
             //Nothing to see here at the moment. Maybe come back later.
+
         }
 
         public bool mediaFailed()

@@ -55,7 +55,7 @@ namespace HomeSystem_CSharp
            systemStartupMessage();
 
             // Play startup sound
-           musicPlayer.playMusic("C:\\test.ogg");
+           musicPlayer.playMusic("C:\\test.mp4");
 
             // Core system Loop
             while(running)
