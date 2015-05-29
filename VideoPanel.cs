@@ -19,19 +19,9 @@ namespace HomeSystem_CSharp
             InitializeComponent();
         }
 
-        public void addBrush(DrawingBrush db)
-        {
-            //this.button1.Image = db;
-        }
-
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
             
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
