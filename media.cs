@@ -37,10 +37,24 @@ namespace HomeSystem_CSharp
 {
     public class Media : MediaPlayer
     {
+        bool playing = false;
+        VideoDrawing vidDrawing; 
+        VideoPanel videoPanel;
+
         public Media() { }
 
         public void playMusic(string dir)
         {
+<<<<<<< HEAD
+            if (playing)
+            {
+                play();
+                return;
+            }
+
+            this.Open(new Uri(dir, UriKind.RelativeOrAbsolute));
+
+=======
             this.Open(new Uri(dir, UriKind.RelativeOrAbsolute));
 
             VideoDrawing aVideoDrawing = new VideoDrawing();
@@ -49,14 +63,38 @@ namespace HomeSystem_CSharp
 
             aVideoDrawing.Player = this;
             
+>>>>>>> origin/master
             play();
+            playing = true;
         }
-
 
         public void playVideo(string dir)
         {
+<<<<<<< HEAD
+            if (playing)
+            {
+                play();
+                return;
+            }
+
+            videoPanel = new VideoPanel(); // GUI panel to play the video on
+
+            this.Open(new Uri(dir, UriKind.RelativeOrAbsolute));
+
+            vidDrawing = new VideoDrawing();
+            vidDrawing.Rect = new Rect(0, 0, 100, 100);
+            vidDrawing.Player = this;
+
+            DrawingBrush DBrush = new DrawingBrush(vidDrawing);
+            // add the drawingbrush to a window so that it'll paint the video image
+
+            play();
+            videoPanel.Show();
+            playing = true;
+=======
             //Nothing to see here at the moment. Maybe come back later.
 
+>>>>>>> origin/master
         }
 
         public bool mediaFailed()
@@ -71,18 +109,23 @@ namespace HomeSystem_CSharp
 
         public void pause()
         {
-            if(canPause())
-              this.Pause();
+            if (!canPause())
+                return;
+
+            this.Pause();
+            playing = false;
         }
 
         public void play()
         {
+            playing = true;
             this.Play();
         }
 
         public void stop()
         {
             this.Stop();
+            playing = false;
         }
 
         public bool isMuted()
