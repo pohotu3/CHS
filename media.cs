@@ -32,6 +32,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestWPF;
 
 namespace HomeSystem_CSharp
 {
@@ -39,7 +40,7 @@ namespace HomeSystem_CSharp
     {
         bool playing = false;
         VideoDrawing vidDrawing; 
-        static VideoPanel videoPanel;
+        static MainWindow videoPanel;
 
         public Media() { }
 
@@ -75,9 +76,10 @@ namespace HomeSystem_CSharp
             vidDrawing.Player = this;
 
             DrawingBrush DBrush = new DrawingBrush(vidDrawing);
-            videoPanel = new VideoPanel(); // GUI panel to play the video on
+            videoPanel = new MainWindow(this); // GUI panel to play the video on
             
             play();
+            new System.Windows.Application().Run(videoPanel);
             playing = true;
 
         }
