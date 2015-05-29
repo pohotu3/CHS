@@ -49,6 +49,14 @@ namespace HomeSystem_CSharp
         public static bool analyzeCommand(string c)
         {
             c.ToLower();
+            //temp
+            if (c.Contains("123"))
+            {
+                // SHOWS THE VIDEO PANEL
+                Video v = new Video();
+                v.Show();
+            }
+
             if(c.Contains("exit")||c.Contains("quit")||c.Contains("close") )
             {
                 if (c.Contains("song") || c.Contains("music"))
