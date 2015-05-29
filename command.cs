@@ -51,7 +51,7 @@ namespace HomeSystem_CSharp
 
             if(c.Contains("exit")||c.Contains("quit")||c.Contains("close") )
             {
-                if (c.Contains("song") || c.Contains("music"))
+                if (containsVideo(c) || containsMusic(c))
                 {
                     Program.getMedia().stop();
                     return true;
@@ -64,24 +64,24 @@ namespace HomeSystem_CSharp
             }
             if(c.Contains("stop"))
             {
-                if(c.Contains("song")||c.Contains("music"))
+                if (containsMusic(c))
                 {
                     Program.getMedia().stop();
                     return true;
                 }
-                if(c.Contains("movie")||c.Contains("show"))
+                if(containsVideo(c))
                 {
                     return true;
                 }
             }
             if(c.Contains("play")||c.Contains("start"))
             {
-                if (c.Contains("music") || c.Contains("song") || c.Contains("album") || c.Contains("artist")) // note, typing 'keep playing the song' will call this function
+                if (containsMusic(c)) // note, typing 'keep playing the song' will call this function
                 {
                     Program.getMedia().playMusic("");
                     return true;
                 } 
-                else if (c.Contains("movie") || c.Contains("show") || c.Contains("tv") || c.Contains("video"))
+                else if (containsVideo(c))
                 {
                     Program.getMedia().playVideo("");
                     return true;
@@ -94,19 +94,19 @@ namespace HomeSystem_CSharp
             }
             if(c.Contains("pause"))
             {
-                if(c.Contains("music")||c.Contains("song"))
+                if (containsMusic(c))
                 {
                     Program.getMedia().pause();
                     return true;
                 }
-                if(c.Contains("movie")||c.Contains("show")||c.Contains("tv"))
+                if (containsVideo(c))
                 {
                     return true;
                 }
             }
             if(c.Contains("resume"))
             {
-                if (c.Contains("music") || c.Contains("song") || c.Contains("album") || c.Contains("artist") || c.Contains("movie") || c.Contains("show") || c.Contains("tv") || c.Contains("video"))
+                if (containsMusic(c) || containsVideo(c))
                 {
                     Program.getMedia().play();
                         return true;
@@ -114,6 +114,22 @@ namespace HomeSystem_CSharp
             }
             Console.WriteLine("Could not process command, please try again");
             return true;
+        }
+
+        private static bool containsMusic(string c)
+        {
+            if (c.Contains("music") || c.Contains("song") || c.Contains("album") || c.Contains("artist"))
+                return true;
+            else
+                return false;
+        }
+
+        private static bool containsVideo(string c)
+        {
+            if (c.Contains("movie") || c.Contains("show") || c.Contains("tv") || c.Contains("video"))
+                return true;
+            else
+                return false;
         }
         
     }

@@ -20,7 +20,12 @@ namespace HomeSystem_CSharp
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
+            
+        }
 
+        public Panel getVideoPanel()
+        {
+            return panel1;
         }
     }
 }
