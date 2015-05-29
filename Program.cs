@@ -32,6 +32,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestWPF;
 
 
 
@@ -45,6 +46,7 @@ namespace HomeSystem_CSharp
         public const string systemVersion = "0.0.1";
         static Media mediaPlayer = new Media(); // media is now the MusicPlayer object, able to handle all it's own commands. As long as we have access to this musicPlayer, we have access to everything else
 
+        [STAThread]
         static void Main(string[] args)
         {
 
@@ -54,14 +56,10 @@ namespace HomeSystem_CSharp
             // System Setup and Title
             systemStartupMessage();
 
-<<<<<<< HEAD
             // Play startup sound/video
             mediaPlayer.playVideo("C:\\test.mp4");
-=======
-            // Play startup sound
-           musicPlayer.playMusic("C:\\test.mp4");
->>>>>>> origin/master
-
+            //mediaPlayer.playMusic("C:\\test.mp4");
+            
             // Core system Loop
             while (running)
             {

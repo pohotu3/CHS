@@ -32,6 +32,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestWPF;
 
 namespace HomeSystem_CSharp
 {
@@ -39,13 +40,13 @@ namespace HomeSystem_CSharp
     {
         bool playing = false;
         VideoDrawing vidDrawing; 
-        VideoPanel videoPanel;
+        static MainWindow videoPanel;
 
         public Media() { }
 
         public void playMusic(string dir)
         {
-<<<<<<< HEAD
+
             if (playing)
             {
                 play();
@@ -53,31 +54,20 @@ namespace HomeSystem_CSharp
             }
 
             this.Open(new Uri(dir, UriKind.RelativeOrAbsolute));
-
-=======
-            this.Open(new Uri(dir, UriKind.RelativeOrAbsolute));
-
-            VideoDrawing aVideoDrawing = new VideoDrawing();
-
-            aVideoDrawing.Rect = new Rect(100, 100, 100, 100);
-
-            aVideoDrawing.Player = this;
-            
->>>>>>> origin/master
+                       
             play();
             playing = true;
         }
 
         public void playVideo(string dir)
         {
-<<<<<<< HEAD
+
             if (playing)
             {
                 play();
                 return;
             }
 
-            videoPanel = new VideoPanel(); // GUI panel to play the video on
 
             this.Open(new Uri(dir, UriKind.RelativeOrAbsolute));
 
@@ -86,15 +76,12 @@ namespace HomeSystem_CSharp
             vidDrawing.Player = this;
 
             DrawingBrush DBrush = new DrawingBrush(vidDrawing);
-            // add the drawingbrush to a window so that it'll paint the video image
-
+            videoPanel = new MainWindow(this); // GUI panel to play the video on
+            
             play();
-            videoPanel.Show();
+            new System.Windows.Application().Run(videoPanel);
             playing = true;
-=======
-            //Nothing to see here at the moment. Maybe come back later.
 
->>>>>>> origin/master
         }
 
         public bool mediaFailed()
