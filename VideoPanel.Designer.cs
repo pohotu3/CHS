@@ -1,6 +1,6 @@
 ﻿namespace HomeSystem_CSharp
 {
-    partial class Video
+    partial class VideoPanel
     {
         /// <summary>
         /// Required designer variable.
@@ -40,7 +40,7 @@
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // Video
+            // VideoPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -49,7 +49,7 @@
             this.Controls.Add(this.panel1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Video";
+            this.Name = "VideoPanel";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.ResumeLayout(false);
 

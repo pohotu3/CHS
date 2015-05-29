@@ -43,29 +43,28 @@ namespace HomeSystem_CSharp
         public const string systemName = "Crystal Home System";
         public const string systemType = "core";
         public const string systemVersion = "0.0.1";
-        static Media musicPlayer = new Media(); // media is now the MusicPlayer object, able to handle all it's own commands. As long as we have access to this musicPlayer, we have access to everything else
-        
+        static Media mediaPlayer = new Media(); // media is now the MusicPlayer object, able to handle all it's own commands. As long as we have access to this musicPlayer, we have access to everything else
+
         static void Main(string[] args)
         {
-           
+
             bool running = true;
             string command;
 
             // System Setup and Title
-           systemStartupMessage();
+            systemStartupMessage();
 
-            // Play startup sound
-           musicPlayer.playMusic("C:\\test.ogg");
+            // Play startup sound/video
+            mediaPlayer.playVideo("C:\\test.mp4");
 
             // Core system Loop
-            while(running)
+            while (running)
             {
                 command = commandModule.getCommand("Enter Command: ");
                 running = commandModule.analyzeCommand(command);
             }
 
             System.Windows.Forms.Application.Exit();
-            //Console.ReadKey(true);
 
         }
 
@@ -85,7 +84,7 @@ namespace HomeSystem_CSharp
 
         public static Media getMedia()
         {
-            return musicPlayer; // want to make this a pointer, however idk how right now
+            return mediaPlayer; // want to make this a pointer, however idk how right now
         }
 
     }

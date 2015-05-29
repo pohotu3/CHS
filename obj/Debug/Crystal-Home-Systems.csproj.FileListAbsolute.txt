@@ -12,5 +12,5 @@ C:\Users\Austin\documents\visual studio 2013\Projects\Crystal-Home-Systems\obj\D
 C:\Users\Austin\documents\visual studio 2013\Projects\Crystal-Home-Systems\obj\Debug\HomeSystem_CSharp.pdb
 C:\Users\pohot_000\Documents\Visual Studio 2013\Projects\HomeSystem\Crystal-Home-Systems\obj\Debug\HomeSystem_CSharp.Video.resources
 C:\Users\pohot_000\Documents\Visual Studio 2013\Projects\HomeSystem\Crystal-Home-Systems\obj\Debug\Crystal-Home-Systems.csproj.GenerateResource.Cache
-C:\Users\Austin\documents\visual studio 2013\Projects\Crystal-Home-Systems\obj\Debug\HomeSystem_CSharp.Video.resources
 C:\Users\Austin\documents\visual studio 2013\Projects\Crystal-Home-Systems\obj\Debug\Crystal-Home-Systems.csproj.GenerateResource.Cache
+C:\Users\Austin\documents\visual studio 2013\Projects\Crystal-Home-Systems\obj\Debug\HomeSystem_CSharp.VideoPanel.resources

@@ -45,17 +45,9 @@ namespace HomeSystem_CSharp
             return line;
         }
 
-
         public static bool analyzeCommand(string c)
         {
             c.ToLower();
-            //temp
-            if (c.Contains("123"))
-            {
-                // SHOWS THE VIDEO PANEL
-                Video v = new Video();
-                v.Show();
-            }
 
             if(c.Contains("exit")||c.Contains("quit")||c.Contains("close") )
             {
@@ -86,8 +78,13 @@ namespace HomeSystem_CSharp
             {
                 if (c.Contains("music") || c.Contains("song") || c.Contains("album") || c.Contains("artist")) // note, typing 'keep playing the song' will call this function
                 {
-                    Program.getMedia().play();
-                        return true;
+                    Program.getMedia().playMusic("");
+                    return true;
+                } 
+                else if (c.Contains("movie") || c.Contains("show") || c.Contains("tv") || c.Contains("video"))
+                {
+                    Program.getMedia().playVideo("");
+                    return true;
                 }
                 else
                 {
@@ -109,7 +106,7 @@ namespace HomeSystem_CSharp
             }
             if(c.Contains("resume"))
             {
-                if(c.Contains("music")||c.Contains("song"))
+                if (c.Contains("music") || c.Contains("song") || c.Contains("album") || c.Contains("artist") || c.Contains("movie") || c.Contains("show") || c.Contains("tv") || c.Contains("video"))
                 {
                     Program.getMedia().play();
                         return true;

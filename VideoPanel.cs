@@ -11,9 +11,9 @@ using Microsoft.DirectX.AudioVideoPlayback;
 
 namespace HomeSystem_CSharp
 {
-    public partial class Video : Form
+    public partial class VideoPanel : Form
     {
-        public Video()
+        public VideoPanel()
         {
             InitializeComponent();
         }
