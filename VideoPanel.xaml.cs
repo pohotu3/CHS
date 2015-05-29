@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace HomeSystem_CSharp
 {
-    /// <summary>
-    /// Interaction logic for UserControl1.xaml
-    /// </summary>
     public partial class VideoPanel : UserControl
     {
         public VideoPanel()

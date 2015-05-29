@@ -39,7 +39,7 @@ namespace HomeSystem_CSharp
     {
         bool playing = false;
         VideoDrawing vidDrawing; 
-        VideoPanel videoPanel;
+        static VideoPanel videoPanel;
 
         public Media() { }
 
