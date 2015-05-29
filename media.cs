@@ -52,7 +52,6 @@ namespace HomeSystem_CSharp
             play();
         }
 
-
         public void playVideo(string dir)
         {
             //Nothing to see here at the moment. Maybe come back later.
