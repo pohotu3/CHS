@@ -48,7 +48,7 @@ namespace HomeSystem_CSharp
             aVideoDrawing.Rect = new Rect(100, 100, 100, 100);
 
             aVideoDrawing.Player = this;
-
+            // random comment
             play();
         }
 
