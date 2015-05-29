@@ -45,7 +45,7 @@ namespace HomeSystem_CSharp
 
         public void playMusic(string dir)
         {
-<<<<<<< HEAD
+
             if (playing)
             {
                 play();
@@ -53,24 +53,14 @@ namespace HomeSystem_CSharp
             }
 
             this.Open(new Uri(dir, UriKind.RelativeOrAbsolute));
-
-=======
-            this.Open(new Uri(dir, UriKind.RelativeOrAbsolute));
-
-            VideoDrawing aVideoDrawing = new VideoDrawing();
-
-            aVideoDrawing.Rect = new Rect(100, 100, 100, 100);
-
-            aVideoDrawing.Player = this;
-            
->>>>>>> origin/master
+                       
             play();
             playing = true;
         }
 
         public void playVideo(string dir)
         {
-<<<<<<< HEAD
+
             if (playing)
             {
                 play();
@@ -91,10 +81,7 @@ namespace HomeSystem_CSharp
             play();
             videoPanel.Show();
             playing = true;
-=======
-            //Nothing to see here at the moment. Maybe come back later.
 
->>>>>>> origin/master
         }
 
         public bool mediaFailed()
