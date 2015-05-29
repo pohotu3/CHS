@@ -1,6 +1,8 @@
-﻿<Window x:Class="TestWPF.MainWindow"
+﻿<Window x:Class="PlayVideo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525" WindowStyle="None" ResizeMode="NoResize" WindowState="Maximized">
-    <Grid/>
+    <Grid>
+        
+    </Grid>
 </Window>
