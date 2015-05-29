@@ -67,7 +67,6 @@ namespace HomeSystem_CSharp
                 return;
             }
 
-            videoPanel = new VideoPanel(); // GUI panel to play the video on
 
             this.Open(new Uri(dir, UriKind.RelativeOrAbsolute));
 
@@ -76,8 +75,7 @@ namespace HomeSystem_CSharp
             vidDrawing.Player = this;
 
             DrawingBrush DBrush = new DrawingBrush(vidDrawing);
-            // add the drawingbrush to a window so that it'll paint the video image
-            videoPanel.addVideo(DBrush);
+            videoPanel = new VideoPanel(DBrush); // GUI panel to play the video on
             
             play();
             playing = true;

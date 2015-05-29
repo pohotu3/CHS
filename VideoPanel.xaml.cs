@@ -17,13 +17,9 @@ namespace HomeSystem_CSharp
 {
     public partial class VideoPanel : UserControl
     {
-        public VideoPanel()
+        public VideoPanel(DrawingBrush db)
         {
             InitializeComponent();
-        }
-
-        public void addVideo(DrawingBrush db)
-        {
             this.Background = db;
         }
     }
