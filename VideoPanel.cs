@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media;
 using Microsoft.DirectX.AudioVideoPlayback;
 
 namespace HomeSystem_CSharp
@@ -18,14 +19,19 @@ namespace HomeSystem_CSharp
             InitializeComponent();
         }
 
+        public void addBrush(DrawingBrush db)
+        {
+            //this.button1.Image = db;
+        }
+
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
             
         }
 
-        public Panel getVideoPanel()
+        private void button1_Click(object sender, EventArgs e)
         {
-            return panel1;
+
         }
     }
 }

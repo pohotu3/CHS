@@ -54,14 +54,10 @@ namespace HomeSystem_CSharp
             // System Setup and Title
             systemStartupMessage();
 
-<<<<<<< HEAD
             // Play startup sound/video
             mediaPlayer.playVideo("C:\\test.mp4");
-=======
-            // Play startup sound
-           musicPlayer.playMusic("C:\\test.mp4");
->>>>>>> origin/master
-
+            //mediaPlayer.playMusic("C:\\test.mp4");
+            
             // Core system Loop
             while (running)
             {
