@@ -51,14 +51,19 @@ namespace HomeSystem_CSharp
 
             if(c.Contains("exit")||c.Contains("quit")||c.Contains("close") )
             {
-                if (containsVideo(c) || containsMusic(c))
+                if (containsVideo(c))
                 {
-                    Program.getMedia().stop();
+                    Program.getMusic().stop();
                     return true;
+                }
+                if (containsMusic(c))
+                {
+                    Program.getVideo().stop();
                 }
                 else
                 {
-                    Program.getMedia().stop();
+                    Program.getMusic().stop();
+                    Program.getVideo().stop();
                     return false;
                 }
             }
@@ -66,11 +71,12 @@ namespace HomeSystem_CSharp
             {
                 if (containsMusic(c))
                 {
-                    Program.getMedia().stop();
+                    Program.getMusic().stop();
                     return true;
                 }
                 if(containsVideo(c))
                 {
+                    Program.getVideo().stop();
                     return true;
                 }
             }
@@ -78,12 +84,12 @@ namespace HomeSystem_CSharp
             {
                 if (containsMusic(c)) // note, typing 'keep playing the song' will call this function
                 {
-                    Program.getMedia().playMusic("");
+                    Program.getMusic().playMusic("");
                     return true;
                 } 
                 else if (containsVideo(c))
                 {
-                    Program.getMedia().playVideo("");
+                    Program.playVideo("");
                     return true;
                 }
                 else
@@ -96,20 +102,25 @@ namespace HomeSystem_CSharp
             {
                 if (containsMusic(c))
                 {
-                    Program.getMedia().pause();
+                    Program.getMusic().pause();
                     return true;
                 }
                 if (containsVideo(c))
                 {
+                    Program.getVideo().pause();
                     return true;
                 }
             }
             if(c.Contains("resume"))
             {
-                if (containsMusic(c) || containsVideo(c))
+                if (containsMusic(c))
                 {
-                    Program.getMedia().play();
+                    Program.getMusic().play();
                         return true;
+                }
+                if (containsVideo(c))
+                {
+                    Program.getVideo().resume();
                 }
             }
             Console.WriteLine("Could not process command, please try again");

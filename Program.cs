@@ -44,7 +44,8 @@ namespace HomeSystem_CSharp
         public const string systemName = "Crystal Home System";
         public const string systemType = "core";
         public const string systemVersion = "0.0.1";
-        static Media mediaPlayer = new Media();
+        static Media musicPlayer = new Media();
+        static MainWindow video;
 
         [STAThread] // This is required to keep the threads in sync while playing the video, however I think this is causing the hang-up. As such, we should figure out a way to make running the mediaPlayer var in it's own thread.
         static void Main(string[] args)
@@ -57,7 +58,8 @@ namespace HomeSystem_CSharp
             systemStartupMessage();
 
             // Play startup sound/video
-            mediaPlayer.playVideo("C:\\test.mp4");
+
+            playVideo("C:\\test.mp4");
             //mediaPlayer.playMusic("C:\\test.mp4");
             
             // Core system Loop
@@ -85,9 +87,20 @@ namespace HomeSystem_CSharp
             Console.WriteLine("Unable to open file!\n");
         }
 
-        public static Media getMedia()
+        public static Media getMusic()
         {
-            return mediaPlayer; // want to make this a pointer, however idk how right now
+            return musicPlayer; // want to make this a pointer, however idk how right now
+        }
+
+        public static void playVideo(string dir)
+        {
+            video = new MainWindow(dir);
+            new System.Windows.Application().Run(video);
+        }
+
+        public static MainWindow getVideo()
+        {
+            return video;
         }
 
     }

@@ -46,13 +46,32 @@ namespace PlayVideo
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(MediaPlayer player)
+
+        public MainWindow(string dir)
         {
             InitializeComponent();
 
-            VideoDrawing drawing = new VideoDrawing { Rect = new Rect(0, 0, 800, 600), Player = player };
-            DrawingBrush brush = new DrawingBrush(drawing);
-            Background = brush;
+            video.Source = new Uri(dir);
+        }
+
+        public void pause(){
+            video.Pause();
+        }
+
+        public void resume()
+        {
+            video.Play();
+        }
+
+        public void stop()
+        {
+            video.Stop();
+            this.Close();
+        }
+
+        public void volume(int i)
+        {
+            video.Volume = i;
         }
     }
 }
