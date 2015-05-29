@@ -77,9 +77,9 @@ namespace HomeSystem_CSharp
 
             DrawingBrush DBrush = new DrawingBrush(vidDrawing);
             // add the drawingbrush to a window so that it'll paint the video image
-
+            videoPanel.addVideo(DBrush);
+            
             play();
-            videoPanel.Show();
             playing = true;
 
         }
