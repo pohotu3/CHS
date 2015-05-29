@@ -82,3 +82,7 @@ HomeSystem.sdf
 *.sdf
 *.tlog
 *.pdb
+*.manifest
+obj/Debug/HomeSystem_CSharp_MarkupCompile.i.cache
+*.cs
+obj/Debug/VideoPanel.g.i.cs
