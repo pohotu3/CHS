@@ -39,7 +39,7 @@ namespace HomeSystem_CSharp
     {
         bool playing = false;
         VideoDrawing vidDrawing; 
-        //static VideoPanel videoPanel;
+        static VideoPanel videoPanel;
 
         public Media() { }
 
@@ -75,7 +75,7 @@ namespace HomeSystem_CSharp
             vidDrawing.Player = this;
 
             DrawingBrush DBrush = new DrawingBrush(vidDrawing);
-            //videoPanel = new VideoPanel(); // GUI panel to play the video on
+            videoPanel = new VideoPanel(); // GUI panel to play the video on
             
             play();
             playing = true;
