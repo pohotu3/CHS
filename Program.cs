@@ -46,7 +46,7 @@ namespace HomeSystem_CSharp
         public const string systemVersion = "0.0.1";
         static Media mediaPlayer = new Media(); // media is now the MusicPlayer object, able to handle all it's own commands. As long as we have access to this musicPlayer, we have access to everything else
 
-        [STAThread]
+        [STAThread] // This is required to keep the threads in sync while playing the video, however I think this is causing the hang-up. As such, we should figure out a way to make running the mediaPlayer var in it's own thread.
         static void Main(string[] args)
         {
 
