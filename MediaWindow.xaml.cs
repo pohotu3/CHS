@@ -52,7 +52,6 @@ namespace HomeSystem_CSharp
             InitializeComponent();
 
             video.Source = new Uri(dir);
-            this.Show();
         }
 
         public void play()

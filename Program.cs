@@ -50,7 +50,7 @@ namespace HomeSystem_CSharp
         [STAThread]
         static void Main(string[] args)
         {
-
+            
             bool running = true;
             string command;
 
