@@ -68,8 +68,7 @@ namespace HomeSystem_CSharp
                 play();
                 return;
             }
-
-
+            
             this.Open(new Uri(dir, UriKind.RelativeOrAbsolute));
 
             vidDrawing = new VideoDrawing();

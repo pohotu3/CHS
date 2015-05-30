@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" MinHeight="480" MinWidth="720" WindowStyle="None" ResizeMode="NoResize" WindowState="Maximized" Visibility="Visible" Cursor="None" Background="{x:Null}" Foreground="{x:Null}">
     <Grid>
-        <MediaElement LoadedBehavior="Manual" HorizontalAlignment="Stretch" Name="video" VerticalAlignment="Stretch" Cursor="None" MinHeight="480" MinWidth="720" Visibility="Hidden"/>
+        <MediaElement LoadedBehavior="Manual" HorizontalAlignment="Stretch" Name="video" VerticalAlignment="Stretch" Cursor="None" MinHeight="480" MinWidth="720"/>
 
     </Grid>
 </Window>
