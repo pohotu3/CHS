@@ -80,7 +80,7 @@ namespace HomeSystem_CSharp
             videoPanel = new MainWindow(this); // GUI panel to play the video on
             
             play();
-            new System.Windows.Application().Run(videoPanel);
+            videoPanel.Show();
             playing = true;
 
         }
@@ -113,6 +113,7 @@ namespace HomeSystem_CSharp
         public void stop()
         {
             this.Stop();
+            videoPanel.Close();
             playing = false;
         }
 

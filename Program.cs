@@ -52,9 +52,7 @@ namespace HomeSystem_CSharp
         static void Main(string[] args)
         {
 
-            UIThread.Start();
-
-            mediaPlayer = UIThread.Dispatcher.Invoke(() => new Media());
+            mediaPlayer = new Media();
 
             bool running = true;
             string command;
@@ -63,8 +61,7 @@ namespace HomeSystem_CSharp
             systemStartupMessage();
 
             // Play startup sound/video
-            UIThread.Dispatcher.Invoke(() => mediaPlayer.playVideo("C:\\test.mp4"));
-            //mediaPlayer.playVideo("C:\\test.mp4");
+            mediaPlayer.playVideo("C:\\test.mp4");
             //mediaPlayer.playMusic("C:\\test.mp4");
             
             // Core system Loop
@@ -95,40 +92,6 @@ namespace HomeSystem_CSharp
         public static Media getMusic()
         {
             return mediaPlayer; // want to make this a pointer, however idk how right now
-        }
-    }
-
-
-
-    static class UIThread
-    {
-        private static Dispatcher _dispatcher;
-
-        public static void Start()
-        {
-            using (var wh = new ManualResetEvent(false))
-            {
-                var thread = new Thread(ThreadProc)
-                {
-                    IsBackground = true,
-                };
-                thread.SetApartmentState(ApartmentState.STA);
-                thread.Start(wh);
-                wh.WaitOne();
-            }
-        }
-
-        private static void ThreadProc(object arg)
-        {
-            var wh = (EventWaitHandle)arg;
-            _dispatcher = Dispatcher.CurrentDispatcher;
-            wh.Set();
-            Dispatcher.Run();
-        }
-
-        public static Dispatcher Dispatcher
-        {
-            get { return _dispatcher; }
         }
     }
 
