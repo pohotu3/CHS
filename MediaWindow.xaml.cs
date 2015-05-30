@@ -52,6 +52,7 @@ namespace HomeSystem_CSharp
             InitializeComponent();
 
             video.Source = new Uri(dir);
+            this.Show();
         }
 
         public void play()
@@ -78,7 +79,7 @@ namespace HomeSystem_CSharp
 
         public void resume()
         {
-            
+
         }
 
         public void stop()
