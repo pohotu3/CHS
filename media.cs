@@ -59,7 +59,7 @@ namespace HomeSystem_CSharp
             playing = true;
         }
 
-        /*
+        
         public void playVideo(string dir)
         {
 
@@ -77,14 +77,13 @@ namespace HomeSystem_CSharp
             vidDrawing.Player = this;
 
             DrawingBrush DBrush = new DrawingBrush(vidDrawing);
-            //videoPanel = new MainWindow(this); // GUI panel to play the video on
+            videoPanel = new MainWindow(this); // GUI panel to play the video on
             
             play();
-            new System.Windows.Application().Run(videoPanel);
+            videoPanel.Show();
             playing = true;
 
         }
-         */
 
         public bool mediaFailed()
         {
@@ -114,6 +113,7 @@ namespace HomeSystem_CSharp
         public void stop()
         {
             this.Stop();
+            videoPanel.Close();
             playing = false;
         }
 
