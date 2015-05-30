@@ -53,12 +53,12 @@ namespace HomeSystem_CSharp
             {
                 if (containsVideo(c) || containsMusic(c))
                 {
-                    Program.getMusic().stop();
+                    Program.getPlayer().stop();
                     return true;
                 }
                 else
                 {
-                    Program.getMusic().stop();
+                    Program.getPlayer().stop();
                     return false;
                 }
             }
@@ -67,7 +67,7 @@ namespace HomeSystem_CSharp
             {
                 if (containsMusic(c) || containsVideo(c))
                 {
-                    Program.getMusic().stop();
+                    Program.getPlayer().stop();
                     return true;
                 }
             }
@@ -76,17 +76,12 @@ namespace HomeSystem_CSharp
             {
                 if (containsMusic(c)) // note, typing 'keep playing the song' will call this function
                 {
-                    Program.getMusic().playMusic("");
+                    Program.getPlayer().loadNewSource("");
                     return true;
                 } 
                 else if (containsVideo(c))
                 {
-                    Program.getMusic().playVideo("");
-                    return true;
-                }
-                else
-                {
-                    Console.WriteLine("Unable to process your command");
+                    Program.getPlayer().loadNewSource("");
                     return true;
                 }
             }
@@ -95,7 +90,7 @@ namespace HomeSystem_CSharp
             {
                 if (containsMusic(c) || containsVideo(c))
                 {
-                    Program.getMusic().pause();
+                    Program.getPlayer().pause();
                     return true;
                 }
             }
@@ -104,12 +99,12 @@ namespace HomeSystem_CSharp
             {
                 if (containsMusic(c) || containsVideo(c))
                 {
-                    Program.getMusic().play();
+                    Program.getPlayer().play();
                         return true;
                 }
             }
 
-            Console.WriteLine("Could not process command, please try again");
+            Console.WriteLine("No valid action statement. Please try again.");
             return true;
         }
 

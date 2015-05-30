@@ -39,21 +39,65 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PlayVideo
+namespace HomeSystem_CSharp
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+
+    public partial class MediaWindow : Window
     {
 
-        public MainWindow(MediaPlayer player)
+        private bool playing = false;
+
+        public MediaWindow(string dir)
         {
             InitializeComponent();
 
-            VideoDrawing drawing = new VideoDrawing { Rect = new Rect(0, 0, 800, 600), Player = player };
-            DrawingBrush brush = new DrawingBrush(drawing);
-            this.Background = brush;
+            video.Source = new Uri(dir);
+        }
+
+        public void play()
+        {
+            if (playing)
+                return;
+
+            video.Play();
+            playing = true;
+        }
+
+        public void pause()
+        {
+            if (!playing)
+                return;
+
+            video.Pause();
+            playing = false;
+        }
+
+        public void resume()
+        {
+            
+        }
+
+        public void stop()
+        {
+            if (!playing)
+                return;
+
+            video.Stop();
+            playing = false;
+            this.Close();
+        }
+
+        public void loadNewSource(string dir)
+        {
+            if (playing)
+                stop();
+
+            video.Source = new Uri(dir);
+        }
+
+        public void setVolume(int i)
+        {
+            video.Volume = i;
         }
     }
 }
