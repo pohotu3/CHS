@@ -95,7 +95,7 @@ namespace HomeSystem_CSharp
         public static void playVideo(string dir)
         {
             video = new MainWindow(dir);
-            new System.Windows.Application().Run(video);
+            // need something to re-show the video panel
         }
 
         public static MainWindow getVideo()

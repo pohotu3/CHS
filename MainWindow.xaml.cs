@@ -52,6 +52,7 @@ namespace PlayVideo
             InitializeComponent();
 
             video.Source = new Uri(dir);
+            resume();
         }
 
         public void pause(){
@@ -61,6 +62,7 @@ namespace PlayVideo
         public void resume()
         {
             video.Play();
+            new System.Windows.Application().Run(this);
         }
 
         public void stop()

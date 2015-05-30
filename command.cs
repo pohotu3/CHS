@@ -89,6 +89,12 @@ namespace HomeSystem_CSharp
                 } 
                 else if (containsVideo(c))
                 {
+                    if (Program.getVideo().IsActive)
+                    {
+                        Program.getVideo().resume();
+                        return true;
+                    }
+
                     Program.playVideo("");
                     return true;
                 }
