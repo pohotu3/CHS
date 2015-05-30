@@ -60,6 +60,10 @@ namespace HomeSystem_CSharp
                 return;
 
             video.Play();
+
+            if (!this.IsVisible)
+                this.Show();
+
             playing = true;
         }
 
