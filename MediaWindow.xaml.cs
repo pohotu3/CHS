@@ -59,11 +59,12 @@ namespace HomeSystem_CSharp
             if (playing)
                 return;
 
+            //if (!this.IsVisible)
+            //    this.Show();
             video.Play();
+            new Application().Run(this);
 
-            if (!this.IsVisible)
-                this.Show();
-
+            
             playing = true;
         }
 
