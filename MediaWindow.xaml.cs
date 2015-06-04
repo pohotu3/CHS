@@ -45,8 +45,6 @@ namespace HomeSystem_CSharp
     public partial class MediaWindow : Window
     {
 
-        private bool playing = false;
-
         public MediaWindow(string dir)
         {
             InitializeComponent();
