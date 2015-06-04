@@ -45,6 +45,7 @@ namespace HomeSystem_CSharp
         public const string systemVersion = "0.0.1";
         public static string mediaDir = "";
         private static MediaWindow mediaPlayer = null;
+        private static Thread movieThread;
 
         [STAThread]
         static void Main(string[] args)
@@ -91,21 +92,21 @@ namespace HomeSystem_CSharp
 
         public static void startNewMedia(string dir)
         {
-            setMediaDirectory(dir);
-
-            var thread = new Thread(ShowMediaWindow);
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-        }
-
-        public static void setMediaDirectory(string dir)
-        {
             mediaDir = dir;
+
+            movieThread = new Thread(ShowMediaWindow);
+            movieThread.SetApartmentState(ApartmentState.STA);
+            movieThread.Start();
         }
 
         private static void ShowMediaWindow()
         {
             (mediaPlayer = new MediaWindow(mediaDir)).ShowDialog();
+        }
+
+        public static Thread getMovieThread()
+        {
+            return movieThread;
         }
     }
 
