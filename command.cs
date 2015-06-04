@@ -53,7 +53,7 @@ namespace HomeSystem_CSharp
             {
                 if (containsVideo(c) || containsMusic(c))
                 {
-                    Program.getPlayer().stop();
+                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().stop());
                     return true;
                 }
                 else
@@ -67,21 +67,16 @@ namespace HomeSystem_CSharp
             {
                 if (containsMusic(c) || containsVideo(c))
                 {
-                    Program.getPlayer().stop();
+                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().stop());
                     return true;
                 }
             }
 
             if(c.Contains("play")||c.Contains("start"))
             {
-                if (containsMusic(c)) // note, typing 'keep playing the song' will call this function
+                if (containsMusic(c) || containsVideo(c)) // note, typing 'keep playing the song' will call this function
                 {
-                    Program.getPlayer().loadNewSource("");
-                    return true;
-                } 
-                else if (containsVideo(c))
-                {
-                    Program.getPlayer().loadNewSource("");
+                    Program.startNewMedia("C:\\test.mp4");
                     return true;
                 }
             }
@@ -90,7 +85,7 @@ namespace HomeSystem_CSharp
             {
                 if (containsMusic(c) || containsVideo(c))
                 {
-                    Program.getPlayer().pause();
+                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().pause());
                     return true;
                 }
             }
@@ -99,7 +94,7 @@ namespace HomeSystem_CSharp
             {
                 if (containsMusic(c) || containsVideo(c))
                 {
-                    Program.getPlayer().play();
+                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().play());
                         return true;
                 }
             }

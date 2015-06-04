@@ -57,48 +57,18 @@ namespace HomeSystem_CSharp
 
         public void play()
         {
-            if (playing)
-                return;
-
-            //if (!this.IsVisible)
-            //    this.Show();
             video.Play();
-            new Application().Run(this);
-
-            
-            playing = true;
         }
 
         public void pause()
         {
-            if (!playing)
-                return;
-
             video.Pause();
-            playing = false;
-        }
-
-        public void resume()
-        {
-
         }
 
         public void stop()
         {
-            if (!playing)
-                return;
-
             video.Stop();
-            playing = false;
             this.Close();
-        }
-
-        public void loadNewSource(string dir)
-        {
-            if (playing)
-                stop();
-
-            video.Source = new Uri(dir);
         }
 
         public void setVolume(int i)

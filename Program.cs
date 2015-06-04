@@ -43,7 +43,8 @@ namespace HomeSystem_CSharp
         public const string systemName = "Crystal Home System";
         public const string systemType = "core";
         public const string systemVersion = "0.0.1";
-        static MediaWindow mediaPlayer = null;
+        public static string mediaDir = "";
+        private static MediaWindow mediaPlayer = null;
 
         [STAThread]
         static void Main(string[] args)
@@ -56,9 +57,7 @@ namespace HomeSystem_CSharp
             systemStartupMessage();
 
             // Play startup sound/video
-            var thread = new Thread(ShowMediaWindow);
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
+            startNewMedia("C:\\test.mp4");
             
             // Core system Loop
             while (running)
@@ -90,9 +89,23 @@ namespace HomeSystem_CSharp
             return mediaPlayer; // want to make this a pointer, however idk how right now
         }
 
+        public static void startNewMedia(string dir)
+        {
+            setMediaDirectory(dir);
+
+            var thread = new Thread(ShowMediaWindow);
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+        }
+
+        public static void setMediaDirectory(string dir)
+        {
+            mediaDir = dir;
+        }
+
         private static void ShowMediaWindow()
         {
-            (mediaPlayer = new MediaWindow("C:\\test.mp4")).ShowDialog();
+            (mediaPlayer = new MediaWindow(mediaDir)).ShowDialog();
         }
     }
 
