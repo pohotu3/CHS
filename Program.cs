@@ -45,12 +45,12 @@ namespace HomeSystem_CSharp
         public const string systemVersion = "0.0.1";
         public static string mediaDir = "";
         private static MediaWindow mediaPlayer = null;
-        private static Thread movieThread;
+        private static Thread movieThread = new Thread(ShowMediaWindow), musicThread = new Thread(ShowMediaWindow);
 
         [STAThread]
         static void Main(string[] args)
         {
-            
+
             bool running = true;
             string command;
 
@@ -59,7 +59,7 @@ namespace HomeSystem_CSharp
 
             // Play startup sound/video
             startNewMedia("C:\\test.mp4");
-            
+
             // Core system Loop
             while (running)
             {
@@ -94,9 +94,21 @@ namespace HomeSystem_CSharp
         {
             mediaDir = dir;
 
-            movieThread = new Thread(ShowMediaWindow);
-            movieThread.SetApartmentState(ApartmentState.STA);
-            movieThread.Start();
+            //now to make it so that the program cannot run both at once, and will pause the other when one wants to play
+
+            //temperary fix for now I suppose, could use some refinement
+            if (dir.Contains(".mp4") || dir.Contains(".avi") || dir.Contains("mpg"))
+            {
+                movieThread = new Thread(ShowMediaWindow);
+                movieThread.SetApartmentState(ApartmentState.STA);
+                movieThread.Start();
+            }
+            else if (dir.Contains(".ogg") || dir.Contains(".mp3") || dir.Contains(".wav"))
+            {
+                musicThread = new Thread(ShowMediaWindow);
+                musicThread.SetApartmentState(ApartmentState.STA);
+                musicThread.Start();
+            }
         }
 
         private static void ShowMediaWindow()
@@ -107,6 +119,11 @@ namespace HomeSystem_CSharp
         public static Thread getMovieThread()
         {
             return movieThread;
+        }
+
+        public static Thread getMusicThread()
+        {
+            return musicThread;
         }
     }
 

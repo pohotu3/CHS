@@ -94,10 +94,11 @@ namespace HomeSystem_CSharp
             {
                 if (containsMusic(c) || containsVideo(c))
                 {
-                    if (Program.getMovieThread().IsAlive)
+                    if (Program.getMovieThread().IsAlive || Program.getMusicThread().IsAlive)
                         Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().play());
                     else
                         Console.WriteLine("Cannot resume, there is no media to play!");
+
                     return true;
                 }
             }
