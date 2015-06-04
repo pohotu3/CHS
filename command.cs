@@ -49,7 +49,7 @@ namespace HomeSystem_CSharp
         {
             c.ToLower();
 
-            if(c.Contains("exit")||c.Contains("quit")||c.Contains("close") )
+            if (c.Contains("exit") || c.Contains("quit") || c.Contains("close"))
             {
                 if (containsVideo(c) || containsMusic(c))
                 {
@@ -58,12 +58,12 @@ namespace HomeSystem_CSharp
                 }
                 else
                 {
-                    Program.getPlayer().stop();
+                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().stop());
                     return false;
                 }
             }
 
-            if(c.Contains("stop"))
+            if (c.Contains("stop"))
             {
                 if (containsMusic(c) || containsVideo(c))
                 {
@@ -72,7 +72,7 @@ namespace HomeSystem_CSharp
                 }
             }
 
-            if(c.Contains("play")||c.Contains("start"))
+            if (c.Contains("play") || c.Contains("start"))
             {
                 if (containsMusic(c) || containsVideo(c)) // note, typing 'keep playing the song' will call this function
                 {
@@ -81,7 +81,7 @@ namespace HomeSystem_CSharp
                 }
             }
 
-            if(c.Contains("pause"))
+            if (c.Contains("pause"))
             {
                 if (containsMusic(c) || containsVideo(c))
                 {
@@ -90,12 +90,15 @@ namespace HomeSystem_CSharp
                 }
             }
 
-            if(c.Contains("resume"))
+            if (c.Contains("resume"))
             {
                 if (containsMusic(c) || containsVideo(c))
                 {
-                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().play());
-                        return true;
+                    if (Program.getMovieThread().IsAlive)
+                        Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().play());
+                    else
+                        Console.WriteLine("Cannot resume, there is no media to play!");
+                    return true;
                 }
             }
 
@@ -118,6 +121,6 @@ namespace HomeSystem_CSharp
             else
                 return false;
         }
-        
+
     }
 }
