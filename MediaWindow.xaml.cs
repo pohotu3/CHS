@@ -21,7 +21,7 @@
 *GNU General Public License for more details.
 *
 *You should have received a copy of the GNU General Public License
-*along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+*along with Cyrstal Home Systems.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 using System;
@@ -39,21 +39,71 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PlayVideo
+namespace HomeSystem_CSharp
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+
+    public partial class MediaWindow : Window
     {
 
-        public MainWindow(MediaPlayer player)
+        private bool playing = false;
+
+        public MediaWindow(string dir)
         {
             InitializeComponent();
 
-            VideoDrawing drawing = new VideoDrawing { Rect = new Rect(0, 0, 800, 600), Player = player };
-            DrawingBrush brush = new DrawingBrush(drawing);
-            this.Background = brush;
+            video.Source = new Uri(dir);
+            play();
+        }
+
+        public void play()
+        {
+            if (playing)
+                return;
+
+            //if (!this.IsVisible)
+            //    this.Show();
+            video.Play();
+            new Application().Run(this);
+
+            
+            playing = true;
+        }
+
+        public void pause()
+        {
+            if (!playing)
+                return;
+
+            video.Pause();
+            playing = false;
+        }
+
+        public void resume()
+        {
+
+        }
+
+        public void stop()
+        {
+            if (!playing)
+                return;
+
+            video.Stop();
+            playing = false;
+            this.Close();
+        }
+
+        public void loadNewSource(string dir)
+        {
+            if (playing)
+                stop();
+
+            video.Source = new Uri(dir);
+        }
+
+        public void setVolume(int i)
+        {
+            video.Volume = i;
         }
     }
 }

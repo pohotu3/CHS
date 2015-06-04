@@ -21,7 +21,7 @@
 *GNU General Public License for more details.
 *
 *You should have received a copy of the GNU General Public License
-*along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+*along with Cyrstal Home Systems.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 
@@ -31,9 +31,6 @@ using System.Windows.Media;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using PlayVideo;
-using System.Windows.Threading;
 using System.Threading;
 
 
@@ -46,14 +43,12 @@ namespace HomeSystem_CSharp
         public const string systemName = "Crystal Home System";
         public const string systemType = "core";
         public const string systemVersion = "0.0.1";
-        static Media mediaPlayer;
+        static MediaWindow mediaPlayer = null;
 
-        [STAThread] // This is required to keep the threads in sync while playing the video, however I think this is causing the hang-up. As such, we should figure out a way to make running the mediaPlayer var in it's own thread.
+        [STAThread]
         static void Main(string[] args)
         {
-
-            mediaPlayer = new Media();
-
+            
             bool running = true;
             string command;
 
@@ -61,8 +56,9 @@ namespace HomeSystem_CSharp
             systemStartupMessage();
 
             // Play startup sound/video
-            mediaPlayer.playVideo("C:\\test.mp4");
-            //mediaPlayer.playMusic("C:\\test.mp4");
+            var thread = new Thread(ShowMediaWindow);
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
             
             // Core system Loop
             while (running)
@@ -89,9 +85,14 @@ namespace HomeSystem_CSharp
             Console.WriteLine("Unable to open file!\n");
         }
 
-        public static Media getMusic()
+        public static MediaWindow getPlayer()
         {
             return mediaPlayer; // want to make this a pointer, however idk how right now
+        }
+
+        private static void ShowMediaWindow()
+        {
+            (mediaPlayer = new MediaWindow("C:\\test.mp4")).ShowDialog();
         }
     }
 
