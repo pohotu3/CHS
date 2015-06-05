@@ -93,7 +93,11 @@ namespace HomeSystem_CSharp
 
         private static void ShowMediaWindow()
         {
-            (mediaPlayer = new MediaWindow(mediaDir)).ShowDialog();
+            try
+            {
+                (mediaPlayer = new MediaWindow(mediaDir)).ShowDialog();
+            }
+            catch (System.InvalidOperationException) { }
         }
 
         public static Thread getMediaThread()

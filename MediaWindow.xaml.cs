@@ -130,14 +130,16 @@ namespace HomeSystem_CSharp
                 }
 
             }
+
             if (possibleMatches.Count != 0) // if there were matches
             {
-                if (possibleMatches.Count == 1)
+                if (possibleMatches.Count == 1) // if there was only one match
                     return possibleMatches[0].ToString();
 
                 string bestMatch = "";
                 int bestMatchSize = 0;
-                for (int x = 0; x < possibleMatches.Count; x++) // now to weed out the useless matches, and get the one that fits the best
+                ArrayList bestMatches = new ArrayList();
+                for (int x = 0; x < possibleMatches.Count; x++) // sorts the best match
                 {
                     int wordsMatched = 0; // yes, default would be one, however this will be easier
                     for (int i = 0; i < splitCommand.Length; i++)
@@ -148,6 +150,12 @@ namespace HomeSystem_CSharp
                     }
                     if (wordsMatched > bestMatchSize)
                         bestMatch = possibleMatches[x].ToString();
+                    if (wordsMatched == bestMatchSize)
+                        bestMatches.Add(possibleMatches[x].ToString());
+                }
+                if (bestMatches.Count > 1) // multiple entries
+                {
+                    // implement asking method to see which one was meant, and return that one.
                 }
                 return bestMatch;
             }
