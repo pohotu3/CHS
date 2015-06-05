@@ -57,7 +57,7 @@ namespace HomeSystem_CSharp
             c.ToLower();
 
             string actionCommand = c.Split(' ').First();
-            
+
             switch (actionCommand)
             {
                 case "play":
@@ -137,7 +137,7 @@ namespace HomeSystem_CSharp
                 Console.WriteLine("Cannot invoke command " + s + ", mediaPlayer returned NULL");
                 return;
             }
-            
+
             switch (s)
             {
                 case "stop":

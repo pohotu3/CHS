@@ -66,7 +66,6 @@ namespace HomeSystem_CSharp
                 return;
             }
 
-            Console.WriteLine(dir);
             InitializeComponent(); // place this lower so that it doesnt black screen for so long while it finds the file
             video.Source = new Uri(dir);
 
@@ -100,9 +99,8 @@ namespace HomeSystem_CSharp
         {
             string[] movieFiles = Directory.GetFiles(movieDir, "*.*", SearchOption.AllDirectories);
             string[] musicFiles = Directory.GetFiles(musicDir, "*.*", SearchOption.AllDirectories);
-            ArrayList possibleMatches = new ArrayList();
-
             string[] splitCommand = command.Split(' ');
+            ArrayList possibleMatches = new ArrayList();
 
             //maybe change up the order it does this, i'm thinking this may be a slower way to do it but i'm not sure...
             for (int x = 2; x < splitCommand.Length; x++) // starting at 2 beacuse the first 2 words are guarenteed NOT to be in the title, so just failsafe(ish)
@@ -133,12 +131,15 @@ namespace HomeSystem_CSharp
 
             }
             if (possibleMatches.Count != 0) // if there were matches
+            {
+                if (possibleMatches.Count == 1)
+                    return possibleMatches[0].ToString();
                 for (int x = 0; x < possibleMatches.Count; x++) // now to weed out the useless matches, and get the one that fits the best
                 {
 
                 }
-            else
-                return null;
+            }
+            return null;
 
             /*
             for (int x = 0; x < movieFiles.Length; x++)
