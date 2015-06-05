@@ -45,7 +45,7 @@ namespace HomeSystem_CSharp
             return line;
         }
 
-        public static bool analyzeCommand(string c)
+        public static bool analyzeCommand1(string c)
         {
             c.ToLower();
 
@@ -58,13 +58,13 @@ namespace HomeSystem_CSharp
                         Console.WriteLine("There is no media defined!");
                         return true;
                     }
-                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().stop());
+                    invoke("stop");
                     return true;
                 }
                 else
                 {
                     if (!isPlayerNull())
-                        Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().stop());
+                        invoke("stop");
                     return false;
                 }
             }
@@ -78,7 +78,7 @@ namespace HomeSystem_CSharp
                         Console.WriteLine("There is no media defined!");
                         return true;
                     }
-                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().stop());
+                    invoke("stop");
                     return true;
                 }
             }
@@ -106,7 +106,7 @@ namespace HomeSystem_CSharp
                         Console.WriteLine("There is no media defined!");
                         return true;
                     }
-                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().pause());
+                    invoke("pause");
                     return true;
                 }
             }
@@ -121,7 +121,7 @@ namespace HomeSystem_CSharp
                         return true;
                     }
                     if (Program.getMovieThread().IsAlive || Program.getMusicThread().IsAlive)
-                        Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().play());
+                        invoke("play");
                     else
                         Console.WriteLine("Cannot resume, there is no media to play!");
 
@@ -131,6 +131,64 @@ namespace HomeSystem_CSharp
 
             Console.WriteLine("No valid action statement. Please try again.");
             return true;
+        }
+
+        /*
+         * list of available action commands:
+         * play, start, resume, pause, quit, exit, stop, close
+         * 
+         * list of available type commands:
+         * music, song, artist, album, video, movie, tv, show
+         */
+        public static bool analyzeCommand(string c)
+        {
+            c.ToLower();
+
+            switch (c)
+            {
+                case "play":
+                    if (containsMusic(c) || containsVideo(c))
+                    {
+
+                    }
+                    break;
+                case "start":
+                    break;
+                case "resume":
+                    break;
+                case "pause":
+                    break;
+                case "quit":
+                    break;
+                case "exit":
+                    break;
+                case "stop":
+                    break;
+                case "close":
+                    break;
+                default:
+                    Console.WriteLine("There was no valid action command, please try again");
+                    return false;
+            }
+            return true;
+        }
+
+        private static void invoke(string s)
+        {
+            switch (s)
+            {
+                case "stop":
+                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().stop());
+                    break;
+                case "resume":
+                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().play());
+                    break;
+                case "pause":
+                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().pause());
+                    break;
+                default:
+                    break;
+            }
         }
 
         private static bool containsMusic(string c)

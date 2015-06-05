@@ -86,9 +86,9 @@ namespace HomeSystem_CSharp
         {
             mediaDir = dir;
 
-            //now to make it so that the program cannot run both at once, and will pause the other when one wants to play
+            // now to make it so that the program cannot run both at once, and will pause the other when one wants to play
 
-            //temperary fix for now I suppose, could use some refinement
+            // temperary fix for now I suppose, could use some refinement
             if (dir.Contains(".mp4") || dir.Contains(".avi") || dir.Contains("mpg"))
             {
                 movieThread = new Thread(ShowMediaWindow);
