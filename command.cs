@@ -146,7 +146,9 @@ namespace HomeSystem_CSharp
         {
             c.ToLower();
 
-            switch (c)
+            string actionCommand = c.Split(' ').First();
+
+            switch (actionCommand)
             {
                 case "play":
                 case "start":
@@ -164,9 +166,25 @@ namespace HomeSystem_CSharp
                     else
                         typeError();
                     break;
-                case "resume":
-                    break;
                 case "pause":
+                    if (containsMusic(c) || containsVideo(c))
+                    {
+                        if (Program.getMediaThread().IsAlive)
+                            invoke("pause");
+                        else
+                            typeError();
+                    }
+                    break;
+                case "resume":
+                    if (containsMusic(c) || containsVideo(c))
+                    {
+                        if (Program.getMediaThread().IsAlive)
+                            invoke("play");
+                        else
+                            Console.WriteLine("There is no media to resume!");
+                    }
+                    else
+                        typeError();
                     break;
                 case "quit":
                     break;
