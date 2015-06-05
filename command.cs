@@ -58,18 +58,23 @@ namespace HomeSystem_CSharp
 
             string actionCommand = c.Split(' ').First();
 
+            int position = c.LastIndexOf(' ');
+            string fileName = "";
+            if (position > -1)
+                fileName = c.Substring(position + 1);
+
             switch (actionCommand)
             {
                 case "play":
                 case "start":
                     if (containsMusic(c) || containsVideo(c))
                     {
+                        Console.WriteLine(fileName);
                         if (Program.getMediaThread().IsAlive)
                             invoke("play");
                         else
                         {
                             // get the media file name + .extenstion here
-                            string fileName = "Avatar.mp4";
                             Program.startNewMedia(fileName);
                         }
                     }

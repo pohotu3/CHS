@@ -55,9 +55,6 @@ namespace HomeSystem_CSharp
             // System Setup and Title
             systemStartupMessage();
 
-            // Play startup sound/video
-            startNewMedia("Avatar.mp4");
-
             // Core system Loop
             while (running)
             {
