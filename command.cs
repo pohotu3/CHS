@@ -92,7 +92,7 @@ namespace HomeSystem_CSharp
                         Console.WriteLine("There is no media defined!");
                         return true;
                     }
-                    Program.startNewMedia("C:\\test.mp4");
+                    Program.startNewMedia("Avatar.mp4");
                     return true;
                 }
             }
