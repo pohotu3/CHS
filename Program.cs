@@ -32,7 +32,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.IO;
 
 
 namespace HomeSystem_CSharp
@@ -42,12 +41,11 @@ namespace HomeSystem_CSharp
     {
         public const string systemName = "Crystal Home System";
         public const string systemType = "core";
-        public const string systemVersion = "0.0.1";
+        public const string systemVersion = "0.0.1";       
         public static string mediaDir = "";
         private static MediaWindow mediaPlayer = null;
         private static Thread movieThread = new Thread(ShowMediaWindow), musicThread = new Thread(ShowMediaWindow);
 
-        [STAThread]
         static void Main(string[] args)
         {
 
@@ -58,7 +56,7 @@ namespace HomeSystem_CSharp
             systemStartupMessage();
 
             // Play startup sound/video
-            //startNewMedia("C:\\test.mp4");
+            startNewMedia("Bass Head.mp3");
 
             // Core system Loop
             while (running)
@@ -78,13 +76,7 @@ namespace HomeSystem_CSharp
             Console.WriteLine(systemName, " ", systemType, " Version ", systemVersion, "\n");
             Console.WriteLine("\nCreated by Ezra and Austin");
         }
-
-
-        public void fileOpenError()
-        {
-            Console.WriteLine("Unable to open file!\n");
-        }
-
+        
         public static MediaWindow getPlayer()
         {
             return mediaPlayer; // want to make this a pointer, however idk how right now
