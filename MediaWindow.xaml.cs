@@ -38,18 +38,38 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace HomeSystem_CSharp
 {
 
     public partial class MediaWindow : Window
     {
+        
+        // these are austin's dirs
+        public const string musicDir = "G:\\Media\\Music\\";
+        public const string movieDir = "G:\\Media\\Movies\\MP4\\";
+        ///////////////////////////////////////////////
 
-        public MediaWindow(string dir)
+        private string[] musicFiles, movieFiles;
+        private int fileIndex = 0, mediaType = 0; // media type is 0 = neither, 1 = movie, 2 = music
+
+        public MediaWindow(string title)
         {
+            // we want the media indexing to take place here. Every time this is launched, we want it to check for new media.
+            // file name will be the only thing passed through to the dir, so we need it to be able to figure out where. for
+            // threading purposes, lets just keep it localized to this mediawindow for now
+            findFile(title);
+            
             InitializeComponent();
 
-            video.Source = new Uri(dir);
+            if (mediaType == 1)
+                video.Source = new Uri(movieFiles[fileIndex]);
+            else if (mediaType == 2)
+                video.Source = new Uri(musicFiles[fileIndex]);
+            else
+                return;
+
             play();
         }
 
@@ -72,6 +92,51 @@ namespace HomeSystem_CSharp
         public void setVolume(int i)
         {
             video.Volume = i;
+        }
+
+        private void findFile(string title)
+        {
+            /*
+            movieFiles = Directory.GetFiles(movieDir, "*.*", SearchOption.AllDirectories);
+            for (int x = 0; x < movieFiles.Length; x++)
+            {
+                string filePath = movieFiles[x];
+                string lastPart = filePath.Split('\\').Last();
+                string fileName = lastPart.Split('.').First();
+
+                movieFiles[x] = fileName;
+            }
+            musicFiles = Directory.GetFiles(musicDir, "*.*", SearchOption.AllDirectories);
+            for (int x = 0; x < musicFiles.Length; x++)
+            {
+                string filePath = musicFiles[x];
+                string lastPart = filePath.Split('\\').Last();
+                string fileName = lastPart.Split('.').First();
+
+                musicFiles[x] = fileName;
+            }
+             */
+
+            movieFiles = Directory.GetFiles(movieDir, "*.*", SearchOption.AllDirectories);
+            musicFiles = Directory.GetFiles(musicDir, "*.*", SearchOption.AllDirectories);
+            for (int x = 0; x < movieFiles.Length; x++)
+            {
+                if (movieFiles[x].Contains(title))
+                {
+                    fileIndex = x;
+                    mediaType = 1;
+                    break;
+                }
+            }
+            for (int x = 0; x < musicFiles.Length; x++)
+            {
+                if (musicFiles[x].Contains(title))
+                {
+                    fileIndex = x;
+                    mediaType = 2;
+                    break;
+                }
+            }
         }
     }
 }
