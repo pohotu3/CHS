@@ -132,10 +132,13 @@ namespace HomeSystem_CSharp
                 }
 
             }
-            if (possibleMatches.Count == 0)
-                return null;
+            if (possibleMatches.Count != 0) // if there were matches
+                for (int x = 0; x < possibleMatches.Count; x++) // now to weed out the useless matches, and get the one that fits the best
+                {
 
-            return possibleMatches[0].ToString();
+                }
+            else
+                return null;
 
             /*
             for (int x = 0; x < movieFiles.Length; x++)
