@@ -69,7 +69,6 @@ namespace HomeSystem_CSharp
                 case "start":
                     if (containsMusic(c) || containsVideo(c))
                     {
-                        Console.WriteLine(fileName);
                         if (Program.getMediaThread().IsAlive)
                             invoke("play");
                         else

@@ -51,9 +51,6 @@ namespace HomeSystem_CSharp
         public const string movieDir = "G:\\Media\\Movies\\MP4\\";
         ///////////////////////////////////////////////
 
-        private string[] musicFiles, movieFiles;
-        private int fileIndex = 0, mediaType = 0; // media type is 0 = neither, 1 = movie, 2 = music
-
         public MediaWindow(string title)
         {
             // we want the media indexing to take place here. Every time this is launched, we want it to check for new media.
@@ -63,12 +60,13 @@ namespace HomeSystem_CSharp
             
             InitializeComponent();
 
-            if (mediaType == 1)
-                video.Source = new Uri(movieFiles[fileIndex]);
-            else if (mediaType == 2)
-                video.Source = new Uri(musicFiles[fileIndex]);
-            else
+            string dir = findFile(title);
+            if (dir == null)
+            {
+                Console.WriteLine("Unable to find media file, invalid directory.");
                 return;
+            }
+            video.Source = new Uri(dir);
 
             play();
             setVolume(1);
@@ -95,28 +93,26 @@ namespace HomeSystem_CSharp
             video.Volume = i;
         }
 
-        private void findFile(string title)
+        private string findFile(string title)
         {
-            movieFiles = Directory.GetFiles(movieDir, "*.*", SearchOption.AllDirectories);
-            musicFiles = Directory.GetFiles(musicDir, "*.*", SearchOption.AllDirectories);
+            string[] movieFiles = Directory.GetFiles(movieDir, "*.*", SearchOption.AllDirectories);
+            string[] musicFiles = Directory.GetFiles(musicDir, "*.*", SearchOption.AllDirectories);
             for (int x = 0; x < movieFiles.Length; x++)
             {
                 if (movieFiles[x].Contains(title))
                 {
-                    fileIndex = x;
-                    mediaType = 1;
-                    break;
+                    return movieFiles[x];
                 }
             }
             for (int x = 0; x < musicFiles.Length; x++)
             {
                 if (musicFiles[x].Contains(title))
                 {
-                    fileIndex = x;
-                    mediaType = 2;
-                    break;
+                    return musicFiles[x];
                 }
             }
+
+            return null;
         }
     }
 }
