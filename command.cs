@@ -187,12 +187,28 @@ namespace HomeSystem_CSharp
                         typeError();
                     break;
                 case "quit":
-                    break;
                 case "exit":
-                    break;
                 case "stop":
-                    break;
                 case "close":
+                    if (containsMusic(c) || containsVideo(c))
+                    {
+                        if (Program.getMediaThread().IsAlive)
+                            invoke("stop");
+                        else
+                            Console.WriteLine("There is no media to close!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Are you sure you want to exit the program? Y for yes and any other key for no.");
+                        if (Console.ReadKey().Key == ConsoleKey.Y)
+                        {
+                            if (Program.getMediaThread().IsAlive)
+                                invoke("stop");
+                            return false;
+                        }
+                        else
+                            Console.WriteLine("");
+                    }
                     break;
                 default:
                     Console.WriteLine("There was no valid action command, please try again");

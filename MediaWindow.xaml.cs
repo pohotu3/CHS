@@ -71,6 +71,7 @@ namespace HomeSystem_CSharp
                 return;
 
             play();
+            setVolume(1);
         }
 
         public void play()
