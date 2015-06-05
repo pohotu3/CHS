@@ -134,29 +134,24 @@ namespace HomeSystem_CSharp
             {
                 if (possibleMatches.Count == 1)
                     return possibleMatches[0].ToString();
+
+                string bestMatch = "";
+                int bestMatchSize = 0;
                 for (int x = 0; x < possibleMatches.Count; x++) // now to weed out the useless matches, and get the one that fits the best
                 {
-
+                    int wordsMatched = 0; // yes, default would be one, however this will be easier
+                    for (int i = 0; i < splitCommand.Length; i++)
+                    {
+                        string commandWord = splitCommand[i];
+                        if (possibleMatches[x].ToString().Contains(commandWord))
+                            wordsMatched++;
+                    }
+                    if (wordsMatched > bestMatchSize)
+                        bestMatch = possibleMatches[x].ToString();
                 }
+                return bestMatch;
             }
             return null;
-
-            /*
-            for (int x = 0; x < movieFiles.Length; x++)
-            {
-                if (movieFiles[x].Contains(command))
-                {
-                    return movieFiles[x];
-                }
-            }
-            for (int x = 0; x < musicFiles.Length; x++)
-            {
-                if (musicFiles[x].Contains(command))
-                {
-                    return musicFiles[x];
-                }
-            }
-            */
         }
     }
 }

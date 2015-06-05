@@ -94,7 +94,6 @@ namespace HomeSystem_CSharp
         private static void ShowMediaWindow()
         {
             (mediaPlayer = new MediaWindow(mediaDir)).ShowDialog();
-
         }
 
         public static Thread getMediaThread()
