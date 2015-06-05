@@ -57,12 +57,7 @@ namespace HomeSystem_CSharp
             c.ToLower();
 
             string actionCommand = c.Split(' ').First();
-
-            int position = c.LastIndexOf(' ');
-            string fileName = "";
-            if (position > -1)
-                fileName = c.Substring(position + 1);
-
+            
             switch (actionCommand)
             {
                 case "play":
@@ -74,7 +69,11 @@ namespace HomeSystem_CSharp
                         else
                         {
                             // get the media file name + .extenstion here
-                            Program.startNewMedia(fileName);
+                            //int position = c.LastIndexOf(' ');
+                            //string fileName = "";
+                            //if (position > -1)
+                            //    fileName = c.Substring(position + 1);
+                            Program.startNewMedia(c);
                         }
                     }
                     else

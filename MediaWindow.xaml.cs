@@ -39,6 +39,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Collections;
 
 namespace HomeSystem_CSharp
 {
@@ -51,22 +52,22 @@ namespace HomeSystem_CSharp
         public const string movieDir = "G:\\Media\\Movies\\MP4\\";
         ///////////////////////////////////////////////
 
-        public MediaWindow(string title)
+        public MediaWindow(string c)
         {
             // we want the media indexing to take place here. Every time this is launched, we want it to check for new media.
             // file name will be the only thing passed through to the dir, so we need it to be able to figure out where. for
             // threading purposes, lets just keep it localized to this mediawindow for now
-            findFile(title);
             
-            InitializeComponent();
-
-            string dir = findFile(title);
+            string dir = findFile(c);
             if (dir == null)
             {
                 Console.WriteLine("Unable to find media file, invalid directory.");
+                this.Close();
                 return;
             }
             video.Source = new Uri(dir);
+
+            InitializeComponent(); // place this lower so that it doesnt black screen for so long while it finds the file
 
             play();
             setVolume(1);
@@ -93,26 +94,60 @@ namespace HomeSystem_CSharp
             video.Volume = i;
         }
 
-        private string findFile(string title)
+        private string findFile(string command)
         {
             string[] movieFiles = Directory.GetFiles(movieDir, "*.*", SearchOption.AllDirectories);
             string[] musicFiles = Directory.GetFiles(musicDir, "*.*", SearchOption.AllDirectories);
-            for (int x = 0; x < movieFiles.Length; x++)
+            ArrayList possibleMatches = new ArrayList();
+
+            string[] splitCommand = command.Split(' ');
+
+            //maybe change up the order it does this, i'm thinking this may be a slower way to do it but i'm not sure...
+            for (int x = 2; x < splitCommand.Length; x++) // starting at 2 beacuse the first 2 words are guarenteed NOT to be in the title, so just failsafe(ish)
             {
-                if (movieFiles[x].Contains(title))
+                string commandWord = splitCommand[x];
+
+                for (int y = 0; y < movieFiles.Length; y++) // search whole list of movie files
                 {
-                    return movieFiles[x];
+                    string movieTitle = movieFiles[y].Split('\\').Last();
+                    movieTitle = movieTitle.Split('.').First();
+
+                    if (movieTitle.Contains(commandWord)) // if this specific movie file dir contains the command word
+                    {
+                        possibleMatches.Add(movieFiles[y]);
+                    }
                 }
-            }
-            for (int x = 0; x < musicFiles.Length; x++)
-            {
-                if (musicFiles[x].Contains(title))
+
+                for (int z = 0; z < musicFiles.Length; z++) // search whole list of music files
                 {
-                    return musicFiles[x];
+                    string musicTitle = musicFiles[z].Split('\\').Last();
+                    musicTitle = musicTitle.Split('.').First();
+
+                    if (musicTitle.Contains(commandWord)) // if this specific music file dir contains the command word
+                    {
+                        possibleMatches.Add(musicFiles[z]);
+                    }
                 }
             }
 
-            return null;
+                /*
+                for (int x = 0; x < movieFiles.Length; x++)
+                {
+                    if (movieFiles[x].Contains(command))
+                    {
+                        return movieFiles[x];
+                    }
+                }
+                for (int x = 0; x < musicFiles.Length; x++)
+                {
+                    if (musicFiles[x].Contains(command))
+                    {
+                        return musicFiles[x];
+                    }
+                }
+                */
+
+                return null;
         }
     }
 }
