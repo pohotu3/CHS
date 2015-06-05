@@ -59,20 +59,13 @@ namespace HomeSystem_CSharp
 
             // Play startup sound/video
             //startNewMedia("C:\\test.mp4");
-            
-            // testing getting a list of files for media
-            string[] files = Directory.GetFiles("G:\\Media\\Movies\\MP4");
-            for (int x = 0; x < files.Length; x++)
-            {
-                Console.WriteLine(files[x]);
-            }
 
-                // Core system Loop
-                while (running)
-                {
-                    command = commandModule.getCommand("Enter Command: ");
-                    running = commandModule.analyzeCommand(command);
-                }
+            // Core system Loop
+            while (running)
+            {
+                command = commandModule.getCommand("Enter Command: ");
+                running = commandModule.analyzeCommand(command);
+            }
 
             System.Windows.Forms.Application.Exit();
 
