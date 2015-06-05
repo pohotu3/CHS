@@ -45,92 +45,115 @@ namespace HomeSystem_CSharp
             return line;
         }
 
+        /*
+         * list of available action commands:
+         * play, start, resume, pause, quit, exit, stop, close
+         * 
+         * list of available type commands:
+         * music, song, artist, album, video, movie, tv, show
+         */
         public static bool analyzeCommand(string c)
         {
             c.ToLower();
 
-            if (c.Contains("exit") || c.Contains("quit") || c.Contains("close"))
-            {
-                if (containsVideo(c) || containsMusic(c))
-                {
-                    if (isPlayerNull())
-                    {
-                        Console.WriteLine("There is no media defined!");
-                        return true;
-                    }
-                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().stop());
-                    return true;
-                }
-                else
-                {
-                    if (!isPlayerNull())
-                        Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().stop());
-                    return false;
-                }
-            }
+            string actionCommand = c.Split(' ').First();
 
-            if (c.Contains("stop"))
+            switch (actionCommand)
             {
-                if (containsMusic(c) || containsVideo(c))
-                {
-                    if (isPlayerNull())
+                case "play":
+                case "start":
+                    if (containsMusic(c) || containsVideo(c))
                     {
-                        Console.WriteLine("There is no media defined!");
-                        return true;
+                        if (Program.getMediaThread().IsAlive)
+                            invoke("play");
+                        else
+                        {
+                            // get the media file name + .extenstion here
+                            string fileName = "Avatar.mp4";
+                            Program.startNewMedia(fileName);
+                        }
                     }
-                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().stop());
-                    return true;
-                }
-            }
-
-            if (c.Contains("play") || c.Contains("start"))
-            {
-                if (containsMusic(c) || containsVideo(c)) // note, typing 'keep playing the song' will call this function
-                {
-                    if (isPlayerNull())
-                    {
-                        Console.WriteLine("There is no media defined!");
-                        return true;
-                    }
-                    Program.startNewMedia("C:\\test.mp4");
-                    return true;
-                }
-            }
-
-            if (c.Contains("pause"))
-            {
-                if (containsMusic(c) || containsVideo(c))
-                {
-                    if (isPlayerNull())
-                    {
-                        Console.WriteLine("There is no media defined!");
-                        return true;
-                    }
-                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().pause());
-                    return true;
-                }
-            }
-
-            if (c.Contains("resume"))
-            {
-                if (containsMusic(c) || containsVideo(c))
-                {
-                    if (isPlayerNull())
-                    {
-                        Console.WriteLine("There is no media defined!");
-                        return true;
-                    }
-                    if (Program.getMovieThread().IsAlive || Program.getMusicThread().IsAlive)
-                        Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().play());
                     else
-                        Console.WriteLine("Cannot resume, there is no media to play!");
-
-                    return true;
-                }
+                        typeError();
+                    break;
+                case "pause":
+                    if (containsMusic(c) || containsVideo(c))
+                    {
+                        if (Program.getMediaThread().IsAlive)
+                            invoke("pause");
+                        else
+                            typeError();
+                    }
+                    break;
+                case "resume":
+                    if (containsMusic(c) || containsVideo(c))
+                    {
+                        if (Program.getMediaThread().IsAlive)
+                            invoke("play");
+                        else
+                            Console.WriteLine("There is no media to resume!");
+                    }
+                    else
+                        typeError();
+                    break;
+                case "quit":
+                case "exit":
+                case "stop":
+                case "close":
+                    if (containsMusic(c) || containsVideo(c))
+                    {
+                        if (Program.getMediaThread().IsAlive)
+                            invoke("stop");
+                        else
+                            Console.WriteLine("There is no media to close!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Are you sure you want to exit the program? Y for yes and any other key for no.");
+                        if (Console.ReadKey().Key == ConsoleKey.Y)
+                        {
+                            if (Program.getMediaThread().IsAlive)
+                                invoke("stop");
+                            return false;
+                        }
+                        else
+                            Console.WriteLine("");
+                    }
+                    break;
+                default:
+                    Console.WriteLine("There was no valid action command, please try again");
+                    return false;
             }
-
-            Console.WriteLine("No valid action statement. Please try again.");
             return true;
+        }
+
+        private static void invoke(string s)
+        {
+            if (Program.getPlayer() == null)
+            {
+                Console.WriteLine("Cannot invoke command " + s + ", mediaPlayer returned NULL");
+                return;
+            }
+            
+            switch (s)
+            {
+                case "stop":
+                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().stop());
+                    break;
+                case "play":
+                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().play());
+                    break;
+                case "pause":
+                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().pause());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private static void typeError()
+        {
+            Console.WriteLine("Invalid type command");
         }
 
         private static bool containsMusic(string c)
@@ -144,14 +167,6 @@ namespace HomeSystem_CSharp
         private static bool containsVideo(string c)
         {
             if (c.Contains("movie") || c.Contains("show") || c.Contains("tv") || c.Contains("video"))
-                return true;
-            else
-                return false;
-        }
-
-        private static bool isPlayerNull()
-        {
-            if (Program.getPlayer() == null)
                 return true;
             else
                 return false;

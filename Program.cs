@@ -41,10 +41,10 @@ namespace HomeSystem_CSharp
     {
         public const string systemName = "Crystal Home System";
         public const string systemType = "core";
-        public const string systemVersion = "0.0.1";       
+        public const string systemVersion = "0.0.1";
         public static string mediaDir = "";
         private static MediaWindow mediaPlayer = null;
-        private static Thread movieThread = new Thread(ShowMediaWindow), musicThread = new Thread(ShowMediaWindow);
+        private static Thread mediaThread = new Thread(ShowMediaWindow);
 
         static void Main(string[] args)
         {
@@ -56,7 +56,7 @@ namespace HomeSystem_CSharp
             systemStartupMessage();
 
             // Play startup sound/video
-            startNewMedia("Bass Head.mp3");
+            startNewMedia("Avatar.mp4");
 
             // Core system Loop
             while (running)
@@ -76,7 +76,7 @@ namespace HomeSystem_CSharp
             Console.WriteLine(systemName, " ", systemType, " Version ", systemVersion, "\n");
             Console.WriteLine("\nCreated by Ezra and Austin");
         }
-        
+
         public static MediaWindow getPlayer()
         {
             return mediaPlayer; // want to make this a pointer, however idk how right now
@@ -86,21 +86,12 @@ namespace HomeSystem_CSharp
         {
             mediaDir = dir;
 
-            //now to make it so that the program cannot run both at once, and will pause the other when one wants to play
+            // now to make it so that the program cannot run both at once, and will pause the other when one wants to play
 
-            //temperary fix for now I suppose, could use some refinement
-            if (dir.Contains(".mp4") || dir.Contains(".avi") || dir.Contains("mpg"))
-            {
-                movieThread = new Thread(ShowMediaWindow);
-                movieThread.SetApartmentState(ApartmentState.STA);
-                movieThread.Start();
-            }
-            else if (dir.Contains(".ogg") || dir.Contains(".mp3") || dir.Contains(".wav"))
-            {
-                musicThread = new Thread(ShowMediaWindow);
-                musicThread.SetApartmentState(ApartmentState.STA);
-                musicThread.Start();
-            }
+            // temperary fix for now I suppose, could use some refinement
+            mediaThread = new Thread(ShowMediaWindow);
+            mediaThread.SetApartmentState(ApartmentState.STA);
+            mediaThread.Start();
         }
 
         private static void ShowMediaWindow()
@@ -108,14 +99,9 @@ namespace HomeSystem_CSharp
             (mediaPlayer = new MediaWindow(mediaDir)).ShowDialog();
         }
 
-        public static Thread getMovieThread()
+        public static Thread getMediaThread()
         {
-            return movieThread;
-        }
-
-        public static Thread getMusicThread()
-        {
-            return musicThread;
+            return mediaThread;
         }
     }
 
