@@ -53,12 +53,18 @@ namespace HomeSystem_CSharp
             {
                 if (containsVideo(c) || containsMusic(c))
                 {
+                    if (isPlayerNull())
+                    {
+                        Console.WriteLine("There is no media defined!");
+                        return true;
+                    }
                     Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().stop());
                     return true;
                 }
                 else
                 {
-                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().stop());
+                    if (!isPlayerNull())
+                        Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().stop());
                     return false;
                 }
             }
@@ -67,6 +73,11 @@ namespace HomeSystem_CSharp
             {
                 if (containsMusic(c) || containsVideo(c))
                 {
+                    if (isPlayerNull())
+                    {
+                        Console.WriteLine("There is no media defined!");
+                        return true;
+                    }
                     Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().stop());
                     return true;
                 }
@@ -76,6 +87,11 @@ namespace HomeSystem_CSharp
             {
                 if (containsMusic(c) || containsVideo(c)) // note, typing 'keep playing the song' will call this function
                 {
+                    if (isPlayerNull())
+                    {
+                        Console.WriteLine("There is no media defined!");
+                        return true;
+                    }
                     Program.startNewMedia("C:\\test.mp4");
                     return true;
                 }
@@ -85,6 +101,11 @@ namespace HomeSystem_CSharp
             {
                 if (containsMusic(c) || containsVideo(c))
                 {
+                    if (isPlayerNull())
+                    {
+                        Console.WriteLine("There is no media defined!");
+                        return true;
+                    }
                     Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().pause());
                     return true;
                 }
@@ -94,6 +115,11 @@ namespace HomeSystem_CSharp
             {
                 if (containsMusic(c) || containsVideo(c))
                 {
+                    if (isPlayerNull())
+                    {
+                        Console.WriteLine("There is no media defined!");
+                        return true;
+                    }
                     if (Program.getMovieThread().IsAlive || Program.getMusicThread().IsAlive)
                         Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().play());
                     else
@@ -118,6 +144,14 @@ namespace HomeSystem_CSharp
         private static bool containsVideo(string c)
         {
             if (c.Contains("movie") || c.Contains("show") || c.Contains("tv") || c.Contains("video"))
+                return true;
+            else
+                return false;
+        }
+
+        private static bool isPlayerNull()
+        {
+            if (Program.getPlayer() == null)
                 return true;
             else
                 return false;

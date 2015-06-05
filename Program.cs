@@ -32,7 +32,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-
+using System.IO;
 
 
 namespace HomeSystem_CSharp
@@ -58,14 +58,21 @@ namespace HomeSystem_CSharp
             systemStartupMessage();
 
             // Play startup sound/video
-            startNewMedia("C:\\test.mp4");
-
-            // Core system Loop
-            while (running)
+            //startNewMedia("C:\\test.mp4");
+            
+            // testing getting a list of files for media
+            string[] files = Directory.GetFiles("G:\\Media\\Movies\\MP4");
+            for (int x = 0; x < files.Length; x++)
             {
-                command = commandModule.getCommand("Enter Command: ");
-                running = commandModule.analyzeCommand(command);
+                Console.WriteLine(files[x]);
             }
+
+                // Core system Loop
+                while (running)
+                {
+                    command = commandModule.getCommand("Enter Command: ");
+                    running = commandModule.analyzeCommand(command);
+                }
 
             System.Windows.Forms.Application.Exit();
 
