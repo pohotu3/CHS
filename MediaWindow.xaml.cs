@@ -46,7 +46,7 @@ namespace HomeSystem_CSharp
 
     public partial class MediaWindow : Window
     {
-        
+
         // these are austin's dirs
         public const string musicDir = "G:\\Media\\Music\\";
         public const string movieDir = "G:\\Media\\Movies\\MP4\\";
@@ -57,7 +57,7 @@ namespace HomeSystem_CSharp
             // we want the media indexing to take place here. Every time this is launched, we want it to check for new media.
             // file name will be the only thing passed through to the dir, so we need it to be able to figure out where. for
             // threading purposes, lets just keep it localized to this mediawindow for now
-            
+
             string dir = findFile(c);
             if (dir == null)
             {
@@ -65,9 +65,11 @@ namespace HomeSystem_CSharp
                 this.Close();
                 return;
             }
+
+            Console.WriteLine(dir);
+            InitializeComponent(); // place this lower so that it doesnt black screen for so long while it finds the file
             video.Source = new Uri(dir);
 
-            InitializeComponent(); // place this lower so that it doesnt black screen for so long while it finds the file
 
             play();
             setVolume(1);
@@ -128,26 +130,29 @@ namespace HomeSystem_CSharp
                         possibleMatches.Add(musicFiles[z]);
                     }
                 }
+
             }
-
-                /*
-                for (int x = 0; x < movieFiles.Length; x++)
-                {
-                    if (movieFiles[x].Contains(command))
-                    {
-                        return movieFiles[x];
-                    }
-                }
-                for (int x = 0; x < musicFiles.Length; x++)
-                {
-                    if (musicFiles[x].Contains(command))
-                    {
-                        return musicFiles[x];
-                    }
-                }
-                */
-
+            if (possibleMatches.Count == 0)
                 return null;
+
+            return possibleMatches[0].ToString();
+
+            /*
+            for (int x = 0; x < movieFiles.Length; x++)
+            {
+                if (movieFiles[x].Contains(command))
+                {
+                    return movieFiles[x];
+                }
+            }
+            for (int x = 0; x < musicFiles.Length; x++)
+            {
+                if (musicFiles[x].Contains(command))
+                {
+                    return musicFiles[x];
+                }
+            }
+            */
         }
     }
 }

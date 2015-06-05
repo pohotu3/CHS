@@ -125,7 +125,7 @@ namespace HomeSystem_CSharp
                     break;
                 default:
                     Console.WriteLine("There was no valid action command, please try again");
-                    return false;
+                    break;
             }
             return true;
         }
