@@ -96,27 +96,6 @@ namespace HomeSystem_CSharp
 
         private void findFile(string title)
         {
-            /*
-            movieFiles = Directory.GetFiles(movieDir, "*.*", SearchOption.AllDirectories);
-            for (int x = 0; x < movieFiles.Length; x++)
-            {
-                string filePath = movieFiles[x];
-                string lastPart = filePath.Split('\\').Last();
-                string fileName = lastPart.Split('.').First();
-
-                movieFiles[x] = fileName;
-            }
-            musicFiles = Directory.GetFiles(musicDir, "*.*", SearchOption.AllDirectories);
-            for (int x = 0; x < musicFiles.Length; x++)
-            {
-                string filePath = musicFiles[x];
-                string lastPart = filePath.Split('\\').Last();
-                string fileName = lastPart.Split('.').First();
-
-                musicFiles[x] = fileName;
-            }
-             */
-
             movieFiles = Directory.GetFiles(movieDir, "*.*", SearchOption.AllDirectories);
             musicFiles = Directory.GetFiles(musicDir, "*.*", SearchOption.AllDirectories);
             for (int x = 0; x < movieFiles.Length; x++)
