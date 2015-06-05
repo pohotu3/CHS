@@ -102,6 +102,14 @@ namespace HomeSystem_CSharp
             string[] splitCommand = command.Split(' ');
             ArrayList possibleMatches = new ArrayList();
 
+            //set all of the array's to lowercase, because why the hell do we need them uppercase
+            for (int i = 0; i < movieFiles.Length; i++)
+                movieFiles[i] = movieFiles[i].ToLower();
+            for (int i = 0; i < musicFiles.Length; i++)
+                musicFiles[i] = musicFiles[i].ToLower();
+            for (int i = 0; i < splitCommand.Length; i++)
+                splitCommand[i] = splitCommand[i].ToLower();
+
             //maybe change up the order it does this, i'm thinking this may be a slower way to do it but i'm not sure...
             for (int x = 2; x < splitCommand.Length; x++) // starting at 2 beacuse the first 2 words are guarenteed NOT to be in the title, so just failsafe(ish)
             {
