@@ -45,6 +45,7 @@ namespace HomeSystem_CSharp
             return line;
         }
 
+        /*
         public static bool analyzeCommand1(string c)
         {
             c.ToLower();
@@ -120,7 +121,7 @@ namespace HomeSystem_CSharp
                         Console.WriteLine("There is no media defined!");
                         return true;
                     }
-                    if (Program.getMovieThread().IsAlive || Program.getMusicThread().IsAlive)
+                    if (Program.getMediaThread().IsAlive || Program.getMusicThread().IsAlive)
                         invoke("play");
                     else
                         Console.WriteLine("Cannot resume, there is no media to play!");
@@ -132,6 +133,7 @@ namespace HomeSystem_CSharp
             Console.WriteLine("No valid action statement. Please try again.");
             return true;
         }
+        */
 
         /*
          * list of available action commands:
@@ -147,12 +149,20 @@ namespace HomeSystem_CSharp
             switch (c)
             {
                 case "play":
+                case "start":
                     if (containsMusic(c) || containsVideo(c))
                     {
-
+                        if (Program.getMediaThread().IsAlive)
+                            invoke("play");
+                        else
+                        {
+                            // get the media file name + .extenstion here
+                            string fileName = "Avatar.mp4";
+                            Program.startNewMedia(fileName);
+                        }
                     }
-                    break;
-                case "start":
+                    else
+                        typeError();
                     break;
                 case "resume":
                     break;
@@ -175,12 +185,18 @@ namespace HomeSystem_CSharp
 
         private static void invoke(string s)
         {
+            if (Program.getPlayer() == null)
+            {
+                Console.WriteLine("Cannot invoke command " + s + ", mediaPlayer returned NULL");
+                return;
+            }
+            
             switch (s)
             {
                 case "stop":
                     Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().stop());
                     break;
-                case "resume":
+                case "play":
                     Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().play());
                     break;
                 case "pause":
@@ -189,6 +205,11 @@ namespace HomeSystem_CSharp
                 default:
                     break;
             }
+        }
+
+        private static void typeError()
+        {
+            Console.WriteLine("Invalid type command");
         }
 
         private static bool containsMusic(string c)
@@ -202,14 +223,6 @@ namespace HomeSystem_CSharp
         private static bool containsVideo(string c)
         {
             if (c.Contains("movie") || c.Contains("show") || c.Contains("tv") || c.Contains("video"))
-                return true;
-            else
-                return false;
-        }
-
-        private static bool isPlayerNull()
-        {
-            if (Program.getPlayer() == null)
                 return true;
             else
                 return false;
