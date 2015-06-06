@@ -102,7 +102,19 @@ namespace HomeSystem_CSharp
         {
             setVolume(previousVolume);
         }
+        
+        public void raiseVolume()
+        {
+            if (video.Volume < 1)
+                setVolume(video.Volume + 0.25);
+        }
 
+        public void lowerVolume()
+        {
+            if (video.Volume > 0)
+                setVolume(video.Volume - 0.25);
+        }
+        
         public void setVolume(double i)
         {
             previousVolume = video.Volume;
@@ -137,7 +149,7 @@ namespace HomeSystem_CSharp
                     for (int c = 0; c < titleSplit.Length; c++)
                         if (titleSplit[c] == splitCommand[b])
                             wordsMatched++;
-                    
+
                     if (wordsMatched == titleLength) // if the number of words matched == the number of words in teh title, return that as there's no way that's not the right one
                         return movieFiles[a];
                 }
@@ -155,7 +167,7 @@ namespace HomeSystem_CSharp
                     for (int c = 0; c < titleSplit.Length; c++)
                         if (titleSplit[c] == splitCommand[b])
                             wordsMatched++;
-                    
+
                     if (wordsMatched == titleLength) // if the number of words matched == the number of words in teh title, return that as there's no way that's not the right one
                         return musicFiles[a];
                 }

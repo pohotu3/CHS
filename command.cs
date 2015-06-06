@@ -137,6 +137,20 @@ namespace HomeSystem_CSharp
                             Console.WriteLine("There is no active media to unmute!");
                     }
                     break;
+                case "increase":
+                case "raise":
+                    if (Program.getMediaThread().IsAlive)
+                        invoke("increase volume");
+                    else
+                        Console.WriteLine("There is no active media to change the volume on!");
+                    break;
+                case "decrease":
+                case "lower":
+                    if (Program.getMediaThread().IsAlive)
+                        invoke("decrease volume");
+                    else
+                        Console.WriteLine("There is no active media to change the volume on!");
+                    break;
                 default:
                     Console.WriteLine("There was no valid action command, please try again");
                     break;
@@ -168,6 +182,12 @@ namespace HomeSystem_CSharp
                     break;
                 case "unmute":
                     Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().unmute());
+                    break;
+                case "increase volume":
+                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().raiseVolume());
+                    break;
+                case "decrease volume":
+                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().lowerVolume());
                     break;
                 default:
                     break;
