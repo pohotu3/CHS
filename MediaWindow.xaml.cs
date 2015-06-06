@@ -47,10 +47,10 @@ namespace HomeSystem_CSharp
     public partial class MediaWindow : Window
     {
 
-        // these are austin's dirs
+        // these are austin's dirs////////////////////////
         public const string musicDir = "G:\\Media\\Music\\";
         public const string movieDir = "G:\\Media\\Movies\\MP4\\";
-        ///////////////////////////////////////////////
+        //////////////////////////////////////////////////
 
         public MediaWindow(string c)
         {
