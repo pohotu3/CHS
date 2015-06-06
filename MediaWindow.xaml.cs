@@ -110,92 +110,35 @@ namespace HomeSystem_CSharp
             for (int i = 0; i < splitCommand.Length; i++)
                 splitCommand[i] = splitCommand[i].ToLower();
 
-            //maybe change up the order it does this, i'm thinking this may be a slower way to do it but i'm not sure...
-            for (int x = 2; x < splitCommand.Length; x++) // starting at 2 beacuse the first 2 words are guarenteed NOT to be in the title, so just failsafe(ish)
+            for (int a = 0; a < movieFiles.Length; a++) // for movies
             {
-                string commandWord = splitCommand[x];
+                string title = movieFiles[a].Split('\\').Last();
+                title = title.Split('.').First();
+                string[] titleSplit = title.Split(' '); // this is used ONLY for getting the number of words in a title
+                int titleLength = titleSplit.Length;
 
-                for (int y = 0; y < movieFiles.Length; y++) // search whole list of movie files
+                int wordsMatched = 0; // in this forloop because i want the value to reset for the next title
+                for (int b = 2; b < splitCommand.Length; b++) // might as well start at 2, the movie name wont be there anyway cause of command words
                 {
-                    string movieTitle = movieFiles[y].Split('\\').Last();
-                    movieTitle = movieTitle.Split('.').First();
-
-                    if (movieTitle.Contains(commandWord)) // if this specific movie file dir contains the command word
-                    {
-                        possibleMatches.Add(movieFiles[y]);
-                    }
+                    if (title.Contains(splitCommand[b])) // if the title contains one of the words in the command line
+                        wordsMatched++;
+                    if (wordsMatched == titleLength) // if the number of words matched == the number of words in teh title, return that as there's no way that's not the right one
+                        return movieFiles[a];
                 }
-
-                for (int z = 0; z < musicFiles.Length; z++) // search whole list of music files
-                {
-                    string musicTitle = musicFiles[z].Split('\\').Last();
-                    musicTitle = musicTitle.Split('.').First();
-
-                    if (musicTitle.Contains(commandWord)) // if this specific music file dir contains the command word
-                    {
-                        possibleMatches.Add(musicFiles[z]);
-                    }
-                }
-
             }
-
-            if (possibleMatches.Count != 0) // if there were matches
+            for (int a = 0; a < musicFiles.Length; a++) // for music
             {
-                if (possibleMatches.Count == 1) // if there was only one match
-                    return possibleMatches[0].ToString();
+                string title = musicFiles[a].Split('\\').Last();
+                int titleLength = title.Length;
 
-                string bestMatch = "";
-                int bestMatchSize = 0;
-                ArrayList bestMatches = new ArrayList();
-                for (int x = 0; x < possibleMatches.Count; x++) // sorts the best match
+                int wordsMatched = 0; // in this forloop because i want the value to reset for the next title
+                for (int b = 2; b < splitCommand.Length; b++) // might as well start at 2, the movie name wont be there anyway cause of command words
                 {
-                    int wordsMatched = 0; // yes, default would be one, however this will be easier
-                    for (int i = 0; i < splitCommand.Length; i++)
-                    {
-                        string commandWord = splitCommand[i];
-                        if (possibleMatches[x].ToString().Contains(commandWord))
-                            wordsMatched++;
-                    }
-                    if (wordsMatched > bestMatchSize)
-                        bestMatch = possibleMatches[x].ToString();
-                    if (wordsMatched == bestMatchSize)
-                        bestMatches.Add(possibleMatches[x].ToString());
+                    if (title.Contains(splitCommand[b])) // if the title contains one of the words in the command line
+                        wordsMatched++;
+                    if (wordsMatched == titleLength) // if the number of words matched == the number of words in teh title, return that as there's no way that's not the right one
+                        return musicFiles[a];
                 }
-                if (bestMatches.Count > 1) // multiple entries
-                {
-                    // implement asking method to see which one was meant, and return that one.
-                    Console.WriteLine("There are multiple options for you to chose from. Please pick one:");
-                    for (int i = 0; i < bestMatches.Count; i++)
-                    {
-                        Console.WriteLine((i + 1) + ": " + bestMatches[i]);
-                    }
-                    switch (Console.ReadKey().Key)
-                    {
-                        case ConsoleKey.D1:
-                            return bestMatches[0].ToString();
-                        case ConsoleKey.D2:
-                            return bestMatches[1].ToString();
-                        case ConsoleKey.D3:
-                            return bestMatches[2].ToString();
-                        case ConsoleKey.D4:
-                            return bestMatches[3].ToString();
-                        case ConsoleKey.D5:
-                            return bestMatches[4].ToString();
-                        case ConsoleKey.D6:
-                            return bestMatches[5].ToString();
-                        case ConsoleKey.D7:
-                            return bestMatches[6].ToString();
-                        case ConsoleKey.D8:
-                            return bestMatches[7].ToString();
-                        case ConsoleKey.D9:
-                            return bestMatches[8].ToString();
-                        case ConsoleKey.D0:
-                            return bestMatches[9].ToString();
-                        default:
-                            return null;
-                    }
-                }
-                return bestMatch;
             }
             return null;
         }
