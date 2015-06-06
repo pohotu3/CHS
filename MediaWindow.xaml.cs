@@ -67,6 +67,7 @@ namespace HomeSystem_CSharp
             }
 
             InitializeComponent(); // place this lower so that it doesnt black screen for so long while it finds the file
+            Console.WriteLine(dir);
             video.Source = new Uri(dir);
 
 
@@ -129,17 +130,21 @@ namespace HomeSystem_CSharp
             for (int a = 0; a < musicFiles.Length; a++) // for music
             {
                 string title = musicFiles[a].Split('\\').Last();
-                int titleLength = title.Length;
+                title = title.Split('.').First();
+                string[] titleSplit = title.Split(' '); // this is used ONLY for getting the number of words in a title
+                int titleLength = titleSplit.Length;
 
                 int wordsMatched = 0; // in this forloop because i want the value to reset for the next title
                 for (int b = 2; b < splitCommand.Length; b++) // might as well start at 2, the movie name wont be there anyway cause of command words
                 {
                     if (title.Contains(splitCommand[b])) // if the title contains one of the words in the command line
                         wordsMatched++;
+
                     if (wordsMatched == titleLength) // if the number of words matched == the number of words in teh title, return that as there's no way that's not the right one
                         return musicFiles[a];
                 }
             }
+
             return null;
         }
     }
