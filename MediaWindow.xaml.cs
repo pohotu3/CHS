@@ -52,6 +52,9 @@ namespace HomeSystem_CSharp
         public const string movieDir = "G:\\Media\\Movies\\MP4\\";
         //////////////////////////////////////////////////
 
+        private bool muted = false;
+        private double previousVolume = 0.5;
+
         public MediaWindow(string c)
         {
             // we want the media indexing to take place here. Every time this is launched, we want it to check for new media.
@@ -67,7 +70,6 @@ namespace HomeSystem_CSharp
             }
 
             InitializeComponent(); // place this lower so that it doesnt black screen for so long while it finds the file
-            Console.WriteLine(dir);
             video.Source = new Uri(dir);
 
 
@@ -91,8 +93,19 @@ namespace HomeSystem_CSharp
             this.Close();
         }
 
-        public void setVolume(int i)
+        public void mute()
         {
+            setVolume(0);
+        }
+
+        public void unmute()
+        {
+            setVolume(previousVolume);
+        }
+
+        public void setVolume(double i)
+        {
+            previousVolume = video.Volume;
             video.Volume = i;
         }
 

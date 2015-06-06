@@ -118,6 +118,25 @@ namespace HomeSystem_CSharp
                             Console.WriteLine("");
                     }
                     break;
+                case "mute":
+                    if (containsMusic(c) || containsVideo(c))
+                    {
+                        if (Program.getMediaThread().IsAlive)
+                            invoke("mute");
+                        else
+                            Console.WriteLine("There is no active media to mute!");
+
+                    }
+                    break;
+                case "unmute":
+                    if (containsVideo(c) || containsMusic(c))
+                    {
+                        if (Program.getMediaThread().IsAlive)
+                            invoke("unmute");
+                        else
+                            Console.WriteLine("There is no active media to unmute!");
+                    }
+                    break;
                 default:
                     Console.WriteLine("There was no valid action command, please try again");
                     break;
@@ -143,6 +162,12 @@ namespace HomeSystem_CSharp
                     break;
                 case "pause":
                     Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().pause());
+                    break;
+                case "mute":
+                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().mute());
+                    break;
+                case "unmute":
+                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().unmute());
                     break;
                 default:
                     break;
