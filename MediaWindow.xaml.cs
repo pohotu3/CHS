@@ -164,6 +164,36 @@ namespace HomeSystem_CSharp
                 if (bestMatches.Count > 1) // multiple entries
                 {
                     // implement asking method to see which one was meant, and return that one.
+                    Console.WriteLine("There are multiple options for you to chose from. Please pick one:");
+                    for (int i = 0; i < bestMatches.Count; i++)
+                    {
+                        Console.WriteLine((i + 1) + ": " + bestMatches[i]);
+                    }
+                    switch (Console.ReadKey().Key)
+                    {
+                        case ConsoleKey.D1:
+                            return bestMatches[0].ToString();
+                        case ConsoleKey.D2:
+                            return bestMatches[1].ToString();
+                        case ConsoleKey.D3:
+                            return bestMatches[2].ToString();
+                        case ConsoleKey.D4:
+                            return bestMatches[3].ToString();
+                        case ConsoleKey.D5:
+                            return bestMatches[4].ToString();
+                        case ConsoleKey.D6:
+                            return bestMatches[5].ToString();
+                        case ConsoleKey.D7:
+                            return bestMatches[6].ToString();
+                        case ConsoleKey.D8:
+                            return bestMatches[7].ToString();
+                        case ConsoleKey.D9:
+                            return bestMatches[8].ToString();
+                        case ConsoleKey.D0:
+                            return bestMatches[9].ToString();
+                        default:
+                            return null;
+                    }
                 }
                 return bestMatch;
             }
