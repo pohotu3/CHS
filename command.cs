@@ -68,11 +68,6 @@ namespace HomeSystem_CSharp
                             invoke("play");
                         else
                         {
-                            // get the media file name + .extenstion here
-                            //int position = c.LastIndexOf(' ');
-                            //string fileName = "";
-                            //if (position > -1)
-                            //    fileName = c.Substring(position + 1);
                             Program.startNewMedia(c);
                         }
                     }
