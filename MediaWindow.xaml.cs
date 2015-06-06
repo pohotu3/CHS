@@ -121,8 +121,10 @@ namespace HomeSystem_CSharp
                 int wordsMatched = 0; // in this forloop because i want the value to reset for the next title
                 for (int b = 2; b < splitCommand.Length; b++) // might as well start at 2, the movie name wont be there anyway cause of command words
                 {
-                    if (title.Contains(splitCommand[b])) // if the title contains one of the words in the command line
-                        wordsMatched++;
+                    for (int c = 0; c < titleSplit.Length; c++)
+                        if (titleSplit[c] == splitCommand[b])
+                            wordsMatched++;
+                    
                     if (wordsMatched == titleLength) // if the number of words matched == the number of words in teh title, return that as there's no way that's not the right one
                         return movieFiles[a];
                 }
@@ -137,9 +139,10 @@ namespace HomeSystem_CSharp
                 int wordsMatched = 0; // in this forloop because i want the value to reset for the next title
                 for (int b = 2; b < splitCommand.Length; b++) // might as well start at 2, the movie name wont be there anyway cause of command words
                 {
-                    if (title.Contains(splitCommand[b])) // if the title contains one of the words in the command line
-                        wordsMatched++;
-
+                    for (int c = 0; c < titleSplit.Length; c++)
+                        if (titleSplit[c] == splitCommand[b])
+                            wordsMatched++;
+                    
                     if (wordsMatched == titleLength) // if the number of words matched == the number of words in teh title, return that as there's no way that's not the right one
                         return musicFiles[a];
                 }
