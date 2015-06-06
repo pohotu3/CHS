@@ -58,24 +58,22 @@ namespace HomeSystem_CSharp
 
             string actionCommand = c.Split(' ').First();
 
-            int position = c.LastIndexOf(' ');
-            string fileName = "";
-            if (position > -1)
-                fileName = c.Substring(position + 1);
-
             switch (actionCommand)
             {
                 case "play":
                 case "start":
                     if (containsMusic(c) || containsVideo(c))
                     {
-                        Console.WriteLine(fileName);
                         if (Program.getMediaThread().IsAlive)
                             invoke("play");
                         else
                         {
                             // get the media file name + .extenstion here
-                            Program.startNewMedia(fileName);
+                            //int position = c.LastIndexOf(' ');
+                            //string fileName = "";
+                            //if (position > -1)
+                            //    fileName = c.Substring(position + 1);
+                            Program.startNewMedia(c);
                         }
                     }
                     else
@@ -127,7 +125,7 @@ namespace HomeSystem_CSharp
                     break;
                 default:
                     Console.WriteLine("There was no valid action command, please try again");
-                    return false;
+                    break;
             }
             return true;
         }
@@ -139,7 +137,7 @@ namespace HomeSystem_CSharp
                 Console.WriteLine("Cannot invoke command " + s + ", mediaPlayer returned NULL");
                 return;
             }
-            
+
             switch (s)
             {
                 case "stop":

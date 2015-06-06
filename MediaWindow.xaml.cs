@@ -39,36 +39,37 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Collections;
 
 namespace HomeSystem_CSharp
 {
 
     public partial class MediaWindow : Window
     {
-        
+
         // these are austin's dirs
         public const string musicDir = "G:\\Media\\Music\\";
         public const string movieDir = "G:\\Media\\Movies\\MP4\\";
         ///////////////////////////////////////////////
 
-        private string[] musicFiles, movieFiles;
-        private int fileIndex = 0, mediaType = 0; // media type is 0 = neither, 1 = movie, 2 = music
-
-        public MediaWindow(string title)
+        public MediaWindow(string c)
         {
             // we want the media indexing to take place here. Every time this is launched, we want it to check for new media.
             // file name will be the only thing passed through to the dir, so we need it to be able to figure out where. for
             // threading purposes, lets just keep it localized to this mediawindow for now
-            findFile(title);
-            
-            InitializeComponent();
 
-            if (mediaType == 1)
-                video.Source = new Uri(movieFiles[fileIndex]);
-            else if (mediaType == 2)
-                video.Source = new Uri(musicFiles[fileIndex]);
-            else
+            string dir = findFile(c);
+            if (dir == null)
+            {
+                Console.WriteLine("Unable to find media file, invalid directory.");
+                this.Close();
                 return;
+            }
+
+            InitializeComponent(); // place this lower so that it doesnt black screen for so long while it finds the file
+            Console.WriteLine(dir);
+            video.Source = new Uri(dir);
+
 
             play();
             setVolume(1);
@@ -95,28 +96,59 @@ namespace HomeSystem_CSharp
             video.Volume = i;
         }
 
-        private void findFile(string title)
+        private string findFile(string command)
         {
-            movieFiles = Directory.GetFiles(movieDir, "*.*", SearchOption.AllDirectories);
-            musicFiles = Directory.GetFiles(musicDir, "*.*", SearchOption.AllDirectories);
-            for (int x = 0; x < movieFiles.Length; x++)
+            string[] movieFiles = Directory.GetFiles(movieDir, "*.*", SearchOption.AllDirectories);
+            string[] musicFiles = Directory.GetFiles(musicDir, "*.*", SearchOption.AllDirectories);
+            string[] splitCommand = command.Split(' ');
+            ArrayList possibleMatches = new ArrayList();
+
+            //set all of the array's to lowercase, because why the hell do we need them uppercase
+            for (int i = 0; i < movieFiles.Length; i++)
+                movieFiles[i] = movieFiles[i].ToLower();
+            for (int i = 0; i < musicFiles.Length; i++)
+                musicFiles[i] = musicFiles[i].ToLower();
+            for (int i = 0; i < splitCommand.Length; i++)
+                splitCommand[i] = splitCommand[i].ToLower();
+
+            for (int a = 0; a < movieFiles.Length; a++) // for movies
             {
-                if (movieFiles[x].Contains(title))
+                string title = movieFiles[a].Split('\\').Last();
+                title = title.Split('.').First();
+                string[] titleSplit = title.Split(' '); // this is used ONLY for getting the number of words in a title
+                int titleLength = titleSplit.Length;
+
+                int wordsMatched = 0; // in this forloop because i want the value to reset for the next title
+                for (int b = 2; b < splitCommand.Length; b++) // might as well start at 2, the movie name wont be there anyway cause of command words
                 {
-                    fileIndex = x;
-                    mediaType = 1;
-                    break;
+                    for (int c = 0; c < titleSplit.Length; c++)
+                        if (titleSplit[c] == splitCommand[b])
+                            wordsMatched++;
+                    
+                    if (wordsMatched == titleLength) // if the number of words matched == the number of words in teh title, return that as there's no way that's not the right one
+                        return movieFiles[a];
                 }
             }
-            for (int x = 0; x < musicFiles.Length; x++)
+            for (int a = 0; a < musicFiles.Length; a++) // for music
             {
-                if (musicFiles[x].Contains(title))
+                string title = musicFiles[a].Split('\\').Last();
+                title = title.Split('.').First();
+                string[] titleSplit = title.Split(' '); // this is used ONLY for getting the number of words in a title
+                int titleLength = titleSplit.Length;
+
+                int wordsMatched = 0; // in this forloop because i want the value to reset for the next title
+                for (int b = 2; b < splitCommand.Length; b++) // might as well start at 2, the movie name wont be there anyway cause of command words
                 {
-                    fileIndex = x;
-                    mediaType = 2;
-                    break;
+                    for (int c = 0; c < titleSplit.Length; c++)
+                        if (titleSplit[c] == splitCommand[b])
+                            wordsMatched++;
+                    
+                    if (wordsMatched == titleLength) // if the number of words matched == the number of words in teh title, return that as there's no way that's not the right one
+                        return musicFiles[a];
                 }
             }
+
+            return null;
         }
     }
 }
