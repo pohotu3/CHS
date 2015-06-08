@@ -89,7 +89,7 @@ namespace HomeSystem_CSharp
                         if (Program.getMediaThread().IsAlive)
                             invoke("play");
                         else
-                            Console.WriteLine("There is no media to resume!");
+                            Program.getSpeech().speak("There is no media to resume!");
                     }
                     else
                         typeError();
@@ -103,11 +103,11 @@ namespace HomeSystem_CSharp
                         if (Program.getMediaThread().IsAlive)
                             invoke("stop");
                         else
-                            Console.WriteLine("There is no media to close!");
+                            Program.getSpeech().speak("There is no media to close!");
                     }
                     else
                     {
-                        Console.WriteLine("Are you sure you want to exit the program? Y for yes and any other key for no.");
+                        Program.getSpeech().speak("Are you sure you want to exit? Type Y for yes and any other key for no.");
                         if (Console.ReadKey().Key == ConsoleKey.Y)
                         {
                             if (Program.getMediaThread().IsAlive)
@@ -124,7 +124,7 @@ namespace HomeSystem_CSharp
                         if (Program.getMediaThread().IsAlive)
                             invoke("mute");
                         else
-                            Console.WriteLine("There is no active media to mute!");
+                            Program.getSpeech().speak("There is no active media to mute!");
 
                     }
                     break;
@@ -134,7 +134,7 @@ namespace HomeSystem_CSharp
                         if (Program.getMediaThread().IsAlive)
                             invoke("unmute");
                         else
-                            Console.WriteLine("There is no active media to unmute!");
+                            Program.getSpeech().speak("There is no active media to unmute!");
                     }
                     break;
                 case "increase":
@@ -142,17 +142,17 @@ namespace HomeSystem_CSharp
                     if (Program.getMediaThread().IsAlive)
                         invoke("increase volume");
                     else
-                        Console.WriteLine("There is no active media to change the volume on!");
+                        Program.getSpeech().speak("There is no active media to change the volume on!");
                     break;
                 case "decrease":
                 case "lower":
                     if (Program.getMediaThread().IsAlive)
                         invoke("decrease volume");
                     else
-                        Console.WriteLine("There is no active media to change the volume on!");
+                        Program.getSpeech().speak("There is no active media to change the volume on!");
                     break;
                 default:
-                    Console.WriteLine("There was no valid action command, please try again");
+                    Program.getSpeech().speak("There was no valid action command, please try again");
                     break;
             }
             return true;
@@ -162,7 +162,7 @@ namespace HomeSystem_CSharp
         {
             if (Program.getPlayer() == null)
             {
-                Console.WriteLine("Cannot invoke command " + s + ", mediaPlayer returned NULL");
+                Program.getSpeech().speak("Could not complete command, there is an error with the setup. Please restart if problem continues.");
                 return;
             }
 
@@ -196,7 +196,7 @@ namespace HomeSystem_CSharp
 
         private static void typeError()
         {
-            Console.WriteLine("Invalid type command");
+            Program.getSpeech().speak("Invalid media type.");
         }
 
         private static bool containsMusic(string c)

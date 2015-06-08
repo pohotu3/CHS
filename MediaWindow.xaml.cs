@@ -64,7 +64,7 @@ namespace HomeSystem_CSharp
             string dir = findFile(c);
             if (dir == null)
             {
-                Console.WriteLine("Unable to find media file, invalid directory.");
+                Program.getSpeech().speak("Unable to find media file. Invalid directory.");
                 this.Close();
                 return;
             }

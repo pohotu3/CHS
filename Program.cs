@@ -45,10 +45,10 @@ namespace HomeSystem_CSharp
         public static string mediaDir = "";
         private static MediaWindow mediaPlayer = null;
         private static Thread mediaThread = new Thread(ShowMediaWindow);
+        private static Speech speech = new Speech();
 
         static void Main(string[] args)
         {
-
             bool running = true;
             string command;
 
@@ -66,12 +66,13 @@ namespace HomeSystem_CSharp
 
         }
 
-
         private static void systemStartupMessage()
         {
             Console.Title = "Crystal Home Systems";
             Console.WriteLine(systemName, " ", systemType, " Version ", systemVersion, "\n");
             Console.WriteLine("\nCreated by Ezra and Austin");
+
+            speech.speak("Welcome to Crystal Home Systems. System type " + systemType + ".");
         }
 
         public static MediaWindow getPlayer()
@@ -103,6 +104,11 @@ namespace HomeSystem_CSharp
         public static Thread getMediaThread()
         {
             return mediaThread;
+        }
+
+        public static Speech getSpeech()
+        {
+            return speech;
         }
     }
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Speech;
 using System.Speech.Synthesis;
+using System.Speech.Recognition;
 
 namespace HomeSystem_CSharp
 {
@@ -15,12 +16,17 @@ namespace HomeSystem_CSharp
         public Speech()
         {
             synth.SetOutputToDefaultAudioDevice();
-            synth.Speak("This is a really neat test of the speech software");
         }
 
         public void speak(string s)
         {
             synth.Speak(s);
+        }
+
+        public string listen()
+        {
+            string s = "";
+            return s;
         }
     }
 }
