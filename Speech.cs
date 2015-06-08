@@ -44,7 +44,8 @@ namespace HomeSystem_CSharp
                 gb.Append(new Choices("music", "song", "artist", "album", "video", "movie", "tv", "show"));
                 Grammar command = new Grammar(gb);
                 command.Name = "command";
-                recog.LoadGrammar(command);
+                recog.LoadGrammar(new DictationGrammar());
+                //recog.LoadGrammar(command);
             }
             else
             {

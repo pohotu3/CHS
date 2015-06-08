@@ -52,7 +52,6 @@ namespace HomeSystem_CSharp
         public const string movieDir = "G:\\Media\\Movies\\MP4\\";
         //////////////////////////////////////////////////
 
-        private bool muted = false;
         private double previousVolume = 0.5;
 
         public MediaWindow(string c)

@@ -54,7 +54,7 @@ namespace HomeSystem_CSharp
          */
         public static bool analyzeCommand(string c)
         {
-            c.ToLower();
+            c = c.ToLower();
 
             Console.WriteLine(c);
 
@@ -63,6 +63,7 @@ namespace HomeSystem_CSharp
             switch (actionCommand)
             {
                 case "play":
+                case "played":
                 case "start":
                     if (containsMusic(c) || containsVideo(c))
                     {
@@ -77,6 +78,7 @@ namespace HomeSystem_CSharp
                         typeError();
                     break;
                 case "pause":
+                case "paz":
                     if (containsMusic(c) || containsVideo(c))
                     {
                         if (Program.getMediaThread().IsAlive)
@@ -109,16 +111,10 @@ namespace HomeSystem_CSharp
                     }
                     else
                     {
-                        Program.getSpeech().speak("Are you sure you want to exit? Type Y for yes and any other key for no.");
-                        if (Console.ReadKey().Key == ConsoleKey.Y)
-                        {
-                            if (Program.getMediaThread().IsAlive)
-                                invoke("stop");
-                            Program.getSpeech().speak("Goodbye!");
-                            return false;
-                        }
-                        else
-                            Console.WriteLine("");
+                        if (Program.getMediaThread().IsAlive)
+                            invoke("stop");
+                        Program.getSpeech().speak("Goodbye!");
+                        return false;
                     }
                     break;
                 case "mute":
