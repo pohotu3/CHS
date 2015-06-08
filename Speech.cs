@@ -14,24 +14,34 @@ namespace HomeSystem_CSharp
         private SpeechSynthesizer synth = new SpeechSynthesizer();
         private SpeechRecognitionEngine recog = new SpeechRecognitionEngine();
 
+        private GrammarBuilder okCrystal = new GrammarBuilder("ok crystal");
+        private Grammar voicePrompt = null;
+
         public Speech()
         {
-            synth.SetOutputToDefaultAudioDevice();
-            synth.SelectVoice("ScanSoft Jennifer_Full_22kHz");
 
-            GrammarBuilder gb = new GrammarBuilder();
-            gb.Append("play");
-            Grammar g = new Grammar(gb);
-            g.Name = "play";
-            recog.LoadGrammar(g);
+            synth.SetOutputToDefaultAudioDevice();
+            
+            synth.SelectVoice("ScanSoft Jennifer_Full_22kHz");
+            
+            recog.UnloadAllGrammars();
+
+            voicePrompt = new Grammar(okCrystal);
+            voicePrompt.Name = "voicePrompt";
+            recog.LoadGrammar(voicePrompt);
 
         }
 
         private void recog_speechRecognized(Object sender, SpeechRecognizedEventArgs e)
         {
-            if (e.Result.Text == "play")
+            if (e.Result.Text == "ok crystal")
             {
-                speak("successful speech test!");
+                speak("yay!");
+                recog.UnloadAllGrammars();
+                recog.LoadGrammar(new Grammar(new GrammarBuilder(new Choices("play", "resume", "pause", "stop", "quit", "exit")))
+                {
+                    Name = "commandPhrase"
+                });
             }
         }
 
