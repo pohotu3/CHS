@@ -112,6 +112,7 @@ namespace HomeSystem_CSharp
                         {
                             if (Program.getMediaThread().IsAlive)
                                 invoke("stop");
+                            Program.getSpeech().speak("Goodbye!");
                             return false;
                         }
                         else
