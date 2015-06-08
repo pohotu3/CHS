@@ -49,6 +49,8 @@ namespace HomeSystem_CSharp
 
         static void Main(string[] args)
         {
+            speech.startRecog();
+
             bool running = true;
             string command;
 
