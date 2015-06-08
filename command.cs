@@ -63,8 +63,6 @@ namespace HomeSystem_CSharp
             switch (actionCommand)
             {
                 case "play":
-                case "played":
-                case "playing":
                 case "start":
                     if (containsMusic(c) || containsVideo(c))
                     {
@@ -79,7 +77,6 @@ namespace HomeSystem_CSharp
                         typeError();
                     break;
                 case "pause":
-                case "paz":
                     if (containsMusic(c) || containsVideo(c))
                     {
                         if (Program.getMediaThread().IsAlive)
