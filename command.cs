@@ -64,6 +64,7 @@ namespace HomeSystem_CSharp
             {
                 case "play":
                 case "played":
+                case "playing":
                 case "start":
                     if (containsMusic(c) || containsVideo(c))
                     {

@@ -64,6 +64,7 @@ namespace HomeSystem_CSharp
                 running = commandModule.analyzeCommand(command);
             }
 
+            speech.dispose();
             System.Windows.Forms.Application.Exit();
 
         }

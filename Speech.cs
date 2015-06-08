@@ -67,10 +67,10 @@ namespace HomeSystem_CSharp
             synth.SpeakAsync(s);
         }
 
-        public string listen()
+        public void dispose()
         {
-            string s = "";
-            return s;
+            recog.Dispose();
+            synth.Dispose();
         }
     }
 }
