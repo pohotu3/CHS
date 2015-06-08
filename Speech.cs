@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Speech;
 using System.Speech.Synthesis;
 using System.Speech.Recognition;
+using System.IO;
+using System.Collections;
 
 namespace HomeSystem_CSharp
 {
@@ -17,12 +19,16 @@ namespace HomeSystem_CSharp
         private GrammarBuilder okCrystal = new GrammarBuilder("ok crystal");
         private Grammar voicePrompt = null;
 
+        private string[] medialist = null;
+
         public Speech()
         {
 
             synth.SetOutputToDefaultAudioDevice();
             
             synth.SelectVoice("ScanSoft Jennifer_Full_22kHz");
+
+            generateMediaList();
             
             recog.UnloadAllGrammars();
 
@@ -39,13 +45,30 @@ namespace HomeSystem_CSharp
                 speak("yes");
                 recog.UnloadAllGrammars();
 
-                GrammarBuilder gb = new GrammarBuilder();
-                gb.Append(new Choices("play", "start", "resume", "pause", "stop", "quit", "exit", "close"));
-                gb.Append(new Choices("music", "song", "artist", "album", "video", "movie", "tv", "show"));
-                Grammar command = new Grammar(gb);
-                command.Name = "command";
-                recog.LoadGrammar(new DictationGrammar());
-                //recog.LoadGrammar(command);
+                Choices commandChoice = new Choices("play", "start", "resume", "pause", "stop", "quit", "exit", "close");
+                Choices typeChoice = new Choices("music", "song", "artist", "album", "video", "movie", "tv", "show");
+
+                GrammarBuilder gbWithMedia = new GrammarBuilder();
+                gbWithMedia.Append(commandChoice);
+                gbWithMedia.Append(typeChoice);
+                gbWithMedia.Append(new Choices(medialist));
+
+                Grammar grammarWithMedia = new Grammar(gbWithMedia);
+                grammarWithMedia.Name = "grammarWithMedia";
+                recog.LoadGrammar(grammarWithMedia);
+
+                GrammarBuilder gbWithoutMedia = new GrammarBuilder();
+                gbWithoutMedia.Append(commandChoice);
+                gbWithoutMedia.Append(typeChoice);
+                Grammar grammarWithoutMedia = new Grammar(gbWithoutMedia);
+                grammarWithoutMedia.Name = "grammarWithoutMedia";
+                recog.LoadGrammar(grammarWithoutMedia);
+
+                GrammarBuilder gbExit = new GrammarBuilder();
+                gbExit.Append(new Choices("stop", "quit", "exit", "close"));
+                Grammar grammarExit = new Grammar(gbExit);
+                grammarExit.Name = "grammarExit";
+                recog.LoadGrammar(grammarExit);
             }
             else
             {
@@ -53,6 +76,30 @@ namespace HomeSystem_CSharp
                 recog.UnloadAllGrammars();
                 recog.LoadGrammar(voicePrompt);
             }
+        }
+
+        private void generateMediaList()
+        {
+            // get a list of all mediaFiles to add to the new Choices
+            string[] movieFiles = Directory.GetFiles(MediaWindow.movieDir, "*.*", SearchOption.AllDirectories);
+            string[] musicFiles = Directory.GetFiles(MediaWindow.musicDir, "*.*", SearchOption.AllDirectories);
+            ArrayList al = new ArrayList();
+            for (int i = 0; i < movieFiles.Length; i++)
+            {
+                movieFiles[i] = movieFiles[i].ToLower();
+                movieFiles[i] = movieFiles[i].Split('\\').Last();
+                movieFiles[i] = movieFiles[i].Split('.').First();
+                al.Add(movieFiles[i]);
+            }
+            for (int i = 0; i < musicFiles.Length; i++)
+            {
+                musicFiles[i] = musicFiles[i].ToLower();
+                musicFiles[i] = musicFiles[i].Split('\\').Last();
+                musicFiles[i] = musicFiles[i].Split('.').First();
+                al.Add(musicFiles[i]);
+            }
+            medialist = (string[])al.ToArray(typeof(string));
+
         }
 
         public void startRecog()
