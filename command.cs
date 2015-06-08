@@ -54,7 +54,9 @@ namespace HomeSystem_CSharp
          */
         public static bool analyzeCommand(string c)
         {
-            c.ToLower();
+            c = c.ToLower();
+
+            Console.WriteLine(c);
 
             string actionCommand = c.Split(' ').First();
 
@@ -89,7 +91,7 @@ namespace HomeSystem_CSharp
                         if (Program.getMediaThread().IsAlive)
                             invoke("play");
                         else
-                            Console.WriteLine("There is no media to resume!");
+                            Program.getSpeech().speak("There is no media to resume!");
                     }
                     else
                         typeError();
@@ -103,56 +105,49 @@ namespace HomeSystem_CSharp
                         if (Program.getMediaThread().IsAlive)
                             invoke("stop");
                         else
-                            Console.WriteLine("There is no media to close!");
+                            Program.getSpeech().speak("There is no media to close!");
                     }
                     else
                     {
-                        Console.WriteLine("Are you sure you want to exit the program? Y for yes and any other key for no.");
-                        if (Console.ReadKey().Key == ConsoleKey.Y)
-                        {
-                            if (Program.getMediaThread().IsAlive)
-                                invoke("stop");
-                            return false;
-                        }
-                        else
-                            Console.WriteLine("");
+                        if (Program.getMediaThread().IsAlive)
+                            invoke("stop");
+                        Program.getSpeech().speak("Goodbye!");
+                        return false;
                     }
                     break;
                 case "mute":
-                    if (containsMusic(c) || containsVideo(c))
-                    {
                         if (Program.getMediaThread().IsAlive)
                             invoke("mute");
                         else
-                            Console.WriteLine("There is no active media to mute!");
-
-                    }
+                            Program.getSpeech().speak("There is no active media to mute!");                                        
                     break;
                 case "unmute":
-                    if (containsVideo(c) || containsMusic(c))
-                    {
                         if (Program.getMediaThread().IsAlive)
                             invoke("unmute");
                         else
-                            Console.WriteLine("There is no active media to unmute!");
-                    }
+                            Program.getSpeech().speak("There is no active media to unmute!");                    
                     break;
                 case "increase":
                 case "raise":
                     if (Program.getMediaThread().IsAlive)
                         invoke("increase volume");
                     else
-                        Console.WriteLine("There is no active media to change the volume on!");
+                        Program.getSpeech().speak("There is no active media to change the volume on!");
                     break;
                 case "decrease":
                 case "lower":
                     if (Program.getMediaThread().IsAlive)
                         invoke("decrease volume");
                     else
-                        Console.WriteLine("There is no active media to change the volume on!");
+                        Program.getSpeech().speak("There is no active media to change the volume on!");
+                    break;
+                case "help":
+                    Program.getSpeech().speak("Welcome to crystal home systems. To play media, simply say play the song kryptonite or something similar. Just make sure to include the media type, ie movie or song.");
+                    Program.getSpeech().speak("To pause something, simply say pause the movie or pause the music. To increase or decrease volume, simply say increase or decrease. To completely mute, simply say mute.");
+                    Program.getSpeech().speak("To un mute something, say un mute. To quit out of the application, say quit.");
                     break;
                 default:
-                    Console.WriteLine("There was no valid action command, please try again");
+                    Program.getSpeech().speak("There was no valid action command, please try again");
                     break;
             }
             return true;
@@ -162,7 +157,7 @@ namespace HomeSystem_CSharp
         {
             if (Program.getPlayer() == null)
             {
-                Console.WriteLine("Cannot invoke command " + s + ", mediaPlayer returned NULL");
+                Program.getSpeech().speak("Could not complete command, there is an error with the setup. Please restart if problem continues.");
                 return;
             }
 
@@ -196,7 +191,7 @@ namespace HomeSystem_CSharp
 
         private static void typeError()
         {
-            Console.WriteLine("Invalid type command");
+            Program.getSpeech().speak("Invalid media type.");
         }
 
         private static bool containsMusic(string c)

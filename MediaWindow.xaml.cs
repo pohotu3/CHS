@@ -52,7 +52,6 @@ namespace HomeSystem_CSharp
         public const string movieDir = "G:\\Media\\Movies\\MP4\\";
         //////////////////////////////////////////////////
 
-        private bool muted = false;
         private double previousVolume = 0.5;
 
         public MediaWindow(string c)
@@ -64,7 +63,7 @@ namespace HomeSystem_CSharp
             string dir = findFile(c);
             if (dir == null)
             {
-                Console.WriteLine("Unable to find media file, invalid directory.");
+                Program.getSpeech().speak("Unable to find media file. Invalid directory.");
                 this.Close();
                 return;
             }
