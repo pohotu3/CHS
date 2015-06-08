@@ -36,21 +36,22 @@ namespace HomeSystem_CSharp
         {
             if (e.Result.Text == "ok crystal")
             {
+                speak("yes");
                 recog.UnloadAllGrammars();
-                /*
-                recog.LoadGrammar(new Grammar(new GrammarBuilder(new Choices("play", "start", "resume", "pause", "stop", "quit", "exit", "close")))
-                {
-                    Name = "commandPhrase"
-                });
-                */
-                recog.LoadGrammar(new DictationGrammar());
-                recog.SpeechRecognized += recog_dictationTest;
-            }
-        }
 
-        private void recog_dictationTest(Object sender, SpeechRecognizedEventArgs e)
-        {
-            speak("You said " + e.Result.Text);
+                GrammarBuilder gb = new GrammarBuilder();
+                gb.Append(new Choices("play", "start", "resume", "pause", "stop", "quit", "exit", "close"));
+                gb.Append(new Choices("music", "song", "artist", "album", "video", "movie", "tv", "show"));
+                Grammar command = new Grammar(gb);
+                command.Name = "command";
+                recog.LoadGrammar(command);
+            }
+            else
+            {
+                commandModule.analyzeCommand(e.Result.Text);
+                recog.UnloadAllGrammars();
+                recog.LoadGrammar(voicePrompt);
+            }
         }
 
         public void startRecog()

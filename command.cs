@@ -56,6 +56,8 @@ namespace HomeSystem_CSharp
         {
             c.ToLower();
 
+            Console.WriteLine(c);
+
             string actionCommand = c.Split(' ').First();
 
             switch (actionCommand)
