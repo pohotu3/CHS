@@ -32,23 +32,31 @@ namespace HomeSystem_CSharp
 
         }
 
-        private void recog_speechRecognized(Object sender, SpeechRecognizedEventArgs e)
+        private void recog_voicePrompt(Object sender, SpeechRecognizedEventArgs e)
         {
             if (e.Result.Text == "ok crystal")
             {
-                speak("yay!");
                 recog.UnloadAllGrammars();
-                recog.LoadGrammar(new Grammar(new GrammarBuilder(new Choices("play", "resume", "pause", "stop", "quit", "exit")))
+                /*
+                recog.LoadGrammar(new Grammar(new GrammarBuilder(new Choices("play", "start", "resume", "pause", "stop", "quit", "exit", "close")))
                 {
                     Name = "commandPhrase"
                 });
+                */
+                recog.LoadGrammar(new DictationGrammar());
+                recog.SpeechRecognized += recog_dictationTest;
             }
+        }
+
+        private void recog_dictationTest(Object sender, SpeechRecognizedEventArgs e)
+        {
+            speak("You said " + e.Result.Text);
         }
 
         public void startRecog()
         {
             recog.SetInputToDefaultAudioDevice();
-            recog.SpeechRecognized += recog_speechRecognized;
+            recog.SpeechRecognized += recog_voicePrompt;
             recog.RecognizeAsync(RecognizeMode.Multiple);
         }
 
