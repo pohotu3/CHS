@@ -69,6 +69,13 @@ namespace HomeSystem_CSharp
                 Grammar grammarExit = new Grammar(gbExit);
                 grammarExit.Name = "grammarExit";
                 recog.LoadGrammar(grammarExit);
+
+                GrammarBuilder gbVolume = new GrammarBuilder();
+                gbVolume.Append(new Choices("increase", "decrease", "raise", "lower", "mute", "unmute"));
+                gbVolume.Append(new Choices("volume"));
+                Grammar grammarVolume = new Grammar(gbVolume);
+                grammarVolume.Name = "grammarVolume";
+                recog.LoadGrammar(grammarVolume);
             }
             else
             {
