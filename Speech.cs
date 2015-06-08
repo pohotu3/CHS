@@ -15,15 +15,13 @@ namespace HomeSystem_CSharp
 
         public Speech()
         {
-            synth.SetOutputToDefaultAudioDevice(); 
-            foreach (var voice in synth.GetInstalledVoices())
-                Console.WriteLine(voice.VoiceInfo.Name);
+            synth.SetOutputToDefaultAudioDevice();
             synth.SelectVoice("ScanSoft Jennifer_Full_22kHz");
         }
 
         public void speak(string s)
         {
-            synth.Speak(s);
+            synth.SpeakAsync(s);
         }
 
         public string listen()
