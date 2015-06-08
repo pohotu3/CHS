@@ -69,7 +69,7 @@ namespace HomeSystem_CSharp
 
         public void dispose()
         {
-            recog.RecognizeAsyncStop();
+            //ManualResetEvent test = null;
             recog.Dispose();
             synth.SpeakAsyncCancelAll();
             synth.Dispose();

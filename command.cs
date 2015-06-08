@@ -119,23 +119,16 @@ namespace HomeSystem_CSharp
                     }
                     break;
                 case "mute":
-                    if (containsMusic(c) || containsVideo(c))
-                    {
                         if (Program.getMediaThread().IsAlive)
                             invoke("mute");
                         else
-                            Program.getSpeech().speak("There is no active media to mute!");
-
-                    }
+                            Program.getSpeech().speak("There is no active media to mute!");                                        
                     break;
                 case "unmute":
-                    if (containsVideo(c) || containsMusic(c))
-                    {
                         if (Program.getMediaThread().IsAlive)
                             invoke("unmute");
                         else
-                            Program.getSpeech().speak("There is no active media to unmute!");
-                    }
+                            Program.getSpeech().speak("There is no active media to unmute!");                    
                     break;
                 case "increase":
                 case "raise":
@@ -150,6 +143,11 @@ namespace HomeSystem_CSharp
                         invoke("decrease volume");
                     else
                         Program.getSpeech().speak("There is no active media to change the volume on!");
+                    break;
+                case "help":
+                    Program.getSpeech().speak("Welcome to crystal home systems. To play media, simply say play the song kryptonite or something similar. Just make sure to include the media type, ie movie or song.");
+                    Program.getSpeech().speak("To pause something, simply say pause the movie or pause the music. To increase or decrease volume, simply say increase or decrease. To completely mute, simply say mute.");
+                    Program.getSpeech().speak("To un mute something, say un mute. To quit out of the application, say quit.");
                     break;
                 default:
                     Program.getSpeech().speak("There was no valid action command, please try again");
