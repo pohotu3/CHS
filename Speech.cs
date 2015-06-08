@@ -18,6 +18,9 @@ namespace HomeSystem_CSharp
             synth.Speak("This is a really neat test of the speech software");
         }
 
-
+        public void speak(string s)
+        {
+            synth.Speak(s);
+        }
     }
 }
