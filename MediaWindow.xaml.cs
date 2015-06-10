@@ -41,7 +41,7 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Collections;
 
-namespace HomeSystem_CSharp
+namespace CrystalHomeSystems
 {
 
     public partial class MediaWindow : Window

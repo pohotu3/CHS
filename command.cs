@@ -32,7 +32,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeSystem_CSharp
+namespace CrystalHomeSystems
 {
     class commandModule
     {
@@ -112,6 +112,7 @@ namespace HomeSystem_CSharp
                         if (Program.getMediaThread().IsAlive)
                             invoke("stop");
                         Program.getSpeech().speak("Goodbye!");
+                        MainWindow.close();
                         return false;
                     }
                     break;

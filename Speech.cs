@@ -35,7 +35,7 @@ using System.Speech.Recognition;
 using System.IO;
 using System.Collections;
 
-namespace HomeSystem_CSharp
+namespace CrystalHomeSystems
 {
     class Speech
     {
@@ -106,8 +106,12 @@ namespace HomeSystem_CSharp
             else
             {
                 commandModule.analyzeCommand(e.Result.Text);
-                recog.UnloadAllGrammars();
-                recog.LoadGrammar(voicePrompt);
+                try
+                {
+                    recog.UnloadAllGrammars();
+                    recog.LoadGrammar(voicePrompt);
+                }
+                catch (Exception a) { }
             }
         }
 
@@ -150,6 +154,7 @@ namespace HomeSystem_CSharp
         public void dispose()
         {
             //ManualResetEvent test = null;
+            recog.RecognizeAsyncStop();
             recog.Dispose();
             synth.SpeakAsyncCancelAll();
             synth.Dispose();

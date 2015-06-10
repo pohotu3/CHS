@@ -33,40 +33,24 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-
-namespace HomeSystem_CSharp
+namespace CrystalHomeSystems
 {
 
     class Program
     {
         public const string systemName = "Crystal Home System";
-        public const string systemType = "core";
+        public const string systemType = "Heart";
         public const string systemVersion = "0.0.1";
         public static string mediaDir = "";
         private static MediaWindow mediaPlayer = null;
         private static Thread mediaThread = new Thread(ShowMediaWindow);
         private static Speech speech = new Speech();
 
-        static void Main(string[] args)
+        public static void startMain()
         {
             speech.startRecog();
-
-            bool running = true;
-            string command;
-
-            // System Setup and Title
-            systemStartupMessage();
-
-            // Core system Loop
-            while (running)
-            {
-                command = commandModule.getCommand("Enter Command: ");
-                running = commandModule.analyzeCommand(command);
-            }
-
-            speech.dispose();
-            System.Windows.Forms.Application.Exit();
-
+            
+            speech.speak("Welcome to Crystal Home Systems. System type " + systemType + ".");
         }
 
         private static void systemStartupMessage()
