@@ -48,8 +48,12 @@ namespace CrystalHomeSystems
 
         public static void startMain()
         {
+            // start speech system
             speech.startRecog();
             
+            // setup config's and check if this software has run before. if not, initialize first time setup
+
+            // welcome and indicate ready to run
             speech.speak("Welcome to Crystal Home Systems. System type " + systemType + ".");
         }
 

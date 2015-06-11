@@ -3,7 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="1080" Width="1920" WindowStyle="None" ResizeMode="NoResize" Topmost="True" WindowState="Maximized">
     <Grid Background="#FF2B2B2B">
-        <Label Name="TitleLabel" Content="System Title" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="100" Foreground="#FFC7C7C7" FontFamily="advent" Margin="0,0,0,0"/>
+        <Label Name="TitleLabel" Content="System Title" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="100" Foreground="#FFC7C7C7" FontFamily="advent" Margin="0,0,0,0">
+            <Label.Effect>
+                <DropShadowEffect ShadowDepth="6"/>
+            </Label.Effect>
+        </Label>
 
     </Grid>
 </Window>

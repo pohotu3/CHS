@@ -64,7 +64,20 @@ namespace CrystalHomeSystems
 
         }
 
-        private void recog_voicePrompt(Object sender, SpeechRecognizedEventArgs e)
+        // this is triggered when it THINKS you're going to say a word in it's grammar library
+        private void recog_SpeechHypothesized(object sender, SpeechHypothesizedEventArgs e)
+        {
+            
+        }
+
+        // this is triggered when it recognizes part of a structure in it's grammar library
+        private void recog_SpeechDetected(object sender, SpeechDetectedEventArgs e)
+        {
+
+        }
+        
+        // this is triggered when it has a perfect match with a grammar loaded
+        private void recog_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             if (e.Result.Text == "ok crystal")
             {
@@ -115,6 +128,12 @@ namespace CrystalHomeSystems
             }
         }
 
+        // this is triggered when the command matches part of a grammar, but does not complete it
+        private void recog_SpeechRecognitionRejected(object sender, SpeechRecognitionRejectedEventArgs e)
+        {
+            
+        }
+
         private void generateMediaList()
         {
             // get a list of all mediaFiles to add to the new Choices
@@ -142,7 +161,9 @@ namespace CrystalHomeSystems
         public void startRecog()
         {
             recog.SetInputToDefaultAudioDevice();
-            recog.SpeechRecognized += recog_voicePrompt;
+            recog.SpeechRecognized += recog_SpeechRecognized;
+            recog.SpeechHypothesized += recog_SpeechHypothesized;
+            recog.SpeechRecognitionRejected += recog_SpeechRecognitionRejected;
             recog.RecognizeAsync(RecognizeMode.Multiple);
         }
 
