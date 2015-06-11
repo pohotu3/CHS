@@ -73,7 +73,7 @@ namespace CrystalHomeSystems
         // this is triggered when it recognizes part of a structure in it's grammar library
         private void recog_SpeechDetected(object sender, SpeechDetectedEventArgs e)
         {
-
+            // what I want this to do in the future is show what words are being spoke, as they're spoken
         }
         
         // this is triggered when it has a perfect match with a grammar loaded
