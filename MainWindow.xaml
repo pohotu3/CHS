@@ -8,6 +8,7 @@
                 <DropShadowEffect ShadowDepth="6"/>
             </Label.Effect>
         </Label>
+        <Label Name="WordsSpoken" Content="Command line" HorizontalContentAlignment="Center" FontSize="72" FontFamily="advent" Foreground="#FFC7C7C7" HorizontalAlignment="Center" Margin="0,190,0,0" VerticalAlignment="Top" Height="98" Width="1920" Opacity="0.65"/>
 
     </Grid>
 </Window>

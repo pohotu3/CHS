@@ -19,12 +19,13 @@ namespace CrystalHomeSystems
 
     public partial class MainWindow : Window
     {
-        static MainWindow mw = null;
+        public static MainWindow mw = null;
         public MainWindow()
         {
             InitializeComponent();
             mw = this;
             TitleLabel.Content = "" + Program.systemName + " " + Program.systemType;
+            WordsSpoken.Content = "Say 'Ok Crystal' to Begin";
 
             // start core processes
             Program.startMain();
