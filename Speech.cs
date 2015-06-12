@@ -68,16 +68,14 @@ namespace CrystalHomeSystems
         // this is triggered when it THINKS you're going to say a word in it's grammar library
         private void recog_SpeechHypothesized(object sender, SpeechHypothesizedEventArgs e)
         {
-   
+            MainWindow.mw.WordsSpoken.Content = "";
+            MainWindow.mw.WordsSpoken.Content += e.Result.Text;
         }
 
         // this is triggered when it recognizes part of a structure in it's grammar library
         private void recog_SpeechDetected(object sender, SpeechDetectedEventArgs e)
         {
-            // what I want this to do in the future is show what words are being spoke, as they're spoken
-            if (MainWindow.mw.WordsSpoken.Content == "Say 'Ok Crystal' to Begin")
-                MainWindow.mw.WordsSpoken.Content = "";
-            MainWindow.mw.WordsSpoken.Content += e.AudioPosition.ToString();
+
         }
         
         // this is triggered when it has a perfect match with a grammar loaded
@@ -166,7 +164,7 @@ namespace CrystalHomeSystems
         {
             recog.SetInputToDefaultAudioDevice();
             recog.SpeechRecognized += recog_SpeechRecognized;
-            recog.SpeechDetected += recog_SpeechDetected;
+            //recog.SpeechDetected += recog_SpeechDetected;
             recog.SpeechHypothesized += recog_SpeechHypothesized;
             recog.SpeechRecognitionRejected += recog_SpeechRecognitionRejected;
             recog.RecognizeAsync(RecognizeMode.Multiple);
