@@ -33,40 +33,53 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-
-namespace HomeSystem_CSharp
+namespace CrystalHomeSystems
 {
 
     class Program
     {
         public const string systemName = "Crystal Home System";
-        public const string systemType = "core";
+        public const string systemType = "Heart";
         public const string systemVersion = "0.0.1";
         public static string mediaDir = "";
+        public static string musicDir = "";
+        public static string movieDir = "";
         private static MediaWindow mediaPlayer = null;
         private static Thread mediaThread = new Thread(ShowMediaWindow);
-        private static Speech speech = new Speech();
+        private static Speech speech;
+        public static Config systemConfig; // saved to c drive for now, will change when we migrate to linux
 
-        static void Main(string[] args)
+        public static void startMain()
         {
+            // setup the config for first time use, or not if it's already done
+            initConfig();
+
+            // start speech system
+            speech = new Speech();
             speech.startRecog();
+            
+            // setup config's and check if this software has run before. if not, initialize first time setup
 
-            bool running = true;
-            string command;
+            // welcome and indicate ready to run
+            speech.speak("Welcome to Crystal Home Systems. System type " + systemType + ".");
+        }
 
-            // System Setup and Title
-            systemStartupMessage();
+        private static void initConfig()
+        {
+            systemConfig = new Config("C:\\crystal_config.cfg");
 
-            // Core system Loop
-            while (running)
+            int numberOfLines = 3; // this will be changed as we add more settings to use
+
+            if (systemConfig.numberOfSettings() == 0) // if the file is brand new
             {
-                command = commandModule.getCommand("Enter Command: ");
-                running = commandModule.analyzeCommand(command);
+                systemConfig.set("musicDir", "G:\\Media\\Music\\");
+                systemConfig.set("movieDir", "G:\\Media\\Movies\\MP4\\");
+                systemConfig.set("voicePrompt", "ok crystal");
+                systemConfig.Save();
             }
 
-            speech.dispose();
-            System.Windows.Forms.Application.Exit();
-
+            musicDir = systemConfig.get("musicDir");
+            movieDir = systemConfig.get("movieDir");
         }
 
         private static void systemStartupMessage()

@@ -34,15 +34,16 @@ using System.Speech.Synthesis;
 using System.Speech.Recognition;
 using System.IO;
 using System.Collections;
+using Microsoft.VisualBasic.CompilerServices;
 
-namespace HomeSystem_CSharp
+namespace CrystalHomeSystems
 {
     class Speech
     {
         private SpeechSynthesizer synth = new SpeechSynthesizer();
         private SpeechRecognitionEngine recog = new SpeechRecognitionEngine();
 
-        private GrammarBuilder okCrystal = new GrammarBuilder("ok crystal");
+        private GrammarBuilder okCrystal = new GrammarBuilder(Program.systemConfig.get("voicePrompt"));
         private Grammar voicePrompt = null;
 
         private string[] medialist = null;
@@ -64,7 +65,21 @@ namespace HomeSystem_CSharp
 
         }
 
-        private void recog_voicePrompt(Object sender, SpeechRecognizedEventArgs e)
+        // this is triggered when it THINKS you're going to say a word in it's grammar library
+        private void recog_SpeechHypothesized(object sender, SpeechHypothesizedEventArgs e)
+        {
+            MainWindow.mw.WordsSpoken.Content = "";
+            MainWindow.mw.WordsSpoken.Content += e.Result.Text;
+        }
+
+        // this is triggered when it recognizes part of a structure in it's grammar library
+        private void recog_SpeechDetected(object sender, SpeechDetectedEventArgs e)
+        {
+
+        }
+        
+        // this is triggered when it has a perfect match with a grammar loaded
+        private void recog_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             if (e.Result.Text == "ok crystal")
             {
@@ -106,16 +121,26 @@ namespace HomeSystem_CSharp
             else
             {
                 commandModule.analyzeCommand(e.Result.Text);
-                recog.UnloadAllGrammars();
-                recog.LoadGrammar(voicePrompt);
+                try
+                {
+                    recog.UnloadAllGrammars();
+                    recog.LoadGrammar(voicePrompt);
+                }
+                catch (Exception a) { }
             }
+        }
+
+        // this is triggered when the command matches part of a grammar, but does not complete it
+        private void recog_SpeechRecognitionRejected(object sender, SpeechRecognitionRejectedEventArgs e)
+        {
+            
         }
 
         private void generateMediaList()
         {
             // get a list of all mediaFiles to add to the new Choices
-            string[] movieFiles = Directory.GetFiles(MediaWindow.movieDir, "*.*", SearchOption.AllDirectories);
-            string[] musicFiles = Directory.GetFiles(MediaWindow.musicDir, "*.*", SearchOption.AllDirectories);
+            string[] movieFiles = Directory.GetFiles(Program.movieDir, "*.*", SearchOption.AllDirectories);
+            string[] musicFiles = Directory.GetFiles(Program.musicDir, "*.*", SearchOption.AllDirectories);
             ArrayList al = new ArrayList();
             for (int i = 0; i < movieFiles.Length; i++)
             {
@@ -132,13 +157,15 @@ namespace HomeSystem_CSharp
                 al.Add(musicFiles[i]);
             }
             medialist = (string[])al.ToArray(typeof(string));
-
         }
 
         public void startRecog()
         {
             recog.SetInputToDefaultAudioDevice();
-            recog.SpeechRecognized += recog_voicePrompt;
+            recog.SpeechRecognized += recog_SpeechRecognized;
+            //recog.SpeechDetected += recog_SpeechDetected;
+            recog.SpeechHypothesized += recog_SpeechHypothesized;
+            recog.SpeechRecognitionRejected += recog_SpeechRecognitionRejected;
             recog.RecognizeAsync(RecognizeMode.Multiple);
         }
 
@@ -150,6 +177,7 @@ namespace HomeSystem_CSharp
         public void dispose()
         {
             //ManualResetEvent test = null;
+            recog.RecognizeAsyncStop();
             recog.Dispose();
             synth.SpeakAsyncCancelAll();
             synth.Dispose();

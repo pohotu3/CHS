@@ -41,17 +41,11 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Collections;
 
-namespace HomeSystem_CSharp
+namespace CrystalHomeSystems
 {
 
     public partial class MediaWindow : Window
-    {
-
-        // these are austin's dirs////////////////////////
-        public const string musicDir = "G:\\Media\\Music\\";
-        public const string movieDir = "G:\\Media\\Movies\\MP4\\";
-        //////////////////////////////////////////////////
-
+    {        
         private double previousVolume = 0.5;
 
         public MediaWindow(string c)
@@ -70,12 +64,11 @@ namespace HomeSystem_CSharp
 
             InitializeComponent(); // place this lower so that it doesnt black screen for so long while it finds the file
             video.Source = new Uri(dir);
-
-
+            
             play();
             setVolume(1);
         }
-
+        
         public void play()
         {
             video.Play();
@@ -122,8 +115,8 @@ namespace HomeSystem_CSharp
 
         private string findFile(string command)
         {
-            string[] movieFiles = Directory.GetFiles(movieDir, "*.*", SearchOption.AllDirectories);
-            string[] musicFiles = Directory.GetFiles(musicDir, "*.*", SearchOption.AllDirectories);
+            string[] movieFiles = Directory.GetFiles(Program.movieDir, "*.*", SearchOption.AllDirectories);
+            string[] musicFiles = Directory.GetFiles(Program.musicDir, "*.*", SearchOption.AllDirectories);
             string[] splitCommand = command.Split(' ');
             ArrayList possibleMatches = new ArrayList();
 
