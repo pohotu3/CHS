@@ -43,7 +43,7 @@ namespace CrystalHomeSystems
         private SpeechSynthesizer synth = new SpeechSynthesizer();
         private SpeechRecognitionEngine recog = new SpeechRecognitionEngine();
 
-        private GrammarBuilder okCrystal = new GrammarBuilder("ok crystal");
+        private GrammarBuilder okCrystal = new GrammarBuilder(Program.systemConfig.get("voicePrompt"));
         private Grammar voicePrompt = null;
 
         private string[] medialist = null;

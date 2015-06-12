@@ -68,12 +68,13 @@ namespace CrystalHomeSystems
         {
             systemConfig = new Config("C:\\crystal_config.cfg");
 
-            int numberOfLines = 2; // this will be changed as we add more settings to use. as for now, we only really need 2
+            int numberOfLines = 3; // this will be changed as we add more settings to use
 
             if (systemConfig.numberOfSettings() == 0) // if the file is brand new
             {
                 systemConfig.set("musicDir", "G:\\Media\\Music\\");
                 systemConfig.set("movieDir", "G:\\Media\\Movies\\MP4\\");
+                systemConfig.set("voicePrompt", "ok crystal");
                 systemConfig.Save();
             }
 
