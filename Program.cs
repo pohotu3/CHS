@@ -42,19 +42,43 @@ namespace CrystalHomeSystems
         public const string systemType = "Heart";
         public const string systemVersion = "0.0.1";
         public static string mediaDir = "";
+        public static string musicDir = "";
+        public static string movieDir = "";
         private static MediaWindow mediaPlayer = null;
         private static Thread mediaThread = new Thread(ShowMediaWindow);
-        private static Speech speech = new Speech();
+        private static Speech speech;
+        public static Config systemConfig; // saved to c drive for now, will change when we migrate to linux
 
         public static void startMain()
         {
+            // setup the config for first time use, or not if it's already done
+            initConfig();
+
             // start speech system
+            speech = new Speech();
             speech.startRecog();
             
             // setup config's and check if this software has run before. if not, initialize first time setup
 
             // welcome and indicate ready to run
             speech.speak("Welcome to Crystal Home Systems. System type " + systemType + ".");
+        }
+
+        private static void initConfig()
+        {
+            systemConfig = new Config("C:\\crystal_config.cfg");
+
+            int numberOfLines = 2; // this will be changed as we add more settings to use. as for now, we only really need 2
+
+            if (systemConfig.numberOfSettings() == 0) // if the file is brand new
+            {
+                systemConfig.set("musicDir", "G:\\Media\\Music\\");
+                systemConfig.set("movieDir", "G:\\Media\\Movies\\MP4\\");
+                systemConfig.Save();
+            }
+
+            musicDir = systemConfig.get("musicDir");
+            movieDir = systemConfig.get("movieDir");
         }
 
         private static void systemStartupMessage()

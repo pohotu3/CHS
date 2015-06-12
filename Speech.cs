@@ -139,8 +139,8 @@ namespace CrystalHomeSystems
         private void generateMediaList()
         {
             // get a list of all mediaFiles to add to the new Choices
-            string[] movieFiles = Directory.GetFiles(MediaWindow.movieDir, "*.*", SearchOption.AllDirectories);
-            string[] musicFiles = Directory.GetFiles(MediaWindow.musicDir, "*.*", SearchOption.AllDirectories);
+            string[] movieFiles = Directory.GetFiles(Program.movieDir, "*.*", SearchOption.AllDirectories);
+            string[] musicFiles = Directory.GetFiles(Program.musicDir, "*.*", SearchOption.AllDirectories);
             ArrayList al = new ArrayList();
             for (int i = 0; i < movieFiles.Length; i++)
             {
@@ -157,7 +157,6 @@ namespace CrystalHomeSystems
                 al.Add(musicFiles[i]);
             }
             medialist = (string[])al.ToArray(typeof(string));
-
         }
 
         public void startRecog()
