@@ -71,14 +71,7 @@ namespace CrystalHomeSystems
         {
             this.filename = filename;
 
-            if (!System.IO.File.Exists(filename))
-            {
-                System.IO.File.Create(filename);
-            }
-
-            System.Windows.MessageBox.Show("Saved");
-            System.IO.StreamWriter file = new System.IO.StreamWriter(filename);
-            System.Windows.MessageBox.Show("Saved2");
+            System.IO.StreamWriter file = new System.IO.StreamWriter(filename, true);
 
             foreach (String prop in list.Keys.ToArray())
                 if (!String.IsNullOrWhiteSpace(list[prop]))
