@@ -65,7 +65,7 @@ namespace CrystalHomeSystems
                     if (containsMusic(c) || containsVideo(c))
                     {
                         if (MainWindow.mediaWindow == null)
-                            MainWindow.mediaWindow = new MediaWindow(c);
+                            MainWindow.mediaWindow = new MediaWindow(c);                        
                         else
                             MainWindow.mediaWindow.play();
                     }
