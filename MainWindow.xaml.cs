@@ -37,17 +37,17 @@ namespace CrystalHomeSystems
         public MainWindow()
         {
             // if software hasn't run before
-            if (!System.IO.File.Exists(configDir))
-            {
+            //if (!System.IO.File.Exists(configDir))
+            //{
                 systemConfig = new Config(configDir);
 
                 systemConfig.set("musicDir", "G:\\Media\\Music\\");
                 systemConfig.set("movieDir", "G:\\Media\\Movies\\MP4\\");
                 systemConfig.set("voicePrompt", "ok crystal");
                 systemConfig.Save();
-            }
-            else
-                systemConfig = new Config(configDir);
+            //}
+            //else
+            //    systemConfig = new Config(configDir);
 
             // want to do this first, to get all the dir information loaded to prevent errors
             initConfig();
