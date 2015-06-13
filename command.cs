@@ -56,8 +56,6 @@ namespace CrystalHomeSystems
         {
             c = c.ToLower();
 
-            Console.WriteLine(c);
-
             string actionCommand = c.Split(' ').First();
 
             switch (actionCommand)
@@ -66,12 +64,10 @@ namespace CrystalHomeSystems
                 case "start":
                     if (containsMusic(c) || containsVideo(c))
                     {
-                        if (Program.getMediaThread().IsAlive)
-                            invoke("play");
+                        if (MainWindow.mediaWindow == null)
+                            MainWindow.mediaWindow = new MediaWindow(c);
                         else
-                        {
-                            Program.startNewMedia(c);
-                        }
+                            MainWindow.mediaWindow.play();
                     }
                     else
                         typeError();
@@ -79,19 +75,21 @@ namespace CrystalHomeSystems
                 case "pause":
                     if (containsMusic(c) || containsVideo(c))
                     {
-                        if (Program.getMediaThread().IsAlive)
-                            invoke("pause");
+                        if (MainWindow.mediaWindow == null)
+                            MainWindow.getSpeech().speak("There is no media to pause");
                         else
-                            typeError();
+                            MainWindow.mediaWindow.pause();
                     }
+                    else
+                        typeError();
                     break;
                 case "resume":
                     if (containsMusic(c) || containsVideo(c))
                     {
-                        if (Program.getMediaThread().IsAlive)
-                            invoke("play");
+                        if (MainWindow.mediaWindow == null)
+                            MainWindow.getSpeech().speak("There is no media to resume");
                         else
-                            Program.getSpeech().speak("There is no media to resume!");
+                            MainWindow.mediaWindow.play();
                     }
                     else
                         typeError();
@@ -102,97 +100,58 @@ namespace CrystalHomeSystems
                 case "close":
                     if (containsMusic(c) || containsVideo(c))
                     {
-                        if (Program.getMediaThread().IsAlive)
-                            invoke("stop");
+                        if (MainWindow.mediaWindow == null)
+                            MainWindow.getSpeech().speak("There is no media to close");
                         else
-                            Program.getSpeech().speak("There is no media to close!");
+                            MainWindow.closeMedia();
                     }
                     else
                     {
-                        if (Program.getMediaThread().IsAlive)
-                            invoke("stop");
-                        Program.getSpeech().speak("Goodbye!");
                         MainWindow.close();
                         return false;
                     }
                     break;
                 case "mute":
-                        if (Program.getMediaThread().IsAlive)
-                            invoke("mute");
-                        else
-                            Program.getSpeech().speak("There is no active media to mute!");                                        
+                    if (MainWindow.mediaWindow == null)
+                        MainWindow.getSpeech().speak("There is no media to mute");
+                    else
+                        MainWindow.mediaWindow.mute();
                     break;
                 case "unmute":
-                        if (Program.getMediaThread().IsAlive)
-                            invoke("unmute");
-                        else
-                            Program.getSpeech().speak("There is no active media to unmute!");                    
+                    if (MainWindow.mediaWindow == null)
+                        MainWindow.getSpeech().speak("There is no media to unmute");
+                    else
+                        MainWindow.mediaWindow.unmute();
                     break;
                 case "increase":
                 case "raise":
-                    if (Program.getMediaThread().IsAlive)
-                        invoke("increase volume");
+                    if (MainWindow.mediaWindow == null)
+                        MainWindow.getSpeech().speak("There is no media to increase the volume of");
                     else
-                        Program.getSpeech().speak("There is no active media to change the volume on!");
+                        MainWindow.mediaWindow.raiseVolume();
                     break;
                 case "decrease":
                 case "lower":
-                    if (Program.getMediaThread().IsAlive)
-                        invoke("decrease volume");
+                    if (MainWindow.mediaWindow == null)
+                        MainWindow.getSpeech().speak("There is no media to decrease the volume of");
                     else
-                        Program.getSpeech().speak("There is no active media to change the volume on!");
+                        MainWindow.mediaWindow.lowerVolume();
                     break;
                 case "help":
-                    Program.getSpeech().speak("Welcome to crystal home systems. To play media, simply say play the song kryptonite or something similar. Just make sure to include the media type, ie movie or song.");
-                    Program.getSpeech().speak("To pause something, simply say pause the movie or pause the music. To increase or decrease volume, simply say increase or decrease. To completely mute, simply say mute.");
-                    Program.getSpeech().speak("To un mute something, say un mute. To quit out of the application, say quit.");
+                    MainWindow.getSpeech().speak("Welcome to crystal home systems. To play media, simply say play the song kryptonite or something similar. Just make sure to include the media type, ie movie or song.");
+                    MainWindow.getSpeech().speak("To pause something, simply say pause the movie or pause the music. To increase or decrease volume, simply say increase or decrease. To completely mute, simply say mute.");
+                    MainWindow.getSpeech().speak("To un mute something, say un mute. To quit out of the application, say quit.");
                     break;
                 default:
-                    Program.getSpeech().speak("There was no valid action command, please try again");
+                    MainWindow.getSpeech().speak("There was no valid action command, please try again");
                     break;
             }
             return true;
         }
 
-        private static void invoke(string s)
-        {
-            if (Program.getPlayer() == null)
-            {
-                Program.getSpeech().speak("Could not complete command, there is an error with the setup. Please restart if problem continues.");
-                return;
-            }
-
-            switch (s)
-            {
-                case "stop":
-                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().stop());
-                    break;
-                case "play":
-                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().play());
-                    break;
-                case "pause":
-                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().pause());
-                    break;
-                case "mute":
-                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().mute());
-                    break;
-                case "unmute":
-                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().unmute());
-                    break;
-                case "increase volume":
-                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().raiseVolume());
-                    break;
-                case "decrease volume":
-                    Program.getPlayer().Dispatcher.Invoke(() => Program.getPlayer().lowerVolume());
-                    break;
-                default:
-                    break;
-            }
-        }
-
         private static void typeError()
         {
-            Program.getSpeech().speak("Invalid media type.");
+            MainWindow.getSpeech().speak("Invalid media type.");
         }
 
         private static bool containsMusic(string c)

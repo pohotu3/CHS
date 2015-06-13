@@ -38,12 +38,12 @@ using Microsoft.VisualBasic.CompilerServices;
 
 namespace CrystalHomeSystems
 {
-    class Speech
+    public class Speech
     {
         private SpeechSynthesizer synth = new SpeechSynthesizer();
         private SpeechRecognitionEngine recog = new SpeechRecognitionEngine();
 
-        private GrammarBuilder okCrystal = new GrammarBuilder(Program.systemConfig.get("voicePrompt"));
+        private GrammarBuilder okCrystal = new GrammarBuilder(MainWindow.systemConfig.get("voicePrompt"));
         private Grammar voicePrompt = null;
 
         private string[] medialist = null;
@@ -117,6 +117,12 @@ namespace CrystalHomeSystems
                 Grammar grammarVolume = new Grammar(gbVolume);
                 grammarVolume.Name = "grammarVolume";
                 recog.LoadGrammar(grammarVolume);
+
+                GrammarBuilder gbMute = new GrammarBuilder();
+                gbMute.Append(new Choices("mute", "unmute"));
+                Grammar grammarMute = new Grammar(gbMute);
+                grammarVolume.Name = "grammarMute";
+                recog.LoadGrammar(grammarMute);
             }
             else
             {
@@ -139,8 +145,8 @@ namespace CrystalHomeSystems
         private void generateMediaList()
         {
             // get a list of all mediaFiles to add to the new Choices
-            string[] movieFiles = Directory.GetFiles(Program.movieDir, "*.*", SearchOption.AllDirectories);
-            string[] musicFiles = Directory.GetFiles(Program.musicDir, "*.*", SearchOption.AllDirectories);
+            string[] movieFiles = Directory.GetFiles(MainWindow.getMovieDir(), "*.*", SearchOption.AllDirectories);
+            string[] musicFiles = Directory.GetFiles(MainWindow.getMusicDir(), "*.*", SearchOption.AllDirectories);
             ArrayList al = new ArrayList();
             for (int i = 0; i < movieFiles.Length; i++)
             {
