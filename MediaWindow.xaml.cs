@@ -58,7 +58,7 @@ namespace CrystalHomeSystems
             if (dir == null)
             {
                 MainWindow.getSpeech().speak("Unable to find media file. Invalid directory.");
-                this.Close();
+                MainWindow.closeMedia();
                 return;
             }
 
@@ -117,7 +117,7 @@ namespace CrystalHomeSystems
         private string findFile(string command)
         {
             string[] movieFiles = Directory.GetFiles(MainWindow.getMovieDir(), "*.*", SearchOption.AllDirectories);
-            string[] musicFiles = Directory.GetFiles(MainWindow.getMovieDir(), "*.*", SearchOption.AllDirectories);
+            string[] musicFiles = Directory.GetFiles(MainWindow.getMusicDir(), "*.*", SearchOption.AllDirectories);
             string[] splitCommand = command.Split(' ');
             ArrayList possibleMatches = new ArrayList();
 
