@@ -67,7 +67,7 @@ namespace CrystalHomeSystems
 
             speech.speak("Welcome to Crystal Home Systems");
 
-            new FirstTimeLaunch(null).Show();
+            //new FirstTimeLaunch(null).Show();
         }
 
         private void initSpeech()
