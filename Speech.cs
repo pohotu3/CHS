@@ -68,8 +68,11 @@ namespace CrystalHomeSystems
         // this is triggered when it THINKS you're going to say a word in it's grammar library
         private void recog_SpeechHypothesized(object sender, SpeechHypothesizedEventArgs e)
         {
-            MainWindow.mw.WordsSpoken.Content = "";
-            MainWindow.mw.WordsSpoken.Content += e.Result.Text;
+            if (MainWindow.mw.WordsSpoken.Content == "Yes?")
+            {
+                MainWindow.mw.WordsSpoken.Content = "";
+                MainWindow.mw.WordsSpoken.Content += e.Result.Text;
+            }
         }
 
         // this is triggered when it recognizes part of a structure in it's grammar library
@@ -84,6 +87,7 @@ namespace CrystalHomeSystems
             if (e.Result.Text == "ok crystal")
             {
                 speak("yes");
+                MainWindow.mw.WordsSpoken.Content = "Yes?";
                 recog.UnloadAllGrammars();
 
                 Choices commandChoice = new Choices("play", "start", "resume", "pause", "stop", "quit", "exit", "close");

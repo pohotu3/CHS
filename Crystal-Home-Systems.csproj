@@ -87,10 +87,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Config.cs" />
+    <Compile Include="FirstTimeLaunch.xaml.cs">
+      <DependentUpon>FirstTimeLaunch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MediaWindow.xaml.cs">
       <DependentUpon>MediaWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Speech.cs" />
+    <Page Include="FirstTimeLaunch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

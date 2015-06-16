@@ -1,0 +1,18 @@
+﻿<Window x:Class="CrystalHomeSystems.FirstTimeLaunch"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="FirstTimeLaunch" Height="405" Width="614" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True" WindowStyle="None" ShowInTaskbar="False">
+    <Window.Effect>
+        <DropShadowEffect ShadowDepth="10"/>
+    </Window.Effect>
+    <Grid Background="#FF7C7C7C">
+        <Label Content="First Time Setup" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" FontFamily="advent" FontSize="36">
+            <Label.Effect>
+                <DropShadowEffect ShadowDepth="2"/>
+            </Label.Effect>
+        </Label>
+        <Button Name="NextButton" Content="Next" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" FontFamily="Times New Roman" FontSize="16"/>
+        <TextBlock  Name="IntroTextBlock" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Height="150" Width="594" FontSize="16"><Run Text="Welcome to Crystal Home Systems. As this is the first time running this software, we're here to walk you through a short first time setup!"/><LineBreak/><Run/><LineBreak/><Run Text="This shouldn't take too long, just read the instructions!"/><LineBreak/><Run/><LineBreak/><Run Text="Hit next to continue..."/></TextBlock>
+
+    </Grid>
+</Window>
