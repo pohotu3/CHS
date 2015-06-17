@@ -13,7 +13,7 @@
                 <DropShadowEffect BlurRadius="10" ShadowDepth="4"/>
             </Label.Effect>
         </Label>
-        <Label Content="Copyright 2015 Austin VanAlstyne, Bailey Thorson&#xD;&#xA;" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="40" Width="502" Background="{x:Null}" Foreground="#FFA8A8A8" FontSize="22"/>
+        <Label Content="Copyright© 2015 Austin VanAlstyne, Bailey Thorson" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="40" Width="502" Background="{x:Null}" Foreground="#FFA8A8A8" FontSize="22"/>
         <Label Content="Development Build" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Bottom" Foreground="#FFB6B6B6" FontSize="18"/>
 
     </Grid>
