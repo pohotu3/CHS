@@ -2,7 +2,7 @@
     	             Crystal Home Systems Project
 ========================================================================
 
-* Copyright© 2015 Austin VanAlstyne, Bailey Thorson
+* CopyrightÂ© 2015 Austin VanAlstyne, Bailey Thorson
 
 This file is part of Crystal Home Systems.
 
@@ -21,7 +21,7 @@ along with Crystal Home Systems. If not, see <http://www.gnu.org/licenses/>.
 
 Crystal Home Systems is a project that is created by Ezra and Austin. Open Source under
 the General Public License, the goal of this project is to create an automated home 
-environment with the goalof making life easier, more convenient, and more 
+environment with the goal of making life easier, more convenient, and more 
 atuned to your own personal needs.
 
 Each Shard will power one or more functions in your home. Completely voice
@@ -33,8 +33,10 @@ process them, and reply appropriately. The Shards will range from media control
 systems, security systems, climate control, and eventually home networking and
 computational control.
 
+Check out our website at www.crystalhomesystems.com for more info
+
 ///////////////////////////////////////////////////////////////////////////////
 Currently no working stages
 ///////////////////////////////////////////////////////////////////////////////
 
-Updated on 5/17/2015 at 6:00 pm
+Updated on 6/19/2015 at 9:00 am
