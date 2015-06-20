@@ -52,7 +52,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>8B4124079D0C750851219335401FFE0B5801C009</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>E6CC914CE8F3F0332D6EAC16D233740BCD489150</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>Crystal-Home-Systems_TemporaryKey.pfx</ManifestKeyFile>
@@ -134,6 +134,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Crystal-Home-Systems_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
