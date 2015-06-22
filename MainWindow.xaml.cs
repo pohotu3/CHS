@@ -27,6 +27,7 @@ namespace CrystalHomeSystems
         private static string musicDir = "";
         private static string movieDir = "";
         private const string configDir = "C:\\crystal_config.cfg";
+        public static string initialWordsSpoken = "";
 
         private static Speech speech;
 
@@ -60,7 +61,8 @@ namespace CrystalHomeSystems
             InitializeComponent();
             mw = this;
             TitleLabel.Content = "" + systemName + " " + systemType;
-            WordsSpoken.Content = "Say 'Ok Crystal' to Begin";
+            initialWordsSpoken = "Say '" + systemConfig.get("voicePrompt").ToUpper() + "' to Begin";
+            WordsSpoken.Content = initialWordsSpoken;
 
             // start core processes
             initSpeech();

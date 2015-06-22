@@ -130,25 +130,42 @@ namespace CrystalHomeSystems
                 GrammarBuilder gbMute = new GrammarBuilder();
                 gbMute.Append(new Choices("mute", "unmute"));
                 Grammar grammarMute = new Grammar(gbMute);
-                grammarVolume.Name = "grammarMute";
+                grammarMute.Name = "grammarMute";
                 recog.LoadGrammar(grammarMute);
+
+                GrammarBuilder gbCancel = new GrammarBuilder();
+                gbCancel.Append(new Choices("cancel"));
+                Grammar grammarCancel = new Grammar(gbCancel);
+                grammarCancel.Name = "grammarCancel";
+                recog.LoadGrammar(grammarCancel);
             }
             else
             {
                 commandModule.analyzeCommand(e.Result.Text);
-                try
-                {
-                    recog.UnloadAllGrammars();
-                    recog.LoadGrammar(voicePrompt);
-                }
-                catch (Exception a) { }
+                resetRecog();
             }
         }
 
         // this is triggered when the command matches part of a grammar, but does not complete it
         private void recog_SpeechRecognitionRejected(object sender, SpeechRecognitionRejectedEventArgs e)
         {
-            
+            if (MainWindow.mw.WordsSpoken.Content == MainWindow.initialWordsSpoken)
+                return;
+
+            speak("I didn't quite catch that. Try again?");
+            resetRecog();
+
+        }
+
+        public void resetRecog()
+        {
+            try
+            {
+                recog.UnloadAllGrammars();
+                recog.LoadGrammar(voicePrompt);
+                MainWindow.mw.WordsSpoken.Content = MainWindow.initialWordsSpoken;
+            }
+            catch (Exception a) { }
         }
 
         private void generateMediaList()
