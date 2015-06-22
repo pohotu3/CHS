@@ -26,6 +26,10 @@ namespace CrystalHomeSystems
             InitializeComponent();
 
             NextButton.Click += Next_Button_Click;
+
+            Style s = new Style();
+            s.Setters.Add(new Setter(UIElement.VisibilityProperty, Visibility.Collapsed));
+            Tabs.ItemContainerStyle = s;
         }
 
         private void Next_Button_Click(object sender, RoutedEventArgs e)
