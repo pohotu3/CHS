@@ -18,14 +18,17 @@ namespace CrystalHomeSystems
 
     public partial class FirstTimeLaunch : Window
     {
-        int panel = 0;
-        string musicDir = "";
-        string movieDir = "";
-        string initCommand = "";
-        Config systemConfig;
+        private int panel = 0;
+        private string musicDir = "";
+        private string movieDir = "";
+        private string initCommand = "";
+        private Config systemConfig;
+        public bool active = false;
+
 
         public FirstTimeLaunch(Config config)
         {
+            active = true;
             systemConfig = config;
 
             InitializeComponent();
@@ -81,6 +84,8 @@ namespace CrystalHomeSystems
             systemConfig.set("voicePrompt", initCommand);
             systemConfig.Save();
 
+            active = false;
+            MainWindow.mw.cont();
             this.Close();
         }
     }

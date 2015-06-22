@@ -37,25 +37,30 @@ namespace CrystalHomeSystems
 
         public MainWindow()
         {
+
+            InitializeComponent();
+            mw = this;
+
             // if software hasn't run before
             if (!System.IO.File.Exists(configDir))
             {
                 systemConfig = new Config(configDir);
 
                 // create new 'firstLaunch' object, and pass the systemConfig object
-                new FirstTimeLaunch(systemConfig).Show();
+                FirstTimeLaunch ftl = new FirstTimeLaunch(systemConfig);
+                ftl.Show();
             }
             else
             {
                 systemConfig = new Config(configDir);
+                cont();
             }
+        }
 
+        public void cont()
+        {
             // want to do this first, to get all the dir information loaded to prevent errors
-            MessageBox.Show("here");
             initConfig();
-
-            InitializeComponent();
-            mw = this;
             TitleLabel.Content = "" + systemName + " " + systemType;
             initialWordsSpoken = "Say '" + systemConfig.get("voicePrompt").ToUpper() + "' to Begin";
             WordsSpoken.Content = initialWordsSpoken;
