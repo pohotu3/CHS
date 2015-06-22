@@ -142,6 +142,10 @@ namespace CrystalHomeSystems
                     MainWindow.getSpeech().speak("To pause something, simply say pause the movie or pause the music. To increase or decrease volume, simply say increase or decrease. To completely mute, simply say mute.");
                     MainWindow.getSpeech().speak("To un mute something, say un mute. To quit out of the application, say quit.");
                     break;
+                case "cancel":
+                    MainWindow.getSpeech().speak("ok");
+                    MainWindow.getSpeech().resetRecog();
+                    break;
                 default:
                     MainWindow.getSpeech().speak("There was no valid action command, please try again");
                     break;
