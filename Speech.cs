@@ -52,8 +52,13 @@ namespace CrystalHomeSystems
         {
 
             synth.SetOutputToDefaultAudioDevice();
-            
-            synth.SelectVoice("ScanSoft Jennifer_Full_22kHz");
+
+            string preferedVoiceName = "ScanSoft Jennifer_Full_22kHz";
+            foreach (InstalledVoice voice in synth.GetInstalledVoices())
+            {
+                if (voice.VoiceInfo.Name == preferedVoiceName)
+                    synth.SelectVoice(preferedVoiceName);
+            }
 
             generateMediaList();
             
