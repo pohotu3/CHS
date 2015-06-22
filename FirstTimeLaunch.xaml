@@ -11,26 +11,36 @@
                 <DropShadowEffect ShadowDepth="2"/>
             </Label.Effect>
         </Label>
-        <Button Name="NextButton" Content="Next" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" FontFamily="Times New Roman" FontSize="16"/>
-        <TabControl Name="Tabs" HorizontalAlignment="Left" Height="313" Margin="10,53,0,0" VerticalAlignment="Top" Width="594" Background="#FF7C7C7C" Foreground="#FF7C7C7C" BorderBrush="{x:Null}">
+        <TabControl Name="Tabs" HorizontalAlignment="Left" Height="342" Margin="10,53,0,0" VerticalAlignment="Top" Width="594" Background="#FF7C7C7C" Foreground="#FF7C7C7C" BorderBrush="{x:Null}">
             <TabItem Header="Welcome">
                 <Grid Background="#FF7C7C7C">
                     <TextBlock  x:Name="IntroTextBlock" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Height="150" Width="564" FontSize="16" Margin="10,77"><Run Text="Welcome to Crystal Home Systems. As this is the first time running this software, we're here to walk you through a short first time setup!"/><LineBreak/><Run/><LineBreak/><Run Text="This shouldn't take too long, just read the instructions!"/><LineBreak/><Run/><LineBreak/><Run Text="Hit next to continue..."/></TextBlock>
+                    <Button x:Name="NextButton" Content="Next" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" FontFamily="Times New Roman" FontSize="16"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Set Music Var">
                 <Grid Background="#FF7C7C7C">
-                    <Label Content="Set Music Directory" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" FontFamily="advent" FontSize="24"/>
+                    <Label Content="Set the Music Directory" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" FontFamily="advent" FontSize="24"/>
+                    <Button Content="SET" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="212" Height="65" FontFamily="advent" FontSize="24" Click="MusicDirSet_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Set Movie Var">
                 <Grid Background="#FF7C7C7C">
-                    <Label Content="Set Movie Directory" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" FontFamily="advent" FontSize="24"/>
+                    <Label Content="Now Set the Movie Directory" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" FontFamily="advent" FontSize="24"/>
+                    <Button Content="SET" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="212" Height="65" FontFamily="advent" FontSize="24" Click="MovieDirSet_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Set Init Command Var">
                 <Grid Background="#FF7C7C7C">
                     <Label Content="Set the phrase you want to use to start listening to commands" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" FontFamily="advent" FontSize="24"/>
+                    <TextBox Name="InitCommandText" HorizontalAlignment="Center" Height="35" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="360" FontFamily="advent" FontSize="24"/>
+                    <Button Content="Set" HorizontalAlignment="Center" VerticalAlignment="Center" Width="95" Margin="0,0,0,-100" Height="35" FontFamily="advent" FontSize="24" Click="InitCommandSet_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Complete">
+                <Grid Background="#FF7C7C7C">
+                    <Label Content="All Done! Click the button below to save" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" FontFamily="advent" FontSize="24"/>
+                    <Button Content="SAVE" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="212" Height="65" FontFamily="advent" FontSize="24" Click="Save_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -11,18 +11,23 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Forms;
 
 namespace CrystalHomeSystems
 {
-    /// <summary>
-    /// Interaction logic for FirstTimeLaunch.xaml
-    /// </summary>
+
     public partial class FirstTimeLaunch : Window
     {
         int panel = 0;
+        string musicDir = "";
+        string movieDir = "";
+        string initCommand = "";
+        Config systemConfig;
 
         public FirstTimeLaunch(Config config)
         {
+            systemConfig = config;
+
             InitializeComponent();
 
             NextButton.Click += Next_Button_Click;
@@ -34,8 +39,49 @@ namespace CrystalHomeSystems
 
         private void Next_Button_Click(object sender, RoutedEventArgs e)
         {
-            panel++;
-            Tabs.SelectedIndex = panel;
+            nextPanel();
+        }
+
+        private void nextPanel()
+        {
+            Tabs.SelectedIndex = ++panel;
+        }
+
+        private void MusicDirSet_Click(object sender, RoutedEventArgs e)
+        {
+            musicDir = getOpenDir();
+            nextPanel();
+        }
+
+        private string getOpenDir()
+        {
+            FolderBrowserDialog open = new FolderBrowserDialog();
+            open.ShowDialog();
+
+            return open.SelectedPath;
+        }
+
+        private void MovieDirSet_Click(object sender, RoutedEventArgs e)
+        {
+            movieDir = getOpenDir();
+            nextPanel();
+        }
+
+        private void InitCommandSet_Click(object sender, RoutedEventArgs e)
+        {
+            if (InitCommandText.Text != "")
+                initCommand = InitCommandText.Text;
+            nextPanel();
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            systemConfig.set("musicDir", musicDir);
+            systemConfig.set("movieDir", movieDir);
+            systemConfig.set("voicePrompt", initCommand);
+            systemConfig.Save();
+
+            this.Close();
         }
     }
 }

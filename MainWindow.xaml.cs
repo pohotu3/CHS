@@ -43,12 +43,7 @@ namespace CrystalHomeSystems
                 systemConfig = new Config(configDir);
 
                 // create new 'firstLaunch' object, and pass the systemConfig object
-                new FirstTimeLaunch(systemConfig);
-
-                systemConfig.set("musicDir", "G:\\Media\\Music\\");
-                systemConfig.set("movieDir", "G:\\Media\\Movies\\MP4\\");
-                systemConfig.set("voicePrompt", "ok crystal");
-                systemConfig.Save();
+                new FirstTimeLaunch(systemConfig).Show();
             }
             else
             {
@@ -56,6 +51,7 @@ namespace CrystalHomeSystems
             }
 
             // want to do this first, to get all the dir information loaded to prevent errors
+            MessageBox.Show("here");
             initConfig();
 
             InitializeComponent();
@@ -68,8 +64,6 @@ namespace CrystalHomeSystems
             initSpeech();
 
             speech.speak("Welcome to Crystal Home Systems");
-
-            new FirstTimeLaunch(null).Show();
         }
 
         private void initSpeech()
