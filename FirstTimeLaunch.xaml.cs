@@ -31,12 +31,7 @@ namespace CrystalHomeSystems
         private void Next_Button_Click(object sender, RoutedEventArgs e)
         {
             panel++;
-            updateImage();
-        }
-
-        private void updateImage()
-        {
-
+            Tabs.SelectedIndex = panel;
         }
     }
 }
