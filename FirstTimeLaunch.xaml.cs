@@ -85,7 +85,7 @@ namespace CrystalHomeSystems
             systemConfig.Save();
 
             active = false;
-            MainWindow.mw.cont();
+            MainWindow.mw.contueStartup();
             this.Close();
         }
     }

@@ -53,11 +53,11 @@ namespace CrystalHomeSystems
             else
             {
                 systemConfig = new Config(configDir);
-                cont();
+                contueStartup();
             }
         }
 
-        public void cont()
+        public void contueStartup()
         {
             // want to do this first, to get all the dir information loaded to prevent errors
             initConfig();
