@@ -203,7 +203,7 @@ namespace CrystalHomeSystems
 
         public void speak(string s)
         {
-            synth.SpeakAsync(s);
+            synth.Speak(s);
         }
 
         public void dispose()

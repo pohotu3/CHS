@@ -38,9 +38,7 @@ namespace CrystalHomeSystems
 
         public MainWindow()
         {
-            Patch test = new Patch(true);
-
-
+            
             InitializeComponent();
             mw = this;
 
@@ -58,6 +56,10 @@ namespace CrystalHomeSystems
                 systemConfig = new Config(configDir);
                 contueStartup();
             }
+
+            Patch patch = new Patch();
+            if (patch.needsPatch())
+                startPatch();
         }
 
         public void contueStartup()
@@ -78,6 +80,12 @@ namespace CrystalHomeSystems
         {
             speech = new Speech();
             speech.startRecog();
+        }
+
+        private void startPatch()
+        {
+            speech.speak("There is a patch available! Please go to our website to download the latest version! Goodbye!");
+            close();
         }
 
         public static Speech getSpeech()

@@ -12,18 +12,17 @@ namespace CrystalHomeSystems
     {
         private string url = "";
 
-        public Patch(bool googleDriveTest)
+        public Patch()
         {
             if (MainWindow.systemBuild == "PC_Only_Build")
                 url = "https://docs.google.com/document/export?format=txt&id=1Sw7JQMHHeURAlHRhuWFt58uQ7dSoUPfvjg6L-FoHgOo&token=AC4w5VjC4StKDpdZjdBa-bbiN7YgaDBLcA%3A1435202231644";
             else if (MainWindow.systemBuild == "Module_Build")
                 url = "https://docs.google.com/document/u/0/export?format=txt&id=1wTwNa3EXPcfevF8xa1-s09dQsuske84NhW9uMREaE-I&token=AC4w5ViDdraSLrv71yfFu11fumEM7aS2_Q%3A1435202354348";
-
-            init();
         }
 
-        private void init()
+        public bool needsPatch()
         {
+            bool patch = false;
             string filePath = "C:\\temp-crystal-version.txt";
 
             using (var client = new System.Net.WebClient())
@@ -33,17 +32,14 @@ namespace CrystalHomeSystems
 
             string text = System.IO.File.ReadAllText(filePath);
             if (text != MainWindow.systemVersion)
-                needsPatch();
+                patch = true;
             try
             {
                 System.IO.File.Delete(filePath);
             }
             catch (Exception e) { }
-        }
 
-        private void needsPatch()
-        {
-            MessageBox.Show("fail");
+            return patch;
         }
     }
 }
