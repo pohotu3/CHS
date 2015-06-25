@@ -203,6 +203,11 @@ namespace CrystalHomeSystems
 
         public void speak(string s)
         {
+            synth.SpeakAsync(s);
+        }
+
+        public void freezeThenSpeak(string s)
+        {
             synth.Speak(s);
         }
 
