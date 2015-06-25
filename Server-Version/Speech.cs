@@ -206,6 +206,11 @@ namespace CrystalHomeSystems
             synth.SpeakAsync(s);
         }
 
+        public void freezeThenSpeak(string s)
+        {
+            synth.Speak(s);
+        }
+
         public void dispose()
         {
             //ManualResetEvent test = null;

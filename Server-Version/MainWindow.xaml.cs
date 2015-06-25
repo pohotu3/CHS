@@ -23,7 +23,8 @@ namespace CrystalHomeSystems
 
         public const string systemName = "Crystal Home System";
         public const string systemType = "Heart";
-        public const string systemVersion = "0.0.1";
+        public const string systemBuild = "PC_Only_Build";
+        public const string systemVersion = "0_0_1";
         private static string musicDir = "";
         private static string movieDir = "";
         private const string configDir = "C:\\crystal_config.cfg";
@@ -37,7 +38,7 @@ namespace CrystalHomeSystems
 
         public MainWindow()
         {
-
+            
             InitializeComponent();
             mw = this;
 
@@ -55,6 +56,10 @@ namespace CrystalHomeSystems
                 systemConfig = new Config(configDir);
                 contueStartup();
             }
+
+            Patch patch = new Patch();
+            if (patch.needsPatch())
+                startPatch();
         }
 
         public void contueStartup()
@@ -75,6 +80,13 @@ namespace CrystalHomeSystems
         {
             speech = new Speech();
             speech.startRecog();
+        }
+
+        private void startPatch()
+        {
+            speech.freezeThenSpeak("There is a patch available! I will pull up the website containing the new download! Goodbye!");
+            //System.Diagnostics.Process.Start("http://google.com");
+            close();
         }
 
         public static Speech getSpeech()
