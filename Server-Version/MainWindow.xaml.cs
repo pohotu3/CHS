@@ -84,7 +84,8 @@ namespace CrystalHomeSystems
 
         private void startPatch()
         {
-            speech.speak("There is a patch available! Please go to our website to download the latest version! Goodbye!");
+            speech.speak("There is a patch available! I will pull up the website containing the new download! Goodbye!");
+            System.Diagnostics.Process.Start("http://google.com");
             close();
         }
 
