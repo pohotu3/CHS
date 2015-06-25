@@ -37,6 +37,8 @@ namespace CrystalHomeSystems
 
         public MainWindow()
         {
+            Patch test = new Patch(true);
+
 
             InitializeComponent();
             mw = this;
