@@ -23,7 +23,8 @@ namespace CrystalHomeSystems
 
         public const string systemName = "Crystal Home System";
         public const string systemType = "Heart";
-        public const string systemVersion = "0.0.1";
+        public const string systemBuild = "PC_Only_Build";
+        public const string systemVersion = "0_0_2";
         private static string musicDir = "";
         private static string movieDir = "";
         private const string configDir = "C:\\crystal_config.cfg";
