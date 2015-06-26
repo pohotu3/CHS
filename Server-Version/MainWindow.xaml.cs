@@ -38,7 +38,7 @@ namespace CrystalHomeSystems
 
         public MainWindow()
         {
-            
+            System.Windows.Forms.Application.ApplicationExit += new EventHandler(OnApplicationExit);
             InitializeComponent();
             mw = this;
 
@@ -92,6 +92,11 @@ namespace CrystalHomeSystems
         public static Speech getSpeech()
         {
             return speech;
+        }
+
+        public void OnApplicationExit(object sender, EventArgs e)
+        {
+            close();
         }
 
         public static void close()
