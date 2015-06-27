@@ -1,7 +1,7 @@
 ﻿<Window x:Class="CrystalHomeSystems.FirstTimeLaunch"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="FirstTimeLaunch" Height="405" Width="614" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True" WindowStyle="None" Icon="thumbnail.png">
+        Title="FirstTimeLaunch" Height="405" Width="614" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True" WindowStyle="None" Icon="thumbnail.ico">
     <Window.Effect>
         <DropShadowEffect ShadowDepth="10"/>
     </Window.Effect>
@@ -18,32 +18,53 @@
                     <Button x:Name="NextButton" Content="Next" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" FontFamily="Times New Roman" FontSize="16"/>
                 </Grid>
             </TabItem>
+            <TabItem Header="Brief Tut">
+                <Grid Background="#FF7C7C7C">
+                    <Label Content="Some quick notes before we start:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="24"/>
+                    <Button x:Name="NextButton1" Content="Next" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" FontFamily="Times New Roman" FontSize="16" Click="Next_Button_Click"/>
+                    <TextBlock FontFamily="Times New Roman" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,130" TextWrapping="Wrap" Text="All the media directories MUST be set to valid locations." VerticalAlignment="Center"/>
+                    <TextBlock FontFamily="Times New Roman" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,100" TextWrapping="Wrap" Text="This means that the folder you select must immediately contain" VerticalAlignment="Center"/>
+                    <TextBlock FontFamily="Times New Roman" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,70" TextWrapping="Wrap" Text="media files or sorted media, otherwise it will crash." VerticalAlignment="Center"/>
+                    <TextBlock FontFamily="Times New Roman" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,40" TextWrapping="Wrap" Text="An example of this would be the My Music folder." VerticalAlignment="Center"/>
+                    <TextBlock FontFamily="Times New Roman" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,-20" TextWrapping="Wrap" Text="Configuration file is saved to your C drive. This means that you MUST have" VerticalAlignment="Center"/>
+                    <TextBlock FontFamily="Times New Roman" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,-50" TextWrapping="Wrap" Text="read and write access to the drive before being able to save your setup and run." VerticalAlignment="Center"/>
+                    <TextBlock FontFamily="Times New Roman" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,-80" TextWrapping="Wrap" Text="This also means that, at least for now, if you mess up with this installation, you" VerticalAlignment="Center"/>
+                    <TextBlock FontFamily="Times New Roman" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,-120" TextWrapping="Wrap" Text="MUST delete the file called crystal_config.cfg in your C drive." VerticalAlignment="Center"/>
+                </Grid>
+            </TabItem>
             <TabItem Header="Set Music Var">
                 <Grid Background="#FF7C7C7C">
-                    <Label Content="Set the Music Directory" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" FontFamily="advent" FontSize="24"/>
+                    <Label Content="Set the Music Directory" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="24"/>
                     <Button Content="SET" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="212" Height="65" FontFamily="advent" FontSize="24" Click="MusicDirSet_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Set Movie Var">
                 <Grid Background="#FF7C7C7C">
-                    <Label Content="Now Set the Movie Directory" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" FontFamily="advent" FontSize="24"/>
+                    <Label Content="Now Set the Movie Directory" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="24"/>
                     <Button Content="SET" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="212" Height="65" FontFamily="advent" FontSize="24" Click="MovieDirSet_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Set Init Command Var">
                 <Grid Background="#FF7C7C7C">
-                    <Label Content="Set the phrase you want to use to start listening to commands" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" FontFamily="advent" FontSize="24"/>
-                    <TextBox Name="InitCommandText" HorizontalAlignment="Center" Height="35" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="360" FontFamily="advent" FontSize="24"/>
+                    <Label Content="Set the start phrase." HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="24"/>
+                    <TextBlock FontFamily="Times New Roman" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,160" TextWrapping="Wrap" Text="This phrase is what you will say to have the system start listening." VerticalAlignment="Center"/>
+                    <TextBlock FontFamily="Times New Roman" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,130" TextWrapping="Wrap" Text="Only restrictions is that it cannot contain special characters, such as" VerticalAlignment="Center"/>
+                    <TextBlock FontFamily="Times New Roman" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,100" TextWrapping="Wrap" Text="!@#?/\|$% or numbers." VerticalAlignment="Center"/>
+                    <TextBox Name="InitCommandText" HorizontalAlignment="Center" Height="35" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="360" FontFamily="Times New Roman" FontSize="24"/>
                     <Button Content="Set" HorizontalAlignment="Center" VerticalAlignment="Center" Width="95" Margin="0,0,0,-100" Height="35" FontFamily="advent" FontSize="24" Click="InitCommandSet_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Complete">
                 <Grid Background="#FF7C7C7C">
-                    <Label Content="All Done! Click the button below to save" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" FontFamily="advent" FontSize="24"/>
+                    <Label Content="All Done! Click the button below to save and launch" HorizontalAlignment="Center" Margin="34,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="24" Height="35"/>
+                    <TextBlock FontFamily="Times New Roman" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,160" TextWrapping="Wrap" Text="To reset the settings you selected here, please delete the file located at" VerticalAlignment="Center"/>
+                    <TextBlock FontFamily="Times New Roman" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,130" TextWrapping="Wrap" Text="C:\crystal_config.cfg" VerticalAlignment="Center"/>
                     <Button Content="SAVE" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="212" Height="65" FontFamily="advent" FontSize="24" Click="Save_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>
+        <Button Content="X" HorizontalAlignment="Left" Margin="586,0,0,0" VerticalAlignment="Top" Width="28" Height="27" Click="Exit_Click">
+        </Button>
 
     </Grid>
 </Window>

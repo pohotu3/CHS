@@ -140,7 +140,7 @@ namespace CrystalHomeSystems
                 case "help":
                     MainWindow.getSpeech().speak("Welcome to crystal home systems. To play media, simply say play the song kryptonite or something similar. Just make sure to include the media type, ie movie or song.");
                     MainWindow.getSpeech().speak("To pause something, simply say pause the movie or pause the music. To increase or decrease volume, simply say increase or decrease. To completely mute, simply say mute.");
-                    MainWindow.getSpeech().speak("To un mute something, say un mute. To quit out of the application, say quit.");
+                    MainWindow.getSpeech().speak("To un mute something, say un mute. To quit out of the application, simply say quit.");
                     break;
                 case "cancel":
                     MainWindow.getSpeech().speak("ok");

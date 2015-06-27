@@ -35,6 +35,7 @@ namespace CrystalHomeSystems
         public static Config systemConfig; // saved to c drive for now, will change when we migrate to linux
 
         public static MediaWindow mediaWindow = null;
+        private static FirstTimeLaunch ftl = null;
 
         public MainWindow()
         {
@@ -48,7 +49,7 @@ namespace CrystalHomeSystems
                 systemConfig = new Config(configDir);
 
                 // create new 'firstLaunch' object, and pass the systemConfig object
-                FirstTimeLaunch ftl = new FirstTimeLaunch(systemConfig);
+                ftl = new FirstTimeLaunch(systemConfig);
                 ftl.Show();
             }
             else
@@ -74,6 +75,13 @@ namespace CrystalHomeSystems
             initSpeech();
 
             speech.speak("Welcome to Crystal Home Systems");
+
+            // quick vocal tutorial function
+            if (ftl != null)
+            {
+                speech.speak("Because this is your first time, I will recite the help section. To repeat this at any time, simply say help");
+                commandModule.analyzeCommand("help");
+            }
         }
 
         private void initSpeech()
@@ -85,7 +93,7 @@ namespace CrystalHomeSystems
         private void startPatch()
         {
             speech.freezeThenSpeak("There is a patch available! I will pull up the website containing the new download! Goodbye!");
-            //System.Diagnostics.Process.Start("http://google.com");
+            System.Diagnostics.Process.Start("http://www.crystalhomesystems.com/download/");
             close();
         }
 
@@ -104,6 +112,7 @@ namespace CrystalHomeSystems
             speech.dispose();
             closeMedia();
             mw.Close();
+            ftl.Close();
         }
 
         private static void initConfig()

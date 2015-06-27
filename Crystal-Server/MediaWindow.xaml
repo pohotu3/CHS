@@ -1,7 +1,7 @@
 ﻿<Window x:Class="CrystalHomeSystems.MediaWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MediaWindow" MinHeight="480" MinWidth="720" WindowStyle="None" ResizeMode="NoResize" Visibility="Visible" Cursor="None" WindowState="Maximized" Topmost="True" Icon="C:\Users\Austin\Documents\Visual Studio 2013\Projects\Crystal-Home-Systems\thumbnail.png">
+        Title="MediaWindow" MinHeight="480" MinWidth="720" WindowStyle="None" ResizeMode="NoResize" Visibility="Visible" Cursor="None" WindowState="Maximized" Topmost="True" Icon="thumbnail.ico">
     <Grid Background="Black">
         <MediaElement LoadedBehavior="Manual" HorizontalAlignment="Stretch" Name="video" VerticalAlignment="Stretch" Cursor="None" MinHeight="480" MinWidth="720"/>
     </Grid>
