@@ -619,7 +619,7 @@
 		<row><td>ReadmeInformation</td><td>DlgLine</td><td>Line</td><td>48</td><td>234</td><td>326</td><td>0</td><td>3</td><td/><td/><td/><td/><td>0</td><td>0</td><td/><td/></row>
 		<row><td>ReadmeInformation</td><td>DlgTitle</td><td>Text</td><td>13</td><td>6</td><td>193</td><td>13</td><td>65539</td><td/><td>##IDS__IsReadmeDlg_ReadMeInfo##</td><td>DlgDesc</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>ReadmeInformation</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>1048579</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>ReadmeInformation</td><td>Readme</td><td>ScrollableText</td><td>10</td><td>55</td><td>353</td><td>166</td><td>3</td><td/><td/><td>Banner</td><td/><td>0</td><td/><td>C:\Users\Austin\Documents\Visual Studio 2013\Projects\Crystal-Home-Systems\ReadMe.txt</td><td/></row>
+		<row><td>ReadmeInformation</td><td>Readme</td><td>ScrollableText</td><td>10</td><td>55</td><td>353</td><td>166</td><td>3</td><td/><td/><td>Banner</td><td/><td>0</td><td/><td>C:\Users\Austin\Documents\Visual Studio 2013\Projects\Crystal-Home-Systems\ReadMe.rtf</td><td/></row>
 		<row><td>ReadyToInstall</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>GroupBox1</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>ReadyToInstall</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary1</td></row>
 		<row><td>ReadyToInstall</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
@@ -925,7 +925,7 @@
 		<row><td>DatabaseFolder</td><td>ChangeFolder</td><td>SpawnDialog</td><td>InstallChangeFolder</td><td>1</td><td>1</td></row>
 		<row><td>DatabaseFolder</td><td>ChangeFolder</td><td>[_BrowseProperty]</td><td>DATABASEDIR</td><td>1</td><td>2</td></row>
 		<row><td>DatabaseFolder</td><td>Next</td><td>NewDialog</td><td>SetupType</td><td>1</td><td>1</td></row>
-		<row><td>DestinationFolder</td><td>Back</td><td>NewDialog</td><td>ReadmeInformation</td><td>NOT Installed</td><td>0</td></row>
+		<row><td>DestinationFolder</td><td>Back</td><td>NewDialog</td><td>InstallWelcome</td><td>NOT Installed</td><td>0</td></row>
 		<row><td>DestinationFolder</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>1</td></row>
 		<row><td>DestinationFolder</td><td>ChangeFolder</td><td>SpawnDialog</td><td>InstallChangeFolder</td><td>1</td><td>1</td></row>
 		<row><td>DestinationFolder</td><td>ChangeFolder</td><td>[_BrowseProperty]</td><td>INSTALLDIR</td><td>1</td><td>2</td></row>
@@ -942,7 +942,7 @@
 		<row><td>InstallChangeFolder</td><td>Up</td><td>DirectoryListUp</td><td>0</td><td>1</td><td>0</td></row>
 		<row><td>InstallWelcome</td><td>Back</td><td>NewDialog</td><td>SplashBitmap</td><td>Display_IsBitmapDlg</td><td>0</td></row>
 		<row><td>InstallWelcome</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
-		<row><td>InstallWelcome</td><td>Next</td><td>NewDialog</td><td>ReadmeInformation</td><td>1</td><td>0</td></row>
+		<row><td>InstallWelcome</td><td>Next</td><td>NewDialog</td><td>DestinationFolder</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>Back</td><td>NewDialog</td><td>InstallWelcome</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>ISPrintButton</td><td>DoAction</td><td>ISPrint</td><td>1</td><td>0</td></row>
@@ -1015,11 +1015,12 @@
 		<row><td>SetupCompleteError</td><td>Finish</td><td>DoAction</td><td>ISSetupFilesCleanup</td><td>1</td><td>200</td></row>
 		<row><td>SetupCompleteError</td><td>Finish</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1")</td><td>3</td></row>
 		<row><td>SetupCompleteError</td><td>Finish</td><td>EndDialog</td><td>Exit</td><td>1</td><td>2</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>CleanUp</td><td>ISSCRIPTRUNNING="1"</td><td>1</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ISSetupFilesCleanup</td><td>1</td><td>200</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>LaunchProgramFileFromSetupCompleteSuccess</td><td>LAUNCHPROGRAM And PROGRAMFILETOLAUNCHATEND &lt;&gt; "" And NOT Installed</td><td>2</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1") And NOT ISENABLEDWUSFINISHDIALOG</td><td>7</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>EndDialog</td><td>Exit</td><td>1</td><td>3</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>CleanUp</td><td>ISSCRIPTRUNNING="1"</td><td>3</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ISSetupFilesCleanup</td><td>1</td><td>203</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>LaunchProgramFileFromSetupCompleteSuccess</td><td>LAUNCHPROGRAM And PROGRAMFILETOLAUNCHATEND &lt;&gt; "" And NOT Installed</td><td>4</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>LaunchReadmeFileFromSetupCompleteSuccess</td><td>LAUNCHREADME And READMEFILETOLAUNCHATEND &lt;&gt; "" And NOT Installed</td><td>5</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1") And NOT ISENABLEDWUSFINISHDIALOG</td><td>10</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>EndDialog</td><td>Exit</td><td>1</td><td>6</td></row>
 		<row><td>SetupError</td><td>A</td><td>EndDialog</td><td>ErrorAbort</td><td>1</td><td>0</td></row>
 		<row><td>SetupError</td><td>C</td><td>EndDialog</td><td>ErrorCancel</td><td>1</td><td>0</td></row>
 		<row><td>SetupError</td><td>I</td><td>EndDialog</td><td>ErrorIgnore</td><td>1</td><td>0</td></row>
@@ -1077,7 +1078,9 @@
 		<row><td>ISSetupFilesCleanup</td><td>257</td><td>ISSetupFilesHelper</td><td>SFCleanupEx</td><td/><td/></row>
 		<row><td>ISSetupFilesExtract</td><td>257</td><td>ISSetupFilesHelper</td><td>SFStartupEx</td><td/><td/></row>
 		<row><td>ISUnSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISUnSelfRegisterFiles</td><td/><td/></row>
+		<row><td>InstallVoice</td><td>1170</td><td>voice_installer.exe</td><td/><td/><td/></row>
 		<row><td>LaunchProgramFileFromSetupCompleteSuccess</td><td>1</td><td>NewBinary19</td><td>LaunchProgram</td><td/><td/></row>
+		<row><td>LaunchReadmeFileFromSetupCompleteSuccess</td><td>1</td><td>NewBinary19</td><td>LaunchReadMe</td><td/><td/></row>
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
 		<row><td>ShowMsiLog</td><td>226</td><td>SystemFolder</td><td>[SystemFolder]notepad.exe "[MsiLogFileLocation]"</td><td/><td>Shows Property-driven MSI Log</td></row>
@@ -1161,6 +1164,7 @@
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
 		<row><td>MY_PRODUCT_NAME</td><td>CRYSTAL_HOME_SYSTEMS</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>MyPicturesFolder</td><td>TARGETDIR</td><td>.:MyPict~1|MyPictures</td><td/><td>0</td><td/></row>
+		<row><td>NEW_DIRECTORY1</td><td>TARGETDIR</td><td>NEW_DIRECTORY1</td><td/><td>0</td><td/></row>
 		<row><td>NetHoodFolder</td><td>TARGETDIR</td><td>.:NetHood</td><td/><td>0</td><td/></row>
 		<row><td>PersonalFolder</td><td>TARGETDIR</td><td>.:Personal</td><td/><td>0</td><td/></row>
 		<row><td>PrimaryVolumePath</td><td>TARGETDIR</td><td>.:Primar~1|PrimaryVolumePath</td><td/><td>0</td><td/></row>
@@ -2661,7 +2665,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Crystal Home Systems</td><td>0</td><td/><td>-752656553</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Crystal Home Systems</td><td>0</td><td/><td>-618427415</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-752656553</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-752656553</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION40FULL</td><td>1033</td><td>Microsoft .NET Framework 4.0 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>-752629929</td></row>
@@ -3763,8 +3767,8 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-752656553</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-752656553</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-752656553</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.CrystalHomeSystems.com</td><td>0</td><td/><td>-752656553</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Crystal Home Systems</td><td>0</td><td/><td>-752656553</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.CrystalHomeSystems.com</td><td>0</td><td/><td>-618427415</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Crystal Home Systems</td><td>0</td><td/><td>-618427415</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>Crystal Home Systems</td><td>0</td><td/><td>-752644233</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-752656553</td></row>
 	</table>
@@ -3931,6 +3935,7 @@
 		<row><td>InstallODBC</td><td/><td>5400</td><td>InstallODBC</td><td/></row>
 		<row><td>InstallServices</td><td>VersionNT</td><td>5800</td><td>InstallServices</td><td/></row>
 		<row><td>InstallValidate</td><td/><td>1400</td><td>InstallValidate</td><td/></row>
+		<row><td>InstallVoice</td><td>Not Installed</td><td>6405</td><td/><td/></row>
 		<row><td>IsolateComponents</td><td/><td>950</td><td>IsolateComponents</td><td/></row>
 		<row><td>LaunchConditions</td><td>Not Installed</td><td>410</td><td>LaunchConditions</td><td/></row>
 		<row><td>MigrateFeatureStates</td><td/><td>1010</td><td>MigrateFeatureStates</td><td/></row>
@@ -3955,7 +3960,7 @@
 		<row><td>RegisterUser</td><td/><td>6000</td><td>RegisterUser</td><td/></row>
 		<row><td>RemoveDuplicateFiles</td><td/><td>3400</td><td>RemoveDuplicateFiles</td><td/></row>
 		<row><td>RemoveEnvironmentStrings</td><td/><td>3300</td><td>RemoveEnvironmentStrings</td><td/></row>
-		<row><td>RemoveExistingProducts</td><td/><td>1410</td><td>RemoveExistingProducts</td><td/></row>
+		<row><td>RemoveExistingProducts</td><td/><td>6601</td><td>RemoveExistingProducts</td><td/></row>
 		<row><td>RemoveFiles</td><td/><td>3500</td><td>RemoveFiles</td><td/></row>
 		<row><td>RemoveFolders</td><td/><td>3600</td><td>RemoveFolders</td><td/></row>
 		<row><td>RemoveIniValues</td><td/><td>3100</td><td>RemoveIniValues</td><td/></row>
@@ -4011,7 +4016,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{89DD30CF-9AD3-41AA-8240-15166B8B040F}</td></row>
 		<row><td>ISUSSignature</td><td>{DB075823-588F-4060-AA5B-47E0B1031360}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewAppFiles,viewDependencies,viewObjects,viewSystemSearch,viewInstallScriptStd,viewCustomActions,viewSupportFiles,viewUpgradePaths,viewSetupDesign,viewFeatureFiles,viewUI</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewAppFiles,viewDependencies,viewObjects,viewSystemSearch,viewInstallScriptStd,viewCustomActions,viewSupportFiles,viewUpgradePaths,viewSetupDesign,viewFeatureFiles,viewUI,viewSetupTypes,viewBillboards,viewComponentServices</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4359,9 +4364,11 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>IS_SQLSERVER_SERVER</td><td/><td/></row>
 		<row><td>IS_SQLSERVER_USERNAME</td><td>sa</td><td/></row>
 		<row><td>InstallChoice</td><td>AR</td><td/></row>
+		<row><td>LAUNCHPREADMECOMPCODE</td><td>{92A1FF50-8FEB-4D70-845D-48818F0A5B93}</td><td/></row>
+		<row><td>LAUNCHPREADMEFILEKEY</td><td>readme.txt</td><td/></row>
 		<row><td>LAUNCHPROGRAM</td><td>1</td><td/></row>
-		<row><td>LAUNCHPROGRAMCOMPCODE</td><td>{C7716F4C-38E9-4A8B-99F6-54C1E0B57A2B}</td><td/></row>
-		<row><td>LAUNCHPROGRAMFILEKEY</td><td>voice_installer.exe</td><td/></row>
+		<row><td>LAUNCHPROGRAMCOMPCODE</td><td>{05C3CC3F-1450-45DD-8605-02710ABA088D}</td><td/></row>
+		<row><td>LAUNCHPROGRAMFILEKEY</td><td>crystal_server.primary_outpu</td><td/></row>
 		<row><td>LAUNCHREADME</td><td>1</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
 		<row><td>PIDKEY</td><td/><td/></row>
@@ -4389,7 +4396,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]Voice Installer.exe</td><td/></row>
+		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]Crystal-Server.Primary output</td><td/></row>
 		<row><td>ProductCode</td><td>{05A95B09-8FCF-492D-9D95-D7D8886275F6}</td><td/></row>
 		<row><td>ProductName</td><td>Crystal Desktop Build</td><td/></row>
 		<row><td>ProductVersion</td><td>0.0.1</td><td/></row>
@@ -4397,6 +4404,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
 		<row><td>ProgressType3</td><td>installs</td><td/></row>
+		<row><td>READMEFILETOLAUNCHATEND</td><td>[INSTALLDIR]ReadMe.txt</td><td/></row>
 		<row><td>RebootYesNo</td><td>Yes</td><td/></row>
 		<row><td>ReinstallFileVersion</td><td>o</td><td/></row>
 		<row><td>ReinstallModeText</td><td>omus</td><td/></row>
@@ -4405,6 +4413,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>SERIALNUMBER</td><td/><td/></row>
 		<row><td>SERIALNUMVALSUCCESSRETVAL</td><td>1</td><td/></row>
 		<row><td>SHOWLAUNCHPROGRAM</td><td>-1</td><td/></row>
+		<row><td>SHOWLAUNCHREADME</td><td>-1</td><td/></row>
 		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION40FULL;ISACTIONPROP1</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
