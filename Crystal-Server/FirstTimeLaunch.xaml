@@ -21,7 +21,7 @@
             <TabItem Header="Brief Tut">
                 <Grid Background="#FF7C7C7C">
                     <Label Content="Some quick notes before we start:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="24"/>
-                    <Button x:Name="NextButton1" Content="Next" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" FontFamily="Times New Roman" FontSize="16"/>
+                    <Button x:Name="NextButton1" Content="Next" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" FontFamily="Times New Roman" FontSize="16" Click="Next_Button_Click"/>
                     <TextBlock FontFamily="Times New Roman" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,130" TextWrapping="Wrap" Text="All the media directories MUST be set to valid locations." VerticalAlignment="Center"/>
                     <TextBlock FontFamily="Times New Roman" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,100" TextWrapping="Wrap" Text="This means that the folder you select must immediately contain" VerticalAlignment="Center"/>
                     <TextBlock FontFamily="Times New Roman" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,70" TextWrapping="Wrap" Text="media files or sorted media, otherwise it will crash." VerticalAlignment="Center"/>

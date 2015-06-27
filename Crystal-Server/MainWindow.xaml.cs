@@ -60,6 +60,8 @@ namespace CrystalHomeSystems
             Patch patch = new Patch();
             if (patch.needsPatch())
                 startPatch();
+
+            new FirstTimeLaunch(null).Show();
         }
 
         public void contueStartup()

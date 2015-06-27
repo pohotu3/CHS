@@ -53,21 +53,27 @@ namespace CrystalHomeSystems
         private void MusicDirSet_Click(object sender, RoutedEventArgs e)
         {
             musicDir = getOpenDir();
-            nextPanel();
+
+            if (musicDir != "")
+                nextPanel();
+            else
+                System.Windows.MessageBox.Show("Please enter a valid directory path.");
         }
 
         private string getOpenDir()
         {
             FolderBrowserDialog open = new FolderBrowserDialog();
             open.ShowDialog();
-
             return open.SelectedPath;
         }
 
         private void MovieDirSet_Click(object sender, RoutedEventArgs e)
         {
             movieDir = getOpenDir();
-            nextPanel();
+            if (movieDir != "")
+                nextPanel();
+            else
+                System.Windows.MessageBox.Show("Please enter a valid directory path.");
         }
 
         private void InitCommandSet_Click(object sender, RoutedEventArgs e)
