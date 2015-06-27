@@ -78,6 +78,13 @@ namespace CrystalHomeSystems
             initSpeech();
 
             speech.speak("Welcome to Crystal Home Systems");
+
+            // quick vocal tutorial function
+            if (ftl != null)
+            {
+                speech.speak("Because this is your first time, I will recite the help section. To repeat this at any time, simply say help");
+                commandModule.analyzeCommand("help");
+            }
         }
 
         private void initSpeech()
