@@ -61,9 +61,6 @@ namespace CrystalHomeSystems
             Patch patch = new Patch();
             if (patch.needsPatch())
                 startPatch();
-
-            ftl = new FirstTimeLaunch(null);
-            ftl.Show();
         }
 
         public void contueStartup()
