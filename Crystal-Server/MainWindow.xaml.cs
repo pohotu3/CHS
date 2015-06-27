@@ -35,6 +35,7 @@ namespace CrystalHomeSystems
         public static Config systemConfig; // saved to c drive for now, will change when we migrate to linux
 
         public static MediaWindow mediaWindow = null;
+        private static FirstTimeLaunch ftl = null;
 
         public MainWindow()
         {
@@ -48,7 +49,7 @@ namespace CrystalHomeSystems
                 systemConfig = new Config(configDir);
 
                 // create new 'firstLaunch' object, and pass the systemConfig object
-                FirstTimeLaunch ftl = new FirstTimeLaunch(systemConfig);
+                ftl = new FirstTimeLaunch(systemConfig);
                 ftl.Show();
             }
             else
@@ -61,7 +62,8 @@ namespace CrystalHomeSystems
             if (patch.needsPatch())
                 startPatch();
 
-            new FirstTimeLaunch(null).Show();
+            ftl = new FirstTimeLaunch(null);
+            ftl.Show();
         }
 
         public void contueStartup()
@@ -106,6 +108,7 @@ namespace CrystalHomeSystems
             speech.dispose();
             closeMedia();
             mw.Close();
+            ftl.Close();
         }
 
         private static void initConfig()
