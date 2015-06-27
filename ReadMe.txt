@@ -1,4 +1,4 @@
-========================================================================
+﻿========================================================================
     	             Crystal Home Systems Project
 ========================================================================
 
@@ -19,24 +19,44 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Crystal Home Systems. If not, see <http://www.gnu.org/licenses/>.
 
-Crystal Home Systems is a project that is created by Ezra and Austin. Open Source under
-the General Public License, the goal of this project is to create an automated home 
-environment with the goal of making life easier, more convenient, and more 
-atuned to your own personal needs.
+______________________________________________________________________________
 
-Each Shard will power one or more functions in your home. Completely voice
-controlled, the goal is to create a virtual AI to manage your home "hands
-free".
+THIS IS A BETA BUILD!
+______________________________________________________________________________
 
-Centrally controlled by a server, each Shard will accept voice commands,
-process them, and reply appropriately. The Shards will range from media control
-systems, security systems, climate control, and eventually home networking and
-computational control.
+We would like to thank you for taking the time to check out our brand new media
+system! Unfortunately it is currently only a desktop build, and it's in beta.
 
-Check out our website at www.crystalhomesystems.com for more info
+Here are some things that you should know before pushing a bug report or running
+the software for the first time:
+
+1) The config file and patch information currently stores to your C drive. This
+is NOT ABLE TO BE CHANGED AT THIS TIME! The reason for this is complicated.
+However, this does mean that if your C drive requires administrator access to
+read or write, you are going to have several crashes occur! This bug has only
+popped up in Windows 8 computers, and rarely. Please do not report this, we're
+very aware!
+2) When you are setting up the directories for media folders, you MUST select a
+folder that contains media. This includes a folder that includes all the sub-
+folders (such as artists) which contain the music. However, selecting something
+like your C drive will result in a crash. This is also outlined in the first
+time setup menu!
+3) OCCASIONALLY, if the system is unable to find an available media file upon
+play request, it WILL crash at the next command. If this occurs, please be
+aware that we are working on it, but also PLEASE report it to us with all the
+detail you can!
+
+One last thing should be mentioned. When there is a patch available, currently
+you will be directed to our download page to re-download and install. This is
+hopefully going to change during the Beta, we need a large audience to test the
+system, but for now please bear with us!
+
+Thank you for your interest and support!
+
+Check out our website at www.crystalhomesystems.com for more info!
 
 ///////////////////////////////////////////////////////////////////////////////
-Currently no working stages
+Desktop Build Beta
 ///////////////////////////////////////////////////////////////////////////////
 
-Updated on 6/19/2015 at 9:00 am
+Updated on 8:35 PM 6/26/2015
