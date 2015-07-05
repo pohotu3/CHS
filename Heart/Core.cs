@@ -30,22 +30,55 @@ namespace Heart
 {
 	class Core
 	{
+		private Core core = null;
 
-		private const string systemType = "Heart", version = "0.0.1", systemName = "Crystal Home Systems", configDir = "/usr/CrystalHomeSys/crystal_config.cfg";
+		private const string systemType = "Heart", version = "0.0.1", systemName = "Crystal Home Systems", 
+		configDir = "/home/austin/crystal_config.cfg";
+
+		private Config cfg = null;
+
+		public Core()
+		{
+			core = this;
+
+			init ();
+
+			Console.WriteLine ("Hello World");
+		}
 
 		public static void Main (string[] args)
 		{
-			// initialize the configuration files first
+			new Core();
+		}
 
-			// if first time setup hasn't been done, do that here
+		private void init()
+		{
+			// initialize the configuration files first
+			cfg = new Config (configDir);
+			//if (cfg.exists ()) {
+				initConfig ();
+			//}
 
 			// because this is the Heart, we do not need to initialize the speech
 
 			// initialize the console application next (we can make this a GUI if we want)
 			// another thing we could do is set up the console to be a browser based setup, using php or
 			// something, allowing remote connection instead of having to directly link up
+		}
 
-			Console.WriteLine ("Hello World");
+		private void initConfig()
+		{
+			// start the first-time-setup information here, then save it to the cfg
+
+			// this current code is temp, just for testing
+			cfg.set("version", version);
+			cfg.Save ();
+			Console.WriteLine ("set new cfg");
+		}
+
+		public Core getCore()
+		{
+			return core;
 		}
 	}
 }

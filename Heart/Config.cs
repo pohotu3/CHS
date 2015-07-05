@@ -28,7 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 using System.IO;
 
 namespace Heart
@@ -42,6 +42,11 @@ namespace Heart
 		public Config(String file)
 		{
 			reload(file);
+		}
+
+		public bool exists()
+		{
+			return System.IO.File.Exists (filename);
 		}
 
 		public String get(String field, String defValue)
