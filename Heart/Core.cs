@@ -33,7 +33,7 @@ namespace Heart
 		private Core core = null;
 
 		private const string systemType = "Heart", version = "0.0.1", 
-		configDir = "/home/austin/crystal_config.cfg";
+		configDir = "/home/austin/crystal_config.cfg"; // customize so that it finds the username itself. not sure how though
 		private string systemName = "", musicDir = "", movieDir = "", commandKey = ""; // command key will include 'OK' in the cfg
 
 		private Config cfg = null;
