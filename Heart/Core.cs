@@ -90,7 +90,7 @@ namespace Heart
 			cfg.set ("movieDir", movieDir);
 			cfg.set("commandKey", commandKey);
 			cfg.Save ();
-			write ("New configuration file created at " + configDir ".");
+			write ("New configuration file created at " + configDir);
 		}
 
 		public Core getCore()
