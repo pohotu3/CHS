@@ -9,13 +9,6 @@ namespace Heart
 		public Log (string s)
 		{
 			fileName = s + "temp.log"; // this will need to change when i can load system time/date
-			init ();
-		}
-
-		private void init()
-		{
-			if (!System.IO.File.Exists (fileName))
-				System.IO.File.Create (fileName);
 		}
 
 		public void write(string s)
