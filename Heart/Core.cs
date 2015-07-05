@@ -32,8 +32,9 @@ namespace Heart
 	{
 		private Core core = null;
 
-		private const string systemType = "Heart", version = "0.0.1", systemName = "Crystal Home Systems", 
+		private const string systemType = "Heart", version = "0.0.1", 
 		configDir = "/home/austin/crystal_config.cfg";
+		private string systemName = "", musicDir = "", movieDir = "", commandKey = ""; // command key will include 'OK' in the cfg
 
 		private Config cfg = null;
 
@@ -42,8 +43,6 @@ namespace Heart
 			core = this;
 
 			init ();
-
-			Console.WriteLine ("Hello World");
 		}
 
 		public static void Main (string[] args)
@@ -55,12 +54,22 @@ namespace Heart
 		{
 			// initialize the configuration files first
 			cfg = new Config (configDir);
-			if (!cfg.exists ()) 
-			{
+			if (!cfg.exists ()) {
+				// if the system hasnt been run before, generate a name for it here. For now, hardcoded
+				systemName = "Crystal";
 				initConfig ();
 			}
+			// load all the information from the cfg after it's set up
+			musicDir = cfg.get("musicDir");
+			movieDir = cfg.get ("movieDir");
+			commandKey = cfg.get ("commandKey");
+			
 
 			// because this is the Heart, we do not need to initialize the speech
+			// instead, set up all the network information and objects, do NOT start
+			// listening yet however, wait until the UI is open and ready for commands
+
+			// set up logging here
 
 			// initialize the console application next (we can make this a GUI if we want)
 			// another thing we could do is set up the console to be a browser based setup, using php or
@@ -70,9 +79,12 @@ namespace Heart
 		private void initConfig()
 		{
 			// start the first-time-setup information here, then save it to the cfg
+			string musicDir = "", movieDir = "", commandKey = "ok " + systemName;
 
 			// this current code is temp, just for testing
-			cfg.set("version", version);
+			cfg.set("musicDir", musicDir);
+			cfg.set ("movieDir", movieDir);
+			cfg.set("commandKey", commandKey);
 			cfg.Save ();
 			Console.WriteLine ("set new cfg");
 		}
