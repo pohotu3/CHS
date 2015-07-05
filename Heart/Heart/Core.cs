@@ -31,7 +31,7 @@ namespace Heart
 	class Core
 	{
 
-		private string systemType = "Heart", version = "0.0.1", systemName = "Crystal Home Systems";
+		private const string systemType = "Heart", version = "0.0.1", systemName = "Crystal Home Systems", configDir = "/usr/CrystalHomeSys/crystal_config.cfg";
 
 		public static void Main (string[] args)
 		{
@@ -44,6 +44,8 @@ namespace Heart
 			// initialize the console application next (we can make this a GUI if we want)
 			// another thing we could do is set up the console to be a browser based setup, using php or
 			// something, allowing remote connection instead of having to directly link up
+
+			Console.WriteLine ("Hello World");
 		}
 	}
 }
