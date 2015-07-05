@@ -55,9 +55,10 @@ namespace Heart
 		{
 			// initialize the configuration files first
 			cfg = new Config (configDir);
-			//if (cfg.exists ()) {
+			if (!cfg.exists ()) 
+			{
 				initConfig ();
-			//}
+			}
 
 			// because this is the Heart, we do not need to initialize the speech
 
