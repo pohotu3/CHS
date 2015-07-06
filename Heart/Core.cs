@@ -57,6 +57,7 @@ namespace Heart
 		{
 			// set up logging here
 			log = new Log(logBaseDir);
+			write ("#############################SYSTEM STARTUP###################################");
 			write ("System logging initialized...");
 			write ("Log located at " + log.fileName);
 
