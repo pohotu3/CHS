@@ -39,9 +39,9 @@ namespace Heart
 		private Dictionary<String, String> list;
 		private String filename;
 
-		public Config(String file)
+		public Config(String fullDir)
 		{
-			reload(file);
+			reload(fullDir);
 		}
 
 		public bool exists()

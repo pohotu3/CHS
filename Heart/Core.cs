@@ -25,12 +25,13 @@
 */
 
 using System;
+using System.IO;
 
 namespace Heart
 {
 	class Core
 	{
-		private Core core = null;
+		private static Core core = null;
 
 		private const string systemType = "Heart", version = "0.0.1", logBaseDir = "/home/austin/CrystalHomeSys/Logs/";
 		private string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/crystal_config.cfg"; // command key will include 'OK' in the cfg
@@ -57,6 +58,7 @@ namespace Heart
 			// set up logging here
 			log = new Log(logBaseDir);
 			write ("System logging initialized...");
+			write ("Log located at " + log.fileName);
 
 			// initialize the configuration files
 			cfg = new Config (configDir);
@@ -94,7 +96,7 @@ namespace Heart
 			write ("New configuration file created at " + configDir);
 		}
 
-		public Core getCore()
+		public static Core getCore()
 		{
 			return core;
 		}

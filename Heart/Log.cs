@@ -4,7 +4,7 @@ namespace Heart
 {
 	public class Log
 	{
-		private string fileName;
+		public string fileName;
 
 		public Log (string s)
 		{
