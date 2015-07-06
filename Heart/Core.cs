@@ -32,7 +32,7 @@ namespace Heart
 	{
 		private Core core = null;
 
-		private const string systemType = "Heart", version = "0.0.1", logBaseDir = "/home/austin/CrystalHomeSys/";
+		private const string systemType = "Heart", version = "0.0.1", logBaseDir = "/home/austin/CrystalHomeSys/Logs/";
 		private string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/crystal_config.cfg"; // command key will include 'OK' in the cfg
 
 		private Config cfg = null;
@@ -61,10 +61,11 @@ namespace Heart
 			// initialize the configuration files
 			cfg = new Config (configDir);
 			if (!cfg.exists ()) {
-				// if the system hasnt been run before, generate a name for it here. For now, hardcoded
+				// if the system hasnt been run before, generate a name for it here with the web api. For now, hardcode it
 				systemName = "Crystal";
 				initConfig ();
 			}
+
 			// load all the information from the cfg after it's set up
 			musicDir = cfg.get("musicDir");
 			movieDir = cfg.get ("movieDir");

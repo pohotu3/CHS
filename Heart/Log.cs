@@ -8,7 +8,10 @@ namespace Heart
 
 		public Log (string s)
 		{
-			fileName = s + "temp.log"; // this will need to change when i can load system time/date
+			if(!System.IO.Directory.Exists(s))
+				System.IO.Directory.CreateDirectory(s);
+
+			fileName = s + "temp.log"; // I want the log name to be systemDate and systemTime
 		}
 
 		public void write(string s)
