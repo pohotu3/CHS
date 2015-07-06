@@ -32,10 +32,8 @@ namespace Heart
 	{
 		private Core core = null;
 
-		private const string systemType = "Heart", version = "0.0.1", 
-		configDir = "/home/austin/CrystalHomeSys/crystal_config.cfg", // customize so that it finds the username itself. not sure how though
-		logBaseDir = "/home/austin/CrystalHomeSys/";
-		private string systemName = "", musicDir = "", movieDir = "", commandKey = ""; // command key will include 'OK' in the cfg
+		private const string systemType = "Heart", version = "0.0.1", logBaseDir = "/home/austin/CrystalHomeSys/";
+		private string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/crystal_config.cfg"; // command key will include 'OK' in the cfg
 
 		private Config cfg = null;
 		private Log log = null;
@@ -43,6 +41,8 @@ namespace Heart
 		public Core()
 		{
 			core = this;
+
+			configDir = System.Environment.GetEnvironmentVariable("HOME") + configDir;
 
 			init ();
 		}
