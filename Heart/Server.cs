@@ -31,11 +31,17 @@ namespace Heart
 	public class Server
 	{
 
+		private String port;
 		private bool listening = false;
 
-		public Server ()
+		// create all the connection objects, and get ready to listen for connections
+		public Server (String listeningPort)
 		{
+			port = listeningPort;
+		}
 
+		public void start()
+		{
 			listening = true;
 		}
 	}

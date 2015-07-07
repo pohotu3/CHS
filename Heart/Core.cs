@@ -33,11 +33,12 @@ namespace Heart
 	{
 		private static Core core = null;
 
-		private const string systemType = "Heart", version = "0.0.1", logBaseDir = "/home/austin/CrystalHomeSys/Logs/";
+		private const string systemType = "Heart", version = "0.0.1", logBaseDir = "/home/austin/CrystalHomeSys/Logs/", serverPort = "6976";
 		private string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/crystal_config.cfg"; // command key will include 'OK' in the cfg
 
 		private Config cfg = null;
 		private Log log = null;
+		private Server server = null;
 
 		public Core()
 		{
@@ -76,11 +77,14 @@ namespace Heart
 			commandKey = cfg.get ("commandKey");
 			
 
-			// because this is the Heart, we do not need to initialize the speech
-			// instead, set up all the network information and objects, do NOT start
-			// listening yet however, wait until the UI is open and ready for commands
+			/* 
+			 * because this is the Heart, we do not need to initialize the speech
+			 * instead, set up all the network information and objects, do NOT start
+			 * listening yet however, wait until the UI is open and ready for commands
+			 */
+			server = new Server (serverPort); // port number isn't 100% firm, but no reason to change it
+			write ("Created Server connection on port " + serverPort);
 
-			// initialize the console application next (we can make this a GUI if we want)
 			// another thing we could do is set up the console to be a browser based setup, using php or
 			// something, allowing remote connection instead of having to directly link up
 		}
