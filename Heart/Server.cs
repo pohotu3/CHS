@@ -40,16 +40,18 @@ namespace Heart
 	{
 
 		private int port;
+		public string guid;
 		private static bool listening = false;
 
-		private static Socket listenerSocket;
-		static List<ClientData> _clients;
-		private static Thread listenThread;
+		private Socket listenerSocket;
+		private List<ClientData> _clients;
+		private Thread listenThread;
 
 		// create all the connection objects
-		public Server (int listeningPort)
+		public Server (int listeningPort, Guid guid)
 		{
 			port = listeningPort;
+			this.guid = guid.ToString ();
 
 			listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			_clients = new List<ClientData>();
@@ -67,7 +69,7 @@ namespace Heart
 		}
 
 		// listener - listens for clients trying to connect
-		static void ListenThread()
+		private void ListenThread()
 		{
 			while (listening) {
 				// perameter 5 is the backlog, allows 5 connection attempts at the same time
@@ -79,7 +81,7 @@ namespace Heart
 		}
 
 		// clientdata thread - receives data from each client individually
-		public static void Data_IN(object cSocket)
+		public void Data_IN(object cSocket)
 		{
 			Socket clientSocket = (Socket)cSocket;
 
@@ -105,11 +107,16 @@ namespace Heart
 		}
 
 		// this will handle everything about the packet
-		public static void DataManager(Packet p)
+		public void DataManager(Packet p)
 		{
-
+			switch (p.packetType) {
+			case Packet.PacketType.Registration:
+				// if the client is sending the registration packet
+				break;
+			default:
+				break;
+			}
 		}
-
 	}
 
 	class ClientData
@@ -120,9 +127,6 @@ namespace Heart
 
 		public ClientData ()
 		{
-			// this generates a unique id so we can identify each shard
-			id = Guid.NewGuid ().ToString ();
-
 			// after we accept a connection, we start a new thread for listening to the client
 			clientThread = new Thread (Server.Data_IN);
 			clientThread.Start (clientSocket);
@@ -138,6 +142,21 @@ namespace Heart
 			// after we accept a connection, we start a new thread for listening to the client
 			clientThread = new Thread (Server.Data_IN);
 			clientThread.Start (clientSocket);
+		}
+
+		private void Data_OUT(Packet p)
+		{
+			clientSocket.Send (p.ToBytes ());
+		}
+
+		private void Register()
+		{
+			// this function will send the client the server GUID BEFORE the client sends theirs
+			Packet p = new Packet (Packet.PacketType.Registration, Server.guid);
+			Data_OUT (p);
+
+			// then it will receive the client GUID, and figure out if the client has been set up
+			// before or not
 		}
 	}
 }

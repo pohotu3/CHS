@@ -37,10 +37,9 @@ namespace Shard
 	{
 
 		private int socket;
-		private string ipAddress;
-		private bool running = false;
+		private string ipAddress, guid, serverGuid;
+		private bool running = false, registered = false;
 
-		private static Guid guid;
 		public Socket master;
 		private Thread listeningThread;
 
@@ -49,7 +48,7 @@ namespace Shard
 		{
 			this.socket = socket;
 			this.ipAddress = ipAddress;
-			this.guid = guid;
+			this.guid = guid.ToString ();
 
 			master = new Socket (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			IPEndPoint ip = new IPEndPoint (IPAddress.Parse (ipAddress), socket);
@@ -58,8 +57,11 @@ namespace Shard
 				// tries to connect to the socket located at the IP and socket given
 				master.Connect (ip);
 			} catch {
-				Console.WriteLine ("could not connect to " + ip);
+				Console.WriteLine ("Could not connect to " + ip);
 				Thread.Sleep (1000);
+
+				// we dont want the client socket continuing if we were not able to connect
+				return;
 			}
 
 			// creates the new listening thread
@@ -69,10 +71,10 @@ namespace Shard
 		public void start()
 		{
 			running = true;
-			listeningThread.Start ();
+			listeningThread.Start (); // Data_IN is now constantly being run
 		}
 
-		// for receiving data
+		// for receiving data, constantly running in the listeningThread
 		private void Data_IN ()
 		{
 			byte[] buffer;
@@ -86,21 +88,41 @@ namespace Shard
 				readBytes = master.Receive (buffer);
 
 				// as long as we actually received bytes, we can process them
-				if (readBytes > 0)
-					DataManager (new Packet (buffer));
+				if (readBytes > 0) {
+					// handle data
+					Packet packet = new Packet (buffer);
+					DataManager (new Packet (packet));
+				}
 			}
 		}
 
-		// for sending data
-		public void Data_OUT()
+		// for sending data through packets
+		public void Data_OUT(Packet p)
 		{
 
 		}
 
 		// for handling received data
-		private static void DataManager (Packet p)
+		private void DataManager (Packet p)
 		{
+			switch (p.packetType) {
+			case Packet.PacketType.Registration:
+				// if the server is sending the registration packet
+				serverGuid = p.senderID;
+				Register ();
+				break;
+			default:
+				break;
+			}
 
+		}
+
+		// called if we recieve a registration packet from the server
+		private void Register()
+		{
+			// send the client GUID
+			Packet p = new Packet (Packet.PacketType.Registration, guid);
+			Data_OUT (p);
 		}
 	}
 }

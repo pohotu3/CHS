@@ -88,7 +88,7 @@ namespace Heart
 			 * listening yet however, wait until the UI is open and ready for commands
 			 */
 			write ("Creating Server on port " + serverPort);
-			server = new Server (serverPort); // port number isn't 100% firm, but no reason to change it
+			server = new Server (serverPort, guid); // port number isn't 100% firm, but no reason to change it
 			write ("Created Server connection on port " + serverPort);
 
 			// another thing we could do is set up the console to be a browser based setup, using php or
@@ -105,7 +105,7 @@ namespace Heart
 			cfg.set("musicDir", musicDir);
 			cfg.set ("movieDir", movieDir);
 			cfg.set("commandKey", commandKey);
-			cfg.set ("guid", Guid.NewGuid ().ToString ());
+			cfg.set ("guid", Guid.NewGuid ().ToString ()); // generates a GUID for the server
 			cfg.Save ();
 
 			write ("New configuration file created at " + configDir);

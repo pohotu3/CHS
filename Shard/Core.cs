@@ -29,9 +29,22 @@ using Gtk;
 
 namespace Shard
 {
-	class MainClass
+	class Core
 	{
+
+		private static Core core;
+
+		public Core()
+		{
+
+		}
+
 		public static void Main (string[] args)
+		{
+			core = new Core ();
+		}
+
+		private void ShowWindow()
 		{
 			Application.Init ();
 			MainWindow win = new MainWindow ();
