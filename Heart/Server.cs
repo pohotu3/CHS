@@ -40,9 +40,11 @@ namespace Heart
 	{
 
 		private int port;
+		private bool listening = false;
 
 		private static Socket listenerSocket;
 		static List<ClientData> _clients;
+		private static Thread listenThread;
 
 		// create all the connection objects
 		public Server (int listeningPort)
@@ -51,21 +53,63 @@ namespace Heart
 
 			listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			_clients = new List<ClientData>();
+
+			IPEndPoint ip = new IPEndPoint (IPAddress.Parse (Packet.GetIP4Address ()), port);
+			listenerSocket.Bind (ip);
+
+			listenThread = new Thread (listenThread);
+		}
+
+		public void Start()
+		{
+			listening = true;
+			listenThread.Start ();
 		}
 
 		// listener - listens for clients trying to connect
+		static void ListenThread()
+		{
+			while (listening) {
+				// perameter 5 is the backlog, allows 5 connection attempts at the same time
+				// prevents DDOSING in a way
+				listenerSocket.Listen (5);
 
+				_clients.Add (new ClientData (listenerSocket.Accept ()));
+			}
+		}
 
 		// clientdata thread - receives data from each client individually
+		public static void Data_IN(object cSocket)
+		{
+			Socket clientSocket = (Socket)cSocket;
 
+			byte[] buffer;
+			int readBytes;
+
+			// infinite loop, i'm thinking about doing it a different way later
+			for (; ;) 
+			{
+				// sets our buffer array to the max size we're able to receive
+				buffer = new byte[clientSocket.SendBufferSize];
+
+				// gets the amount of bytes we've received
+				readBytes = clientSocket.Receive (buffer);
+
+				// if we actually recieve something, then sort through it
+				if (readBytes > 0) {
+					// handle data
+					Packet packet = new Packet (buffer);
+					DataManager (packet);
+				}
+			}
+		}
 
 		// data manager
-
-
-		public void start()
+		public static void DataManager(Packet p)
 		{
 
 		}
+
 	}
 
 	class ClientData
@@ -78,6 +122,10 @@ namespace Heart
 		{
 			// this generates a unique id so we can identify each shard
 			id = Guid.NewGuid ().ToString ();
+
+			// after we accept a connection, we start a new thread for listening to the client
+			clientThread = new Thread (Server.Data_IN);
+			clientThread.Start (clientSocket);
 		}
 
 		public ClientData (Socket clientSocket)
@@ -86,6 +134,10 @@ namespace Heart
 
 			// this generates a unique id so we can identify each shard
 			id = Guid.NewGuid ().ToString ();
+
+			// after we accept a connection, we start a new thread for listening to the client
+			clientThread = new Thread (Server.Data_IN);
+			clientThread.Start (clientSocket);
 		}
 	}
 }
