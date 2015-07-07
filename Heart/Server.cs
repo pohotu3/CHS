@@ -104,7 +104,7 @@ namespace Heart
 			}
 		}
 
-		// data manager
+		// this will handle everything about the packet
 		public static void DataManager(Packet p)
 		{
 

@@ -10,12 +10,14 @@ namespace ConnectionData
 	[Serializable]
 	public class Packet
 	{
-
+		// these are all the different types of things we can send
 		public List<string> gData;
 		public int packetInt;
 		public bool packetBool;
-		public string senderID;
 		public PacketType packetType;
+
+		// senderID is going to be the unique GUID that we generated
+		public string senderID;
 
 
 		public Packet (PacketType type, string senderID)
@@ -27,12 +29,14 @@ namespace ConnectionData
 
 		public Packet(byte[] packetBytes)
 		{
+			// deconstructs the bytes we received into packet form
 			BinaryFormatter bf = new BinaryFormatter ();
 			MemoryStream ms = new MemoryStream (packetBytes);
 
 			Packet p = (Packet)bf.Deserialize (ms);
 			ms.Close ();
 
+			// assigns all the values from the packet info we received in byte form
 			this.gData = p.gData;
 			this.packetInt = p.packetInt;
 			this.packetBool = p.packetBool;
@@ -40,6 +44,7 @@ namespace ConnectionData
 			this.packetType = p.packetType;
 		}
 
+		// this converts the whole packet object into a byte array to send through the socket
 		public byte[] ToBytes()
 		{
 			BinaryFormatter bf = new BinaryFormatter ();
@@ -71,6 +76,8 @@ namespace ConnectionData
 			}
 		}
 
+		// enum makes it so we can define different strings, makes the packetType really easy to work with
+		// allows us to define what kind of packet it is
 		public enum PacketType
 		{
 		}
