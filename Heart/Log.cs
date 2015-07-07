@@ -35,14 +35,18 @@ namespace Heart
 
 		public Log (string s)
 		{
+			// sets the datetime object to this instant
 			dt = DateTime.Now;
 
+			// creates the dir if it does not already exist
 			if(!System.IO.Directory.Exists(s))
 				System.IO.Directory.CreateDirectory(s);
 
+			// sets the filename var to mm-dd-yyyy
 			fileName = s + dt.Month + "-" + dt.Day + "-" + dt.Year;
 		}
 
+		// writes a line to the log file, creating the log file if it doesnt exist
 		public void write(string s)
 		{
 			System.IO.StreamWriter file = new System.IO.StreamWriter(fileName, true);

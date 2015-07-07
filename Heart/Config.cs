@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-//using System.Threading.Tasks;
 using System.IO;
 
 namespace Heart
@@ -39,26 +38,27 @@ namespace Heart
 		private Dictionary<String, String> list;
 		private String filename;
 
+		// constructor
+		// NOTE: cfg file will not be created (if not already created)
+		// until the save() function is called!
 		public Config(String fullDir)
 		{
 			reload(fullDir);
 		}
 
+		// checks if the current cfg file exists
 		public bool exists()
 		{
 			return System.IO.File.Exists (filename);
 		}
 
-		public String get(String field, String defValue)
-		{
-			return (get(field) == null) ? (defValue) : (get(field));
-		}
-
+		// returns a value from the cfg file. ie: musicDir
 		public String get(String field)
 		{
 			return (list.ContainsKey(field)) ? (list[field]) : (null);
 		}
 
+		// sets/creates the value in the cfg file. ie: musicDir
 		public void set(String field, Object value)
 		{
 			if (!list.ContainsKey(field))
@@ -72,6 +72,7 @@ namespace Heart
 			Save(this.filename);
 		}
 
+		// writes all the values to the cfg file, and creates it if it doesnt already exist
 		public void Save(String filename)
 		{
 			this.filename = filename;
@@ -85,11 +86,13 @@ namespace Heart
 			file.Close();
 		}
 
+		// refreshes the values
 		public void reload()
 		{
 			reload(this.filename);
 		}
-
+			
+		// refreshes the values
 		public void reload(String filename)
 		{
 			this.filename = filename;
@@ -99,6 +102,7 @@ namespace Heart
 				loadFromFile(filename);
 		}
 
+		// loads the values from a cfg file to the array
 		private void loadFromFile(String file)
 		{
 			foreach (String line in System.IO.File.ReadAllLines(file))
@@ -129,6 +133,7 @@ namespace Heart
 			}
 		}
 
+		// returns the number of settings in a cfg file
 		public int numberOfSettings()
 		{
 			return list.Count;

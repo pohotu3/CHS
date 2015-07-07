@@ -43,6 +43,7 @@ namespace Heart
 		{
 			core = this;
 
+			// allows the config file to be created in the home directory. ie: /home/austin/
 			configDir = System.Environment.GetEnvironmentVariable("HOME") + configDir;
 
 			init ();
@@ -90,10 +91,12 @@ namespace Heart
 			string musicDir = "", movieDir = "", commandKey = "ok " + systemName;
 
 			// this current code is temp, just for testing
+			// sets the different cfg values for future use, such as the media dir's
 			cfg.set("musicDir", musicDir);
 			cfg.set ("movieDir", movieDir);
 			cfg.set("commandKey", commandKey);
 			cfg.Save ();
+
 			write ("New configuration file created at " + configDir);
 		}
 
