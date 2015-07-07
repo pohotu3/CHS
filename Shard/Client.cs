@@ -12,14 +12,18 @@ namespace Shard
 
 		private int socket;
 		private string ipAddress;
+		private bool running = false;
 
-		public static Socket master;
+		private static Guid guid;
+		public Socket master;
+		private Thread listeningThread;
 
 		// requires an IP and socket constructor
-		public Client (string ipAddress, int socket)
+		public Client (string ipAddress, int socket, Guid guid)
 		{
 			this.socket = socket;
-			this.ipAddress = iipAddressp;
+			this.ipAddress = ipAddress;
+			this.guid = guid;
 
 			master = new Socket (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			IPEndPoint ip = new IPEndPoint (IPAddress.Parse (ipAddress), socket);
@@ -31,9 +35,19 @@ namespace Shard
 				Console.WriteLine ("could not connect to " + ip);
 				Thread.Sleep (1000);
 			}
+
+			// creates the new listening thread
+			listeningThread = new Thread (Data_IN);
 		}
 
-		private static void Data_IN ()
+		public void start()
+		{
+			running = true;
+			listeningThread.Start ();
+		}
+
+		// for receiving data
+		private void Data_IN ()
 		{
 			byte[] buffer;
 			int readBytes;
@@ -51,6 +65,13 @@ namespace Shard
 			}
 		}
 
+		// for sending data
+		public void Data_OUT()
+		{
+
+		}
+
+		// for handling received data
 		private static void DataManager (Packet p)
 		{
 
