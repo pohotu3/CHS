@@ -33,8 +33,9 @@ namespace Heart
 	{
 		private static Core core = null;
 
-		private const string systemType = "Heart", version = "0.0.1", logBaseDir = "/home/austin/CrystalHomeSys/Logs/", serverPort = "6976";
+		private const string systemType = "Heart", version = "0.0.1", logBaseDir = "/home/austin/CrystalHomeSys/Logs/";
 		private string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/crystal_config.cfg"; // command key will include 'OK' in the cfg
+		private const int serverPort = 6976;
 
 		private Config cfg = null;
 		private Log log = null;
@@ -82,6 +83,7 @@ namespace Heart
 			 * instead, set up all the network information and objects, do NOT start
 			 * listening yet however, wait until the UI is open and ready for commands
 			 */
+			write ("Creating Server on port " + serverPort);
 			server = new Server (serverPort); // port number isn't 100% firm, but no reason to change it
 			write ("Created Server connection on port " + serverPort);
 

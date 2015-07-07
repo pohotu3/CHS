@@ -25,25 +25,45 @@
 */
 
 using System;
+using System.Net.Sockets;
+using System.Net;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Heart
 {
 	public class Server
 	{
 
-		private String port;
+		private int port;
 		private bool listening = false;
+		private static byte[] buffer = new byte[1024];
+
+		private static List<Socket> clientList = new List<Socket>();
+
+		private static Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
 		// create all the connection objects, and get ready to listen for connections
-		public Server (String listeningPort)
+		public Server (int listeningPort)
 		{
 			port = listeningPort;
+
+			// sets what IP and Port the server is listening on/for
+			serverSocket.Bind (new IPEndPoint (IPAddress.Any, port));
+
+			// maximum number of connections the server can accept at any given time
+			serverSocket.Listen (5);
 		}
 
 		public void start()
 		{
 			listening = true;
+
+			while (listening) {
+
+			}
 		}
 	}
 }
-
