@@ -37,6 +37,9 @@ namespace Heart
 		private string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/crystal_config.cfg"; // command key will include 'OK' in the cfg
 		private const int serverPort = 6976;
 
+		// unique identifier for the server
+		private Guid guid;
+
 		private Config cfg = null;
 		private Log log = null;
 		private Server server = null;
@@ -76,6 +79,7 @@ namespace Heart
 			musicDir = cfg.get("musicDir");
 			movieDir = cfg.get ("movieDir");
 			commandKey = cfg.get ("commandKey");
+			guid = Guid.Parse(cfg.get("guid"));
 			
 
 			/* 
@@ -94,13 +98,14 @@ namespace Heart
 		private void initConfig()
 		{
 			// start the first-time-setup information here, then save it to the cfg
-			string musicDir = "", movieDir = "", commandKey = "ok " + systemName;
+			string musicDir = "musicDir", movieDir = "movieDir", commandKey = "Ok " + systemName;
 
 			// this current code is temp, just for testing
 			// sets the different cfg values for future use, such as the media dir's
 			cfg.set("musicDir", musicDir);
 			cfg.set ("movieDir", movieDir);
 			cfg.set("commandKey", commandKey);
+			cfg.set ("guid", Guid.NewGuid ().ToString ());
 			cfg.Save ();
 
 			write ("New configuration file created at " + configDir);

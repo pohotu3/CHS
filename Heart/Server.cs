@@ -40,7 +40,7 @@ namespace Heart
 	{
 
 		private int port;
-		private bool listening = false;
+		private static bool listening = false;
 
 		private static Socket listenerSocket;
 		static List<ClientData> _clients;
@@ -57,7 +57,7 @@ namespace Heart
 			IPEndPoint ip = new IPEndPoint (IPAddress.Parse (Packet.GetIP4Address ()), port);
 			listenerSocket.Bind (ip);
 
-			listenThread = new Thread (listenThread);
+			listenThread = new Thread (ListenThread);
 		}
 
 		public void Start()

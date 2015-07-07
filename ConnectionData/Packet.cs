@@ -69,11 +69,11 @@ namespace ConnectionData
 				if (i.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork) 
 				{
 					return i.ToString ();
-				}
-
-				// else return local address
-				return "127.0.0.1";			
+				}		
 			}
+
+			// else return local address
+			return "127.0.0.1";	
 		}
 
 		// enum makes it so we can define different strings, makes the packetType really easy to work with
