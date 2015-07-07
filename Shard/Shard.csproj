@@ -68,6 +68,8 @@
     <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Client.cs" />
   </ItemGroup>
+  <Import Project="..\ConnectionData\ConnectionData.projitems" Label="Shared" Condition="Exists('..\ConnectionData\ConnectionData.projitems')" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -39,5 +39,6 @@
     <Compile Include="Log.cs" />
     <Compile Include="Server.cs" />
   </ItemGroup>
+  <Import Project="..\ConnectionData\ConnectionData.projitems" Label="Shared" Condition="Exists('..\ConnectionData\ConnectionData.projitems')" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
