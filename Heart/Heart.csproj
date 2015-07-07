@@ -37,6 +37,7 @@
     <Compile Include="Core.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="Server.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
