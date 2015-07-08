@@ -38,6 +38,7 @@ namespace ConnectionData
 	{
 		// these are all the different types of things we can send
 		public List<string> gData;
+		public string packetString;
 		public int packetInt;
 		public bool packetBool;
 		public PacketType packetType;
@@ -106,7 +107,7 @@ namespace ConnectionData
 		// allows us to define what kind of packet it is
 		public enum PacketType
 		{
-			Registration, CloseConnection
+			Registration, CloseConnection, Command
 		}
 	}
 }

@@ -33,6 +33,7 @@ namespace Shard
 	{
 
 		private static Core core;
+		public static string commandKey;
 
 		public Core()
 		{

@@ -117,6 +117,8 @@ namespace Heart
 			// after we accept a connection, we start a new thread for listening to the client
 			clientThread = new Thread (Data_IN);
 			clientThread.Start (clientSocket);
+
+			Register ();
 		}
 
 		public void Data_OUT (Packet p)
@@ -128,6 +130,7 @@ namespace Heart
 		{
 			// this function will send the client the server GUID BEFORE the client sends theirs
 			Packet p = new Packet (Packet.PacketType.Registration, Server.guid);
+			p.packetString = Core.commandKey;
 			Data_OUT (p);
 
 			// then it will receive the client GUID, and figure out if the client has been set up
@@ -171,6 +174,9 @@ namespace Heart
 			switch (p.packetType) {
 			case Packet.PacketType.CloseConnection:
 				Close ();
+				break;
+			case Packet.PacketType.Command:
+
 				break;
 			default:
 				break;
