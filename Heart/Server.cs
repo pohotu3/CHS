@@ -176,7 +176,7 @@ namespace Heart
 				Close ();
 				break;
 			case Packet.PacketType.Command:
-
+				// not sure how i want to handle this part... i'll work on it later
 				break;
 			default:
 				break;
