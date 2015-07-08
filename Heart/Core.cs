@@ -36,6 +36,7 @@ namespace Heart
 		private const string systemType = "Heart", version = "0.0.1", logBaseDir = "/home/austin/CrystalHomeSys/Logs/";
 		private string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/crystal_config.cfg"; // command key will include 'OK' in the cfg
 		private const int serverPort = 6976;
+		private bool running = false;
 
 		// unique identifier for the server
 		private Guid guid;
@@ -83,8 +84,7 @@ namespace Heart
 			
 
 			/* 
-			 * because this is the Heart, we do not need to initialize the speech
-			 * instead, set up all the network information and objects, do NOT start
+			 * set up all the network information and objects, do NOT start
 			 * listening yet however, wait until the UI is open and ready for commands
 			 */
 			write ("Creating Server on port " + serverPort);
@@ -93,6 +93,15 @@ namespace Heart
 
 			// another thing we could do is set up the console to be a browser based setup, using php or
 			// something, allowing remote connection instead of having to directly link up
+
+			// start listening for connections
+			server.Start ();
+			write ("Started listening on IP: " + server.ip.Address + " Port: " + serverPort);
+
+			write ("Push any key to quit...");
+			Console.ReadKey ();
+			server.Close ();
+			write ("Server closed!");
 		}
 
 		private void initConfig()

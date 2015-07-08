@@ -46,6 +46,7 @@ namespace Heart
 		private static Socket listenerSocket;
 		private static List<ClientData> _clients;
 		private static Thread listenThread;
+		public IPEndPoint ip;
 
 		// create all the connection objects
 		public Server (int listeningPort, Guid g)
@@ -53,35 +54,38 @@ namespace Heart
 			port = listeningPort;
 			guid = g.ToString ();
 
-			listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-			_clients = new List<ClientData>();
+			listenerSocket = new Socket (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			_clients = new List<ClientData> ();
 
-			IPEndPoint ip = new IPEndPoint (IPAddress.Parse (Packet.GetIP4Address ()), port);
+			ip = new IPEndPoint (IPAddress.Parse (Packet.GetIP4Address ()), port);
 			listenerSocket.Bind (ip);
 
 			listenThread = new Thread (ListenThread);
 		}
 
-		public void Start()
+		public void Start ()
 		{
 			listening = true;
 			listenThread.Start ();
 		}
 
 		// listener - listens for clients trying to connect
-		private void ListenThread()
+		private void ListenThread ()
 		{
 			while (listening) {
 				// perameter 5 is the backlog, allows 5 connection attempts at the same time
 				// prevents DDOSING in a way
 				listenerSocket.Listen (5);
 
-				_clients.Add (new ClientData (listenerSocket.Accept ()));
+				try {
+					_clients.Add (new ClientData (listenerSocket.Accept ()));
+				} catch {
+				}
 			}
 		}
 
 		// closes all connections and releases resources
-		public static void Close()
+		public void Close ()
 		{
 			listening = false;
 
@@ -115,12 +119,12 @@ namespace Heart
 			clientThread.Start (clientSocket);
 		}
 
-		public void Data_OUT(Packet p)
+		public void Data_OUT (Packet p)
 		{
 			clientSocket.Send (p.ToBytes ());
 		}
 
-		private void Register()
+		private void Register ()
 		{
 			// this function will send the client the server GUID BEFORE the client sends theirs
 			Packet p = new Packet (Packet.PacketType.Registration, Server.guid);
@@ -130,15 +134,14 @@ namespace Heart
 			// before or not
 		}
 
-		private void Close()
+		private void Close ()
 		{
-			Server.Close ();
 			clientSocket.Close ();
 			clientThread.Join ();
 		}
 
 		// clientdata thread - receives data from each client individually
-		public void Data_IN(object cSocket)
+		public void Data_IN (object cSocket)
 		{
 			Socket clientSocket = (Socket)cSocket;
 
@@ -146,8 +149,7 @@ namespace Heart
 			int readBytes;
 
 			// infinite loop, i'm thinking about doing it a different way later
-			while (Server.listening) 
-			{
+			while (Server.listening) {
 				// sets our buffer array to the max size we're able to receive
 				buffer = new byte[clientSocket.SendBufferSize];
 
@@ -164,7 +166,7 @@ namespace Heart
 		}
 
 		// this will handle everything about the packet
-		public void DataManager(Packet p)
+		public void DataManager (Packet p)
 		{
 			switch (p.packetType) {
 			case Packet.PacketType.CloseConnection:
