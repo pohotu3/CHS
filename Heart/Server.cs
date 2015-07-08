@@ -40,7 +40,7 @@ namespace Heart
 	{
 
 		private int port;
-		public string guid;
+		public static string guid;
 		private static bool listening = false;
 
 		private Socket listenerSocket;
@@ -48,10 +48,10 @@ namespace Heart
 		private Thread listenThread;
 
 		// create all the connection objects
-		public Server (int listeningPort, Guid guid)
+		public Server (int listeningPort, Guid g)
 		{
 			port = listeningPort;
-			this.guid = guid.ToString ();
+			guid = g.ToString ();
 
 			listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			_clients = new List<ClientData>();
@@ -81,7 +81,7 @@ namespace Heart
 		}
 
 		// clientdata thread - receives data from each client individually
-		public void Data_IN(object cSocket)
+		public static void Data_IN(object cSocket)
 		{
 			Socket clientSocket = (Socket)cSocket;
 
@@ -107,12 +107,9 @@ namespace Heart
 		}
 
 		// this will handle everything about the packet
-		public void DataManager(Packet p)
+		public static void DataManager(Packet p)
 		{
 			switch (p.packetType) {
-			case Packet.PacketType.Registration:
-				// if the client is sending the registration packet
-				break;
 			default:
 				break;
 			}

@@ -81,7 +81,7 @@ namespace Shard
 			int readBytes;
 
 			// infinite loop, same goes for in the Heart/Server.cs
-			for (;;) {
+			while (running) {
 				// creates the buffer array to be as large as possible to receive
 				buffer = new byte[master.SendBufferSize];
 				// gets the number of bytes received
@@ -90,8 +90,7 @@ namespace Shard
 				// as long as we actually received bytes, we can process them
 				if (readBytes > 0) {
 					// handle data
-					Packet packet = new Packet (buffer);
-					DataManager (new Packet (packet));
+					DataManager (new Packet (buffer));
 				}
 			}
 		}
@@ -99,7 +98,7 @@ namespace Shard
 		// for sending data through packets
 		public void Data_OUT(Packet p)
 		{
-
+			master.Send (p.ToBytes ());
 		}
 
 		// for handling received data
@@ -109,20 +108,11 @@ namespace Shard
 			case Packet.PacketType.Registration:
 				// if the server is sending the registration packet
 				serverGuid = p.senderID;
-				Register ();
+				// we dont need to send registration back, that was sent on connect
 				break;
 			default:
 				break;
 			}
-
-		}
-
-		// called if we recieve a registration packet from the server
-		private void Register()
-		{
-			// send the client GUID
-			Packet p = new Packet (Packet.PacketType.Registration, guid);
-			Data_OUT (p);
 		}
 	}
 }
