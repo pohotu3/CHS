@@ -35,22 +35,33 @@ namespace Shard
 		private static Core core;
 		public static string commandKey;
 
-		public Core()
+		public Core ()
+		{
+			// set up the core variables
+
+			// set up connections and connect to the server (this will set command key)
+
+			// set up voice and get it primed to go
+
+			// show window and handle that thread
+		}
+
+		private void init ()
 		{
 
 		}
 
-		public static void Main (string[] args)
-		{
-			core = new Core ();
-		}
-
-		private void ShowWindow()
+		private void ShowWindow ()
 		{
 			Application.Init ();
 			MainWindow win = new MainWindow ();
 			win.Show ();
 			Application.Run ();
+		}
+
+		public static void Main (string[] args)
+		{
+			core = new Core ();
 		}
 	}
 }
