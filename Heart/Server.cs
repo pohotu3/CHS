@@ -41,11 +41,11 @@ namespace Heart
 
 		private int port;
 		public static string guid;
-		private static bool listening = false;
+		public static bool listening = false;
 
-		private Socket listenerSocket;
-		private List<ClientData> _clients;
-		private Thread listenThread;
+		private static Socket listenerSocket;
+		private static List<ClientData> _clients;
+		private static Thread listenThread;
 
 		// create all the connection objects
 		public Server (int listeningPort, Guid g)
@@ -80,8 +80,65 @@ namespace Heart
 			}
 		}
 
+		// closes all connections and releases resources
+		public static void Close()
+		{
+			listening = false;
+
+			// send the close connection status to all clients
+			foreach (ClientData cd in _clients) {
+				Packet p = new Packet (Packet.PacketType.CloseConnection, guid);
+				cd.Data_OUT (p);
+			}
+
+			listenerSocket.Close ();
+			listenThread.Join ();
+			_clients.Clear ();
+		}
+	}
+
+	class ClientData
+	{
+		public Socket clientSocket;
+		public Thread clientThread;
+		public string id;
+
+		public ClientData (Socket clientSocket)
+		{
+			this.clientSocket = clientSocket;
+
+			// this generates a unique id so we can identify each shard
+			id = Guid.NewGuid ().ToString ();
+
+			// after we accept a connection, we start a new thread for listening to the client
+			clientThread = new Thread (Data_IN);
+			clientThread.Start (clientSocket);
+		}
+
+		public void Data_OUT(Packet p)
+		{
+			clientSocket.Send (p.ToBytes ());
+		}
+
+		private void Register()
+		{
+			// this function will send the client the server GUID BEFORE the client sends theirs
+			Packet p = new Packet (Packet.PacketType.Registration, Server.guid);
+			Data_OUT (p);
+
+			// then it will receive the client GUID, and figure out if the client has been set up
+			// before or not
+		}
+
+		private void Close()
+		{
+			Server.Close ();
+			clientSocket.Close ();
+			clientThread.Join ();
+		}
+
 		// clientdata thread - receives data from each client individually
-		public static void Data_IN(object cSocket)
+		public void Data_IN(object cSocket)
 		{
 			Socket clientSocket = (Socket)cSocket;
 
@@ -89,7 +146,7 @@ namespace Heart
 			int readBytes;
 
 			// infinite loop, i'm thinking about doing it a different way later
-			for (; ;) 
+			while (Server.listening) 
 			{
 				// sets our buffer array to the max size we're able to receive
 				buffer = new byte[clientSocket.SendBufferSize];
@@ -107,53 +164,15 @@ namespace Heart
 		}
 
 		// this will handle everything about the packet
-		public static void DataManager(Packet p)
+		public void DataManager(Packet p)
 		{
 			switch (p.packetType) {
+			case Packet.PacketType.CloseConnection:
+				Close ();
+				break;
 			default:
 				break;
 			}
-		}
-	}
-
-	class ClientData
-	{
-		public Socket clientSocket;
-		public Thread clientThread;
-		public string id;
-
-		public ClientData ()
-		{
-			// after we accept a connection, we start a new thread for listening to the client
-			clientThread = new Thread (Server.Data_IN);
-			clientThread.Start (clientSocket);
-		}
-
-		public ClientData (Socket clientSocket)
-		{
-			this.clientSocket = clientSocket;
-
-			// this generates a unique id so we can identify each shard
-			id = Guid.NewGuid ().ToString ();
-
-			// after we accept a connection, we start a new thread for listening to the client
-			clientThread = new Thread (Server.Data_IN);
-			clientThread.Start (clientSocket);
-		}
-
-		private void Data_OUT(Packet p)
-		{
-			clientSocket.Send (p.ToBytes ());
-		}
-
-		private void Register()
-		{
-			// this function will send the client the server GUID BEFORE the client sends theirs
-			Packet p = new Packet (Packet.PacketType.Registration, Server.guid);
-			Data_OUT (p);
-
-			// then it will receive the client GUID, and figure out if the client has been set up
-			// before or not
 		}
 	}
 }

@@ -38,7 +38,7 @@ namespace Shard
 
 		private int socket;
 		private string ipAddress, guid, serverGuid;
-		private bool running = false, registered = false;
+		private bool running = false;
 
 		public Socket master;
 		private Thread listeningThread;
@@ -110,9 +110,19 @@ namespace Shard
 				serverGuid = p.senderID;
 				// we dont need to send registration back, that was sent on connect
 				break;
+			case Packet.PacketType.CloseConnection:
+				Close ();
+				break;
 			default:
 				break;
 			}
+		}
+
+		private void Close()
+		{
+			running = false;
+			master.Close ();
+			listeningThread.Join ();
 		}
 	}
 }
