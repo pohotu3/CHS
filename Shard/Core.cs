@@ -32,18 +32,28 @@ namespace Shard
 	class Core
 	{
 
+		public static string commandKey, logBaseDir = "/CrystalHomeSys/Shard Logs/";
+
 		private static Core core;
-		public static string commandKey;
+		private Log log;
 
 		public Core ()
 		{
 			// set up the core variables
+
+			// initialize logging
+			logBaseDir = System.Environment.GetEnvironmentVariable ("HOME") + logBaseDir;
+			log = new Log (logBaseDir);
+			write ("#############################SYSTEM STARTUP###################################");
+			write ("System logging initialized...");
+			write ("Log located at " + log.fileName);
 
 			// set up connections and connect to the server (this will set command key)
 
 			// set up voice and get it primed to go
 
 			// show window and handle that thread
+			ShowWindow ();
 		}
 
 		private void init ()
@@ -57,6 +67,16 @@ namespace Shard
 			MainWindow win = new MainWindow ();
 			win.Show ();
 			Application.Run ();
+		}
+
+		public static Core getCore()
+		{
+			return core;
+		}
+
+		public void write(string s)
+		{
+			log.write (s);
 		}
 
 		public static void Main (string[] args)

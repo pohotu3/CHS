@@ -33,8 +33,8 @@ namespace Heart
 	{
 		private static Core core = null;
 
-		private const string systemType = "Heart", version = "0.0.1", logBaseDir = "/home/austin/CrystalHomeSys/Logs/";
-		public static string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/crystal_config.cfg"; // command key will include 'OK' in the cfg
+		private const string systemType = "Heart", version = "0.0.1";
+		public static string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/crystal_config.cfg", logBaseDir = "/CrystalHomeSys/Heart Logs/";
 		private const int serverPort = 6976;
 
 		// unique identifier for the server
@@ -47,6 +47,9 @@ namespace Heart
 		public Core()
 		{
 			core = this;
+
+			// allows the log file to be created in the home directory
+			logBaseDir = System.Environment.GetEnvironmentVariable ("HOME") + logBaseDir;
 
 			// allows the config file to be created in the home directory. ie: /home/austin/
 			configDir = System.Environment.GetEnvironmentVariable("HOME") + configDir;
