@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heart", "Heart.csproj", "{B7774547-10D1-4E4A-81A1-96D252805226}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heart", "Heart/Heart.csproj", "{B7774547-10D1-4E4A-81A1-96D252805226}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shard", "..\Shard\Shard.csproj", "{2B0E2FC3-CDD2-456A-AA2E-FA34E0BC2DB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shard", "Shard\Shard.csproj", "{2B0E2FC3-CDD2-456A-AA2E-FA34E0BC2DB0}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ConnectionData", "..\ConnectionData\ConnectionData.shproj", "{02A0E29C-A014-4450-8754-470C06427B5B}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ConnectionData", "ConnectionData\ConnectionData.shproj", "{02A0E29C-A014-4450-8754-470C06427B5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
