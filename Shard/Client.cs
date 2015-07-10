@@ -108,7 +108,7 @@ namespace Shard
 			case Packet.PacketType.Registration:
 				// if the server is sending the registration packet
 				serverGuid = p.senderID;
-				Core.commandKey = p.packetString;
+				ShardCore.commandKey = p.packetString;
 				// we dont need to send registration back, that was sent on connect
 				break;
 			case Packet.PacketType.CloseConnection:

@@ -130,7 +130,7 @@ namespace Heart
 		{
 			// this function will send the client the server GUID BEFORE the client sends theirs
 			Packet p = new Packet (Packet.PacketType.Registration, Server.guid);
-			p.packetString = Core.commandKey;
+			p.packetString = HeartCore.commandKey;
 			Data_OUT (p);
 
 			// then it will receive the client GUID, and figure out if the client has been set up

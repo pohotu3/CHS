@@ -29,9 +29,9 @@ using System.IO;
 
 namespace Heart
 {
-	class Core
+	class HeartCore
 	{
-		private static Core core = null;
+		private static HeartCore core = null;
 
 		private const string systemType = "Heart", version = "0.0.1";
 		public static string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/crystal_config.cfg", logBaseDir = "/CrystalHomeSys/Heart Logs/";
@@ -44,7 +44,7 @@ namespace Heart
 		private Log log = null;
 		private Server server = null;
 
-		public Core()
+		public HeartCore()
 		{
 			core = this;
 
@@ -59,7 +59,7 @@ namespace Heart
 
 		public static void Main (string[] args)
 		{
-			new Core();
+			new HeartCore();
 		}
 
 		private void init()
@@ -123,7 +123,7 @@ namespace Heart
 			write ("New configuration file created at " + configDir);
 		}
 
-		public static Core getCore()
+		public static HeartCore getCore()
 		{
 			return core;
 		}
