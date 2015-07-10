@@ -37,7 +37,6 @@
     <Compile Include="Config.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Server.cs" />
-    <Compile Include="Command.cs" />
     <Compile Include="HeartCore.cs" />
   </ItemGroup>
   <Import Project="..\ConnectionData\ConnectionData.projitems" Label="Shared" Condition="Exists('..\ConnectionData\ConnectionData.projitems')" />

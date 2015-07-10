@@ -106,19 +106,22 @@ namespace Heart
 		public Socket clientSocket;
 		public Thread clientThread;
 		public string id;
+		private bool verified = false;
+
+		// shard details loaded from verification
+		private string shardName = "SHARDNAMEGOESHERE";
 
 		public ClientData (Socket clientSocket)
 		{
 			this.clientSocket = clientSocket;
-
-			// this generates a unique id so we can identify each shard
-			id = Guid.NewGuid ().ToString ();
 
 			// after we accept a connection, we start a new thread for listening to the client
 			clientThread = new Thread (Data_IN);
 			clientThread.Start (clientSocket);
 
 			Register ();
+
+			// wait until we grab the GUID from the client, and then compare it against already generated files
 		}
 
 		public void Data_OUT (Packet p)
@@ -171,6 +174,25 @@ namespace Heart
 		// this will handle everything about the packet
 		public void DataManager (Packet p)
 		{
+			if (!verified) {
+				if (!p.packetType == Packet.PacketType.Registration)
+					return;
+				id = p.senderID;
+				// now we verify the ID against the given saves. if it passes, verified = true
+				if (retrieveShard (id)) {
+					verified = true;
+					// now we load all the shard information from the saved file
+
+					// confirm successful connection
+					HeartCore.getCore ().write ("Shard " + shardName + " connected successfully.");
+					return;
+				} else {
+					HeartCore.getCore ().write ("Shard using GUID " + id + " tried to connect, verification failed. Connection refused.");
+					this.Close ();
+				}
+				
+			}
+
 			switch (p.packetType) {
 			case Packet.PacketType.CloseConnection:
 				Close ();
@@ -181,6 +203,16 @@ namespace Heart
 			default:
 				break;
 			}
+		}
+
+		private bool retrieveShard(string guid)
+		{
+
+		}
+
+		public void analyzeCommand(string s)
+		{
+
 		}
 	}
 }

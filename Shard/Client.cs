@@ -106,8 +106,10 @@ namespace Shard
 		{
 			switch (p.packetType) {
 			case Packet.PacketType.Registration:
-				// if the server is sending the registration packet
+				// if the server is sending the registration packet (start of connection)
 				serverGuid = p.senderID;
+				// now save that to a file if this is the first connection, otherwise compare it to the file
+				// send your GUID now
 				ShardCore.commandKey = p.packetString;
 				// we dont need to send registration back, that was sent on connect
 				break;
