@@ -29,15 +29,15 @@ using Gtk;
 
 namespace Shard
 {
-	class Core
+	class ShardCore
 	{
 
 		public static string commandKey, logBaseDir = "/CrystalHomeSys/Shard Logs/";
 
-		private static Core core;
+		private static ShardCore core;
 		private Log log;
 
-		public Core ()
+		public ShardCore ()
 		{
 			// set up the core variables
 
@@ -69,7 +69,7 @@ namespace Shard
 			Application.Run ();
 		}
 
-		public static Core getCore()
+		public static ShardCore getCore()
 		{
 			return core;
 		}
@@ -81,7 +81,7 @@ namespace Shard
 
 		public static void Main (string[] args)
 		{
-			core = new Core ();
+			core = new ShardCore ();
 		}
 	}
 }
