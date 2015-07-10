@@ -25,38 +25,36 @@ THIS IS A BETA BUILD!
 ______________________________________________________________________________
 
 We would like to thank you for taking the time to check out our brand new media
-system! Unfortunately it is currently only a desktop build, and it's in beta.
+system! Finally we are able to annouce the Pi Beta Release, and we want your
+feedback!
 
-Here are some things that you should know before pushing a bug report or running
-the software for the first time:
+We have a bug report and feature addition page on our website! Check out
+www.crystalhomesystems.com/report to access those forms. Frequent reports will be
+added to our FAQ page as needed, so be sure to check that out before submitting a
+report at www.crystalhomesystems.com/faq.
 
-1) The config file and patch information currently stores to your C drive. This
-is NOT ABLE TO BE CHANGED AT THIS TIME! The reason for this is complicated.
-However, this does mean that if your C drive requires administrator access to
-read or write, you are going to have several crashes occur! This bug has only
-popped up in Windows 8 computers, and rarely. Please do not report this, we're
-very aware!
-2) When you are setting up the directories for media folders, you MUST select a
-folder that contains media. This includes a folder that includes all the sub-
-folders (such as artists) which contain the music. However, selecting something
-like your C drive will result in a crash. This is also outlined in the first
-time setup menu!
-3) OCCASIONALLY, if the system is unable to find an available media file upon
-play request, it WILL crash at the next command. If this occurs, please be
-aware that we are working on it, but also PLEASE report it to us with all the
-detail you can!
+Crystal is built on the Raspberry Pi, and runs on Ubuntu Mate for the rPi2. The
+software you downloaded will be able to flash directly to a SD card and plug into
+your pi and run right out of the box! There are a couple of things to note before
+you do that though.
 
-One last thing should be mentioned. When there is a patch available, currently
-you will be directed to our download page to re-download and install. This is
-hopefully going to change during the Beta, we need a large audience to test the
-system, but for now please bear with us!
+1) Our system runs off of Bluetooth services. This is because we needed a secure
+system in place to prevent a 3rd party from slipping into the connection stream
+and messing with your home. This also allows us to know for SURE that our devices
+will stay running, even if your home network goes down. This is perfect for security
+systems around your home.
+
+2) When you add a new Shard to your home, after you power it on the bluetooth will
+turn on and broadcast itself to the world! To connect it to your Heart, simply go
+to *INSERT WEB URL HERE TO ACCESS REMOTE SHARD PAGE* and click on "Attach Shard",
+and walk through the wizard.
 
 Thank you for your interest and support!
 
 Check out our website at www.crystalhomesystems.com for more info!
 
 ///////////////////////////////////////////////////////////////////////////////
-Desktop Build Beta
+Shard Beta Build
 ///////////////////////////////////////////////////////////////////////////////
 
-Updated on 8:35 PM 6/26/2015
+Updated on 7:22 PM 7/9/2015
