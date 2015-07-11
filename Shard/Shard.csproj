@@ -71,6 +71,11 @@
     <Compile Include="Log.cs" />
     <Compile Include="ShardCore.cs" />
   </ItemGroup>
-  <Import Project="..\ConnectionData\ConnectionData.projitems" Label="Shared" Condition="Exists('..\ConnectionData\ConnectionData.projitems')" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\ConnectionData\ConnectionData.csproj">
+      <Project>{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}</Project>
+      <Name>ConnectionData</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

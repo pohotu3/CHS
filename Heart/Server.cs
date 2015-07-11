@@ -143,8 +143,10 @@ namespace Heart
 			Data_OUT (p);
 			HeartCore.getCore ().write ("Sent registration packet to " + clientSocket.AddressFamily.ToString ());
 
-			// then it will receive the client GUID, and figure out if the client has been set up
-			// before or not
+			// analyze the client GUID we received on the initial connect
+
+			// notify that we have a successful connection and registration
+			HeartCore.getCore ().write ("Successful connection with Shard " + shardName + ".");
 		}
 
 		public void Close ()
@@ -181,27 +183,9 @@ namespace Heart
 		// this will handle everything about the packet
 		public void DataManager (Packet p)
 		{
-			if (!verified) {
-				if (p.packetType != Packet.PacketType.Registration)
-					return;
-				id = p.senderID;
-				// now we verify the ID against the given saves. if it passes, verified = true
-				if (retrieveShard (id)) {
-					verified = true;
-					// now we load all the shard information from the saved file
-
-					// confirm successful connection
-					HeartCore.getCore ().write ("Shard " + shardName + " connected successfully.");
-					return;
-				} else {
-					HeartCore.getCore ().write ("Shard using GUID " + id + " tried to connect, verification failed. Connection refused.");
-					this.Close ();
-				}
-				
-			}
-
 			switch (p.packetType) {
 			case Packet.PacketType.CloseConnection:
+				HeartCore.getCore ().write ("Shard " + shardName + " has disconnected.");
 				Close ();
 				break;
 			case Packet.PacketType.Command:

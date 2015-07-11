@@ -113,7 +113,7 @@ namespace Shard
 				// we dont need to send registration back, that was sent on connect
 				break;
 			case Packet.PacketType.CloseConnection:
-				ShardCore.getCore ().write ("Server is closing the connection for " + p.packetString);
+				ShardCore.getCore ().write ("Server is closing the connection.");
 				Close ();
 				break;
 			default:
