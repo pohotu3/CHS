@@ -38,7 +38,7 @@ namespace Shard
 
 		private int socket;
 		private string ipAddress, guid, serverGuid;
-		private bool running = false;
+		private bool running = false, connected = false;
 
 		public Socket master;
 		private Thread listeningThread;
@@ -88,7 +88,6 @@ namespace Shard
 				if (readBytes > 0) {
 					// handle data
 					DataManager (new Packet (buffer));
-					Console.WriteLine ("test");
 				}
 			}
 		}
@@ -96,6 +95,10 @@ namespace Shard
 		// for sending data through packets
 		public void Data_OUT(Packet p)
 		{
+			if (!connected && p.packetType != Packet.PacketType.Registration) {
+				ShardCore.getCore ().write ("We are not connected yet. Please try restarting...");
+				return;
+			}
 			master.Send (p.ToBytes ());
 		}
 
@@ -107,10 +110,19 @@ namespace Shard
 				// if the server is sending the registration packet (start of connection)
 				ShardCore.getCore ().write ("Received registration packet from Heart.");
 				serverGuid = p.senderID;
+
 				// now save that to a file if this is the first connection, otherwise compare it to the file
-				// send your GUID now
+
+				// set the commandKey from the server registration packet
 				ShardCore.commandKey = p.packetString;
-				// we dont need to send registration back, that was sent on connect
+
+				// send client registration packet
+				Data_OUT (new Packet (Packet.PacketType.Registration, guid));
+				ShardCore.getCore ().write ("Sent registration packet to Heart.");
+				break;
+			case Packet.PacketType.Handshake:
+				ShardCore.getCore ().write ("Connection Established.");
+				connected = true;
 				break;
 			case Packet.PacketType.CloseConnection:
 				ShardCore.getCore ().write ("Server is closing the connection.");

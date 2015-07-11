@@ -103,11 +103,10 @@ namespace ConnectionData
 			return "127.0.0.1";	
 		}
 
-		// enum makes it so we can define different strings, makes the packetType really easy to work with
 		// allows us to define what kind of packet it is
 		public enum PacketType
 		{
-			Registration, CloseConnection, Command
+			Registration, CloseConnection, Command, Handshake
 		}
 	}
 }

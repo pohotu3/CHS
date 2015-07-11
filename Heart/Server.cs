@@ -112,19 +112,19 @@ namespace Heart
 		private bool verified = false;
 
 		// shard details loaded from verification
-		private string shardName = "SHARDNAMEGOESHERE";
+		private string shardName = "SHARDNAMEGOESHERE", shardType = "";
 
 		public ClientData (Socket clientSocket)
 		{
 			this.clientSocket = clientSocket;
 
-			HeartCore.getCore ().write ("Incoming connection from shard. IP: " + clientSocket.AddressFamily.ToString());
+			HeartCore.getCore ().write ("Incoming connection from shard. IP: " + clientSocket.AddressFamily.ToString ());
 
 			// after we accept a connection, we start a new thread for listening to the client
 			clientThread = new Thread (Data_IN);
 			clientThread.Start (clientSocket);
 
-			HeartCore.getCore ().write ("Registering with client " + clientSocket.AddressFamily.ToString());
+			HeartCore.getCore ().write ("Registering with client " + clientSocket.AddressFamily.ToString ());
 			Register ();
 
 			// wait until we grab the GUID from the client, and then compare it against already generated files
@@ -143,10 +143,7 @@ namespace Heart
 			Data_OUT (p);
 			HeartCore.getCore ().write ("Sent registration packet to " + clientSocket.AddressFamily.ToString ());
 
-			// analyze the client GUID we received on the initial connect
-
-			// notify that we have a successful connection and registration
-			HeartCore.getCore ().write ("Successful connection with Shard " + shardName + ".");
+			// now we wait for the client to send registration packet. We WILL NOT read other packets till their verified
 		}
 
 		public void Close ()
@@ -183,6 +180,26 @@ namespace Heart
 		// this will handle everything about the packet
 		public void DataManager (Packet p)
 		{
+			if (!verified) {
+				if (p.packetType != Packet.PacketType.Registration)
+					return;
+				id = p.senderID;
+				// now we verify the ID against the given saves. if it passes, verified = true
+				if (retrieveShard (id)) {
+					verified = true;
+					// now we load all the shard information from the saved file
+
+					// confirm successful connection
+					HeartCore.getCore ().write ("Shard " + shardName + " registered and connected successfully. Sending handshake.");
+					Data_OUT (new Packet (Packet.PacketType.Handshake, Server.guid));
+					return;
+				} else {
+					HeartCore.getCore ().write ("Shard using GUID " + id + " tried to connect, verification failed. Connection refused.");
+					this.Close ();
+				}
+								
+			}
+				
 			switch (p.packetType) {
 			case Packet.PacketType.CloseConnection:
 				HeartCore.getCore ().write ("Shard " + shardName + " has disconnected.");
@@ -196,12 +213,13 @@ namespace Heart
 			}
 		}
 
-		private bool retrieveShard(string guid)
+		// finds shard info file saved, and if doesnt exist runs through init system for it
+		private bool retrieveShard (string guid)
 		{
 			return true;
 		}
 
-		public void analyzeCommand(string s)
+		public void analyzeCommand (string s)
 		{
 
 		}
