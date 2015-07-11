@@ -32,6 +32,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using ConnectionData;
 
 namespace Heart
@@ -112,7 +113,7 @@ namespace Heart
 		private bool verified = false;
 
 		// shard details loaded from verification
-		private string shardName = "SHARDNAMEGOESHERE", shardType = "";
+		private string shardName = "", shardType = "", shardLocation = "";
 
 		public ClientData (Socket clientSocket)
 		{
@@ -166,7 +167,7 @@ namespace Heart
 				buffer = new byte[clientSocket.SendBufferSize];
 
 				// gets the amount of bytes we've received
-				readBytes = clientSocket.Receive (buffer);
+				readBytes = clientSocket.Receive (buffer); // throws an exception when being closed...
 
 				// if we actually recieve something, then sort through it
 				if (readBytes > 0) {
@@ -216,6 +217,48 @@ namespace Heart
 		// finds shard info file saved, and if doesnt exist runs through init system for it
 		private bool RetrieveShard (string guid)
 		{
+			string baseDir = System.Environment.GetEnvironmentVariable ("HOME") + "/CrystalHomeSys/Heart/Shard Files/";
+
+			// make sure the baseDir exists first
+			if (!Directory.Exists (baseDir))
+				Directory.CreateDirectory (baseDir);
+
+			// get a list of all current .shard files including the filepaths to them
+			string[] shards = Directory.GetFiles (baseDir, "*.shard", SearchOption.TopDirectoryOnly);
+
+			foreach (string shardFile in shards) {
+				// load the shard file into a config object for manipulation
+				Config t = new Config (shardFile);
+				if (t.get ("guid") == id) {
+					// load the information from the file
+					shardName = t.get ("shardName");
+					shardType = t.get ("shardType");
+					shardLocation = t.get ("shardLocation");
+					return true;
+				}
+
+			}
+
+			// get shard information
+			HeartCore.GetCore ().Write ("New Shard Connected. Please enter the name you wish to assign it and then press enter: ");
+			shardName = Console.ReadLine ();
+
+			HeartCore.GetCore ().Write ("Now please enter the type of Shard (options: media): ");
+			shardType = Console.ReadLine ();
+
+			HeartCore.GetCore ().Write ("Now please enter the location of the Shard (examples: bedroom, kitchen, living room): ");
+			shardLocation = Console.ReadLine ();
+
+			Config shardCfg = new Config("" + baseDir + shardName);
+			// now save the Shard file to write it to the harddrive			
+			shardCfg.set(shardName, Console.ReadLine ());
+			shardCfg.set (shardType, Console.ReadLine ());
+			shardCfg.set (shardLocation, Console.ReadLine ());
+			shardCfg.set ("guid", id);
+			shardCfg.Save ();
+
+			HeartCore.GetCore ().Write ("Configuration on Shard is now complete.");
+
 			return true;
 		}
 

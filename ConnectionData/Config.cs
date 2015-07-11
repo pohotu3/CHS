@@ -30,7 +30,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace Heart
+namespace ConnectionData
 {
 	public class Config
 	{
@@ -91,7 +91,7 @@ namespace Heart
 		{
 			reload(this.filename);
 		}
-			
+
 		// refreshes the values
 		public void reload(String filename)
 		{
