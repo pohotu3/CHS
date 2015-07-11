@@ -57,7 +57,8 @@ namespace Heart
 			listenerSocket = new Socket (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			_clients = new List<ClientData> ();
 
-			ip = new IPEndPoint (IPAddress.Parse (Packet.GetIP4Address ()), port);
+			//ip = new IPEndPoint (IPAddress.Parse (Packet.GetIP4Address ()), port);
+			ip = new IPEndPoint (IPAddress.Parse ("127.0.0.1"), port);
 			listenerSocket.Bind (ip);
 
 			listenThread = new Thread (ListenThread);
@@ -92,7 +93,9 @@ namespace Heart
 			// send the close connection status to all clients
 			foreach (ClientData cd in _clients) {
 				Packet p = new Packet (Packet.PacketType.CloseConnection, guid);
+				p.packetString = "maintenence";
 				cd.Data_OUT (p);
+				cd.Close ();
 			}
 
 			listenerSocket.Close ();
@@ -115,10 +118,13 @@ namespace Heart
 		{
 			this.clientSocket = clientSocket;
 
+			HeartCore.getCore ().write ("Incoming connection from shard. IP: " + clientSocket.AddressFamily.ToString());
+
 			// after we accept a connection, we start a new thread for listening to the client
 			clientThread = new Thread (Data_IN);
 			clientThread.Start (clientSocket);
 
+			HeartCore.getCore ().write ("Registering with client " + clientSocket.AddressFamily.ToString());
 			Register ();
 
 			// wait until we grab the GUID from the client, and then compare it against already generated files
@@ -135,12 +141,13 @@ namespace Heart
 			Packet p = new Packet (Packet.PacketType.Registration, Server.guid);
 			p.packetString = HeartCore.commandKey;
 			Data_OUT (p);
+			HeartCore.getCore ().write ("Sent registration packet to " + clientSocket.AddressFamily.ToString ());
 
 			// then it will receive the client GUID, and figure out if the client has been set up
 			// before or not
 		}
 
-		private void Close ()
+		public void Close ()
 		{
 			clientSocket.Close ();
 			clientThread.Join ();
@@ -175,7 +182,7 @@ namespace Heart
 		public void DataManager (Packet p)
 		{
 			if (!verified) {
-				if (!p.packetType == Packet.PacketType.Registration)
+				if (p.packetType != Packet.PacketType.Registration)
 					return;
 				id = p.senderID;
 				// now we verify the ID against the given saves. if it passes, verified = true
@@ -207,7 +214,7 @@ namespace Heart
 
 		private bool retrieveShard(string guid)
 		{
-
+			return true;
 		}
 
 		public void analyzeCommand(string s)

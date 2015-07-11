@@ -56,8 +56,9 @@ namespace Shard
 			try {
 				// tries to connect to the socket located at the IP and socket given
 				master.Connect (ip);
+				ShardCore.getCore().write("Connected to Heart at IP " + ipAddress + " Socket: " + socket);
 			} catch {
-				Console.WriteLine ("Could not connect to " + ip);
+				ShardCore.getCore().write ("Could not connect to " + ipAddress + " on Socket: " + socket);
 				Thread.Sleep (1000);
 
 				// we dont want the client socket continuing if we were not able to connect
@@ -66,10 +67,6 @@ namespace Shard
 
 			// creates the new listening thread
 			listeningThread = new Thread (Data_IN);
-		}
-
-		public void start()
-		{
 			running = true;
 			listeningThread.Start (); // Data_IN is now constantly being run
 		}
@@ -91,6 +88,7 @@ namespace Shard
 				if (readBytes > 0) {
 					// handle data
 					DataManager (new Packet (buffer));
+					Console.WriteLine ("test");
 				}
 			}
 		}
@@ -107,6 +105,7 @@ namespace Shard
 			switch (p.packetType) {
 			case Packet.PacketType.Registration:
 				// if the server is sending the registration packet (start of connection)
+				ShardCore.getCore ().write ("Received registration packet from Heart.");
 				serverGuid = p.senderID;
 				// now save that to a file if this is the first connection, otherwise compare it to the file
 				// send your GUID now
@@ -114,6 +113,7 @@ namespace Shard
 				// we dont need to send registration back, that was sent on connect
 				break;
 			case Packet.PacketType.CloseConnection:
+				ShardCore.getCore ().write ("Server is closing the connection for " + p.packetString);
 				Close ();
 				break;
 			default:

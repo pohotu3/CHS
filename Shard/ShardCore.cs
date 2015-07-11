@@ -35,11 +35,13 @@ namespace Shard
 		public static string commandKey, logBaseDir = "/CrystalHomeSys/Shard Logs/";
 
 		private static ShardCore core;
+		private Client client;
 		private Log log;
 
 		public ShardCore ()
 		{
 			// set up the core variables
+			core = this;
 
 			// initialize logging
 			logBaseDir = System.Environment.GetEnvironmentVariable ("HOME") + logBaseDir;
@@ -49,6 +51,7 @@ namespace Shard
 			write ("Log located at " + log.fileName);
 
 			// set up connections and connect to the server (this will set command key)
+			client = new Client ("127.0.0.1", 6976, Guid.NewGuid ());
 
 			// set up voice and get it primed to go
 
@@ -76,6 +79,7 @@ namespace Shard
 
 		public void write(string s)
 		{
+			Console.WriteLine (s);
 			log.write (s);
 		}
 
