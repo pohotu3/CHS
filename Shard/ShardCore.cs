@@ -46,9 +46,9 @@ namespace Shard
 			// initialize logging
 			logBaseDir = System.Environment.GetEnvironmentVariable ("HOME") + logBaseDir;
 			log = new Log (logBaseDir);
-			write ("#############################SYSTEM STARTUP###################################");
-			write ("System logging initialized...");
-			write ("Log located at " + log.fileName);
+			Write ("#############################SYSTEM STARTUP###################################");
+			Write ("System logging initialized...");
+			Write ("Log located at " + log.fileName);
 
 			// set up connections and connect to the server (this will set command key)
 			client = new Client ("127.0.0.1", 6976, Guid.NewGuid ());
@@ -59,7 +59,7 @@ namespace Shard
 			ShowWindow ();
 		}
 
-		private void init ()
+		private void Init ()
 		{
 
 		}
@@ -77,7 +77,7 @@ namespace Shard
 			return core;
 		}
 
-		public void write(string s)
+		public void Write(string s)
 		{
 			Console.WriteLine (s);
 			log.write (s);

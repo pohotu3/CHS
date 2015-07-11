@@ -54,7 +54,7 @@ namespace Heart
 			// allows the config file to be created in the home directory. ie: /home/austin/
 			configDir = System.Environment.GetEnvironmentVariable("HOME") + configDir;
 
-			init ();
+			Init ();
 		}
 
 		public static void Main (string[] args)
@@ -62,20 +62,20 @@ namespace Heart
 			new HeartCore();
 		}
 
-		private void init()
+		private void Init()
 		{
 			// set up logging here
 			log = new Log(logBaseDir);
-			write ("#############################SYSTEM STARTUP###################################");
-			write ("System logging initialized...");
-			write ("Log located at " + log.fileName);
+			Write ("#############################SYSTEM STARTUP###################################");
+			Write ("System logging initialized...");
+			Write ("Log located at " + log.fileName);
 
 			// initialize the configuration files
 			cfg = new Config (configDir);
 			if (!cfg.exists ()) {
 				// if the system hasnt been run before, generate a name for it here with the web api. For now, hardcode it
 				systemName = "Crystal";
-				initConfig ();
+				InitConfig ();
 			}
 
 			// load all the information from the cfg after it's set up
@@ -89,25 +89,25 @@ namespace Heart
 			 * set up all the network information and objects, do NOT start
 			 * listening yet however, wait until the UI is open and ready for commands
 			 */
-			write ("Creating Server on port " + serverPort);
+			Write ("Creating Server on port " + serverPort);
 			server = new Server (serverPort, guid); // port number isn't 100% firm, but no reason to change it
-			write ("Created Server connection on port " + serverPort);
+			Write ("Created Server connection on port " + serverPort);
 
 			// another thing we could do is set up the console to be a browser based setup, using php or
 			// something, allowing remote connection instead of having to directly link up
 
 			// start listening for connections
 			server.Start ();
-			write ("Started listening on IP: " + server.ip.Address + " Port: " + serverPort);
+			Write ("Started listening on IP: " + server.ip.Address + " Port: " + serverPort);
 
 			// final part of the code, waits for a key press and then closes the server and quits out
-			write ("Push any key to quit...");
+			Write ("Push any key to quit...");
 			Console.ReadKey ();
 			server.Close ();
-			write ("Server closed!");
+			Write ("Server closed!");
 		}
 
-		private void initConfig()
+		private void InitConfig()
 		{
 			// start the first-time-setup information here, then save it to the cfg
 			string musicDir = "musicDir", movieDir = "movieDir", commandKey = "Ok " + systemName;
@@ -120,15 +120,15 @@ namespace Heart
 			cfg.set ("guid", Guid.NewGuid ().ToString ()); // generates a GUID for the server
 			cfg.Save ();
 
-			write ("New configuration file created at " + configDir);
+			Write ("New configuration file created at " + configDir);
 		}
 
-		public static HeartCore getCore()
+		public static HeartCore GetCore()
 		{
 			return core;
 		}
 
-		public void write(string s)
+		public void Write(string s)
 		{
 			Console.WriteLine (s);
 			log.write (s);

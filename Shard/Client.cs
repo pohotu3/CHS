@@ -56,9 +56,9 @@ namespace Shard
 			try {
 				// tries to connect to the socket located at the IP and socket given
 				master.Connect (ip);
-				ShardCore.getCore().write("Connected to Heart at IP " + ipAddress + " Socket: " + socket);
+				ShardCore.getCore().Write("Connected to Heart at IP " + ipAddress + " Socket: " + socket);
 			} catch {
-				ShardCore.getCore().write ("Could not connect to " + ipAddress + " on Socket: " + socket);
+				ShardCore.getCore().Write ("Could not connect to " + ipAddress + " on Socket: " + socket);
 				Thread.Sleep (1000);
 
 				// we dont want the client socket continuing if we were not able to connect
@@ -96,7 +96,7 @@ namespace Shard
 		public void Data_OUT(Packet p)
 		{
 			if (!connected && p.packetType != Packet.PacketType.Registration) {
-				ShardCore.getCore ().write ("We are not connected yet. Please try restarting...");
+				ShardCore.getCore ().Write ("We are not connected yet. Please try restarting...");
 				return;
 			}
 			master.Send (p.ToBytes ());
@@ -108,7 +108,7 @@ namespace Shard
 			switch (p.packetType) {
 			case Packet.PacketType.Registration:
 				// if the server is sending the registration packet (start of connection)
-				ShardCore.getCore ().write ("Received registration packet from Heart.");
+				ShardCore.getCore ().Write ("Received registration packet from Heart.");
 				serverGuid = p.senderID;
 
 				// now save that to a file if this is the first connection, otherwise compare it to the file
@@ -118,14 +118,14 @@ namespace Shard
 
 				// send client registration packet
 				Data_OUT (new Packet (Packet.PacketType.Registration, guid));
-				ShardCore.getCore ().write ("Sent registration packet to Heart.");
+				ShardCore.getCore ().Write ("Sent registration packet to Heart.");
 				break;
 			case Packet.PacketType.Handshake:
-				ShardCore.getCore ().write ("Connection Established.");
+				ShardCore.getCore ().Write ("Connection Established.");
 				connected = true;
 				break;
 			case Packet.PacketType.CloseConnection:
-				ShardCore.getCore ().write ("Server is closing the connection.");
+				ShardCore.getCore ().Write ("Server is closing the connection.");
 				Close ();
 				break;
 			default:
