@@ -32,7 +32,7 @@ namespace Shard
 	class ShardCore
 	{
 
-		public static string commandKey, logBaseDir = "/CrystalHomeSys/Shard/Shard Logs/";
+		public static string commandKey, logBaseDir = "/CrystalHomeSys/Shard/Shard Logs/", cfgBaseDir = "/CrystalHomeSys/Shard/shard_config.cfg";
 
 		private static ShardCore core;
 		private Client client;
@@ -45,6 +45,7 @@ namespace Shard
 
 			// initialize logging
 			logBaseDir = System.Environment.GetEnvironmentVariable ("HOME") + logBaseDir;
+			cfgBaseDir = System.Environment.GetEnvironmentVariable ("HOME") + cfgBaseDir;
 			log = new Log (logBaseDir);
 			Write ("#############################SYSTEM STARTUP###################################");
 			Write ("System logging initialized...");

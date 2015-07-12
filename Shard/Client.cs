@@ -48,8 +48,7 @@ namespace Shard
 		{
 			this.socket = socket;
 			this.ipAddress = ipAddress;
-			//this.guid = guid.ToString ();
-			this.guid = "thisisaguidhahaha";
+			this.guid = guid.ToString ();
 
 			master = new Socket (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			IPEndPoint ip = new IPEndPoint (IPAddress.Parse (ipAddress), socket);

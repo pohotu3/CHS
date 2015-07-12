@@ -35,7 +35,7 @@ namespace Heart
 		private static HeartCore core = null;
 
 		private const string systemType = "Heart", version = "0.0.1";
-		public static string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/crystal_config.cfg", logBaseDir = "/CrystalHomeSys/Heart/Logs/";
+		public static string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/Heart/heart_config.cfg", logBaseDir = "/CrystalHomeSys/Heart/Logs/";
 		private const int serverPort = 6976;
 
 		// unique identifier for the server
