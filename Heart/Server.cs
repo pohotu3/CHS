@@ -151,6 +151,7 @@ namespace Heart
 		{
 			clientSocket.Close ();
 			clientThread.Join ();
+			//Server._clients.Remove (this);
 		}
 
 		// clientdata thread - receives data from each client individually

@@ -37,6 +37,7 @@ namespace Heart
 		private const string systemType = "Heart", version = "0.0.1";
 		public static string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/Heart/heart_config.cfg", logBaseDir = "/CrystalHomeSys/Heart/Logs/";
 		private const int serverPort = 6976;
+		private bool running = false;
 
 		// unique identifier for the server
 		private Guid guid;
@@ -101,11 +102,12 @@ namespace Heart
 			server.Start ();
 			Write ("Started listening on IP: " + server.ip.Address + " Port: " + serverPort);
 
-			// final part of the code, waits for a key press and then closes the server and quits out
-			Write ("Push any key to quit...");
-			//Console.ReadKey ();
-			//server.Close ();
-			//Write ("Server closed!");
+			// start listening for command inputs to control the server.
+			running = true;
+			Write ("Type quit to exit. Type commands for a list of available commands.");
+			while (running) {
+				AnalyzeCommand (Console.ReadLine ());
+			}
 		}
 
 		private void InitConfig()
@@ -133,6 +135,28 @@ namespace Heart
 		public static HeartCore GetCore()
 		{
 			return core;
+		}
+
+		private void AnalyzeCommand(string s)
+		{
+			string[] commands = new string[] {"quit", "commands"};
+
+			switch (s.ToLower ()) {
+			case "quit":
+				Write ("Closing server.");
+				server.Close ();
+				Environment.Exit (0);
+				break;
+			case "commands":
+				string temp = "Availabale Commands: ";
+				for (int i = 0; i < commands.Length; i++) {
+					temp += commands [i] + " ";
+				}
+				Write (temp);
+				break;
+			default:
+				break;
+			}
 		}
 
 		public void Write(string s)
