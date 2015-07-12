@@ -85,7 +85,6 @@ namespace Heart
 			movieDir = cfg.get ("movieDir");
 			commandKey = cfg.get ("commandKey");
 			guid = Guid.Parse(cfg.get("guid"));
-			
 
 			/* 
 			 * set up all the network information and objects, do NOT start

@@ -135,6 +135,9 @@ namespace Shard
 				ShardCore.getCore ().Write ("Server is closing the connection. Reason: " + reason);
 				Close ();
 				break;
+			case Packet.PacketType.Command:
+				ShardCore.GetWindow().ServerResponse (p.packetString);
+				break;
 			default:
 				break;
 			}

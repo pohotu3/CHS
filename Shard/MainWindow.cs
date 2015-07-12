@@ -27,6 +27,7 @@
 using System;
 using Gtk;
 using Shard;
+using ConnectionData;
 
 public partial class MainWindow: Gtk.Window
 {
@@ -40,5 +41,22 @@ public partial class MainWindow: Gtk.Window
 		ShardCore.getCore ().GetClient ().Close ();
 		Application.Quit ();
 		a.RetVal = true;
+	}
+
+	protected void Send_Clicked (object sender, EventArgs e)
+	{
+		// if there's nothing entered, dont send anything
+		if (EnterCommand.Text == "")
+			return;
+
+		Packet packet = new Packet (Packet.PacketType.Command, ShardCore.getCore ().guid.ToString());
+		packet.packetString = EnterCommand.Text;
+		ShardCore.getCore ().GetClient ().Data_OUT (packet);
+		ShardCore.getCore ().Write ("Sent command packet to Heart.");
+	}
+
+	public void ServerResponse(string s)
+	{
+		HeartOutput.Text = "Server Response: " + s;
 	}
 }

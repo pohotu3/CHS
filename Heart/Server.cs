@@ -213,7 +213,12 @@ namespace Heart
 				Close ();
 				break;
 			case Packet.PacketType.Command:
-				// not sure how i want to handle this part... i'll work on it later
+				string command = p.packetString.ToLower ();
+				if (command == "help") {
+					Packet t = new Packet(Packet.PacketType.Command, Server.guid);
+					t.packetString = "HELP";
+					Data_OUT (t);
+				}
 				break;
 			default:
 				break;

@@ -38,14 +38,13 @@ namespace ConnectionData
 	{
 		// these are all the different types of things we can send
 		public List<string> gData = null;
-		public string packetString = null;
+		public String packetString = null;
 		public int packetInt;
 		public bool packetBool;
 		public PacketType packetType;
 
 		// senderID is going to be the unique GUID that we generated
 		public string senderID;
-
 
 		public Packet (PacketType type, string senderID)
 		{

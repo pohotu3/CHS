@@ -40,6 +40,8 @@ namespace Shard
 		private Client client;
 		private Log log;
 		private Config config;
+		public Guid guid;
+		public static MainWindow mw;
 
 		public ShardCore ()
 		{
@@ -65,10 +67,11 @@ namespace Shard
 				config.Save ();
 			}
 			Write ("Configuration loaded.");
+			guid = Guid.Parse (config.get ("guid"));
 
 			// set up connections and connect to the server (this will set command key)
 			Write ("Creating connection to Heart...");
-			client = new Client ("127.0.0.1", 6976, Guid.Parse(config.get("guid")));
+			client = new Client ("127.0.0.1", 6976, guid);
 
 			// set up voice and get it primed to go
 
@@ -84,9 +87,14 @@ namespace Shard
 		private void ShowWindow ()
 		{
 			Application.Init ();
-			MainWindow win = new MainWindow ();
-			win.Show ();
+			mw = new MainWindow ();
+			mw.Show ();
 			Application.Run ();
+		}
+
+		public static MainWindow GetWindow()
+		{
+			return mw;
 		}
 
 		public static ShardCore getCore()

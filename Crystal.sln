@@ -27,6 +27,6 @@ Global
 		{B7774547-10D1-4E4A-81A1-96D252805226}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Heart\Heart.csproj
+		StartupItem = Shard\Shard.csproj
 	EndGlobalSection
 EndGlobal
