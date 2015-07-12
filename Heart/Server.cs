@@ -167,7 +167,11 @@ namespace Heart
 				buffer = new byte[clientSocket.SendBufferSize];
 
 				// gets the amount of bytes we've received
-				readBytes = clientSocket.Receive (buffer); // throws an exception when being closed...
+				try{
+					readBytes = clientSocket.Receive (buffer);
+				}catch(ObjectDisposedException e){
+					return;
+				}
 
 				// if we actually recieve something, then sort through it
 				if (readBytes > 0) {
