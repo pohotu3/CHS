@@ -103,9 +103,9 @@ namespace Heart
 
 			// final part of the code, waits for a key press and then closes the server and quits out
 			Write ("Push any key to quit...");
-			Console.ReadKey ();
-			server.Close ();
-			Write ("Server closed!");
+			//Console.ReadKey ();
+			//server.Close ();
+			//Write ("Server closed!");
 		}
 
 		private void InitConfig()
@@ -122,6 +122,12 @@ namespace Heart
 			cfg.Save ();
 
 			Write ("New configuration file created at " + configDir);
+		}
+
+		// sets up a new shard config and returns the values
+		public static string[] InitNewShard()
+		{
+			return null;
 		}
 
 		public static HeartCore GetCore()

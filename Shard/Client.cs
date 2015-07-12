@@ -121,7 +121,7 @@ namespace Shard
 				ShardCore.getCore ().Write ("Sent registration packet to Heart.");
 				break;
 			case Packet.PacketType.Handshake:
-				ShardCore.getCore ().Write ("Connection Established.");
+				ShardCore.getCore ().Write ("Handshake received. Connection Established.");
 				connected = true;
 				break;
 			case Packet.PacketType.CloseConnection:
