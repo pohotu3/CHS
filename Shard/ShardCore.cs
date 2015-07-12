@@ -26,6 +26,8 @@
 
 using System;
 using Gtk;
+using ConnectionData;
+using System.IO;
 
 namespace Shard
 {
@@ -37,22 +39,36 @@ namespace Shard
 		private static ShardCore core;
 		private Client client;
 		private Log log;
+		private Config config;
 
 		public ShardCore ()
 		{
 			// set up the core variables
 			core = this;
 
+
 			// initialize logging
 			logBaseDir = System.Environment.GetEnvironmentVariable ("HOME") + logBaseDir;
-			cfgBaseDir = System.Environment.GetEnvironmentVariable ("HOME") + cfgBaseDir;
 			log = new Log (logBaseDir);
 			Write ("#############################SYSTEM STARTUP###################################");
 			Write ("System logging initialized...");
 			Write ("Log located at " + log.fileName);
 
+			// initialize the config file
+			cfgBaseDir = System.Environment.GetEnvironmentVariable ("HOME") + cfgBaseDir;
+			Write ("Loading configuration file...");
+			config = new Config (cfgBaseDir);
+			if (!config.exists ()) { // make sure the cfg file exists, and if it doesnt create it
+				Write ("Configuration file does not exist! Creating...");
+				config.set ("guid", Guid.NewGuid ());
+				// probably add a setting for the server's IP address, but i'm not really sure yet...
+				config.Save ();
+			}
+			Write ("Configuration loaded.");
+
 			// set up connections and connect to the server (this will set command key)
-			client = new Client ("127.0.0.1", 6976, Guid.NewGuid ());
+			Write ("Creating connection to Heart...");
+			client = new Client ("127.0.0.1", 6976, Guid.Parse(config.get("guid")));
 
 			// set up voice and get it primed to go
 

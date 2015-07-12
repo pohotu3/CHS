@@ -26,7 +26,7 @@
 
 using System;
 
-namespace Heart
+namespace ConnectionData
 {
 	public class Log
 	{
