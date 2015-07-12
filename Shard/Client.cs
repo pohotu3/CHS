@@ -125,7 +125,10 @@ namespace Shard
 				connected = true;
 				break;
 			case Packet.PacketType.CloseConnection:
-				ShardCore.getCore ().Write ("Server is closing the connection.");
+				string reason = p.packetString;
+				if (reason == null)
+					reason = "No Reason Given.";
+				ShardCore.getCore ().Write ("Server is closing the connection. Reason: " + reason);
 				Close ();
 				break;
 			default:
@@ -133,7 +136,7 @@ namespace Shard
 			}
 		}
 
-		private void Close()
+		public void Close()
 		{
 			running = false;
 			master.Close ();

@@ -26,6 +26,7 @@
 
 using System;
 using Gtk;
+using Shard;
 
 public partial class MainWindow: Gtk.Window
 {
@@ -36,6 +37,7 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
 	{
+		ShardCore.getCore ().GetClient ().Close ();
 		Application.Quit ();
 		a.RetVal = true;
 	}

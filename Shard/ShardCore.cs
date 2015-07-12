@@ -32,7 +32,7 @@ namespace Shard
 	class ShardCore
 	{
 
-		public static string commandKey, logBaseDir = "/CrystalHomeSys/Shard/Logs/";
+		public static string commandKey, logBaseDir = "/CrystalHomeSys/Shard/Shard Logs/";
 
 		private static ShardCore core;
 		private Client client;
@@ -75,6 +75,11 @@ namespace Shard
 		public static ShardCore getCore()
 		{
 			return core;
+		}
+
+		public Client GetClient()
+		{
+			return client;
 		}
 
 		public void Write(string s)

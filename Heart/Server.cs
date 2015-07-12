@@ -181,6 +181,7 @@ namespace Heart
 		// this will handle everything about the packet
 		public void DataManager (Packet p)
 		{
+			// if the client is not verified, we will not accept any other type of packet
 			if (!verified) {
 				if (p.packetType != Packet.PacketType.Registration)
 					return;
@@ -231,46 +232,43 @@ namespace Heart
 				Config t = new Config (shardFile);
 				if (t.get ("guid") == id) {
 					// load the information from the file
-					LoadShard (t);
+					shardName = t.get ("shardName");
+					shardType = t.get ("shardType");
+					shardLocation = t.get ("shardLocation");
 					return true;
 				}
-
 			}
 
 			// get shard information
-			string[] info = new string[3];
-
-			HeartCore.GetCore ().Write ("New Shard Connected. Please enter the name you wish to assign it and then press enter: ");
-			info[0] = Console.ReadLine ();
+			HeartCore.GetCore ().Write ("New Shard Connected. Please enter the name you wish to assign it and then press enter.");
+			HeartCore.GetCore ().Write ("If you do not want to allow this Shard to connect, type REFUSE: ");
+			shardName = Console.ReadLine ();
+			if (shardName.ToUpper () == "REFUSE") {
+				HeartCore.GetCore ().Write ("Shard refused. Closing connection.");
+				Packet t = new Packet (Packet.PacketType.CloseConnection, Server.guid);
+				t.packetString = "Connection Refused.";
+				Data_OUT (t);
+				Close ();
+			}
 
 			HeartCore.GetCore ().Write ("Now please enter the type of Shard (options: media): ");
-			info[1] = Console.ReadLine ();
+			shardType = Console.ReadLine ();
 
 			HeartCore.GetCore ().Write ("Now please enter the location of the Shard (examples: bedroom, kitchen, living room): ");
-			info[2] = Console.ReadLine ();
+			shardLocation = Console.ReadLine ();
 
 			// create a new config object to load all this to
-			Config shardCfg = new Config(baseDir + info[0]);
+			Config shardCfg = new Config(baseDir + shardName);
 
 			// now save the Shard file to write it to the harddrive
-			shardCfg.set("shardName", info[0]);
-			shardCfg.set ("shardType", info[1]);
-			shardCfg.set ("shardLocation", info[2]);
+			shardCfg.set("shardName", shardName);
+			shardCfg.set ("shardType", shardType);
+			shardCfg.set ("shardLocation", shardLocation);
 			shardCfg.set ("guid", id);
 			shardCfg.Save ();
-			HeartCore.GetCore ().Write ("Configuration on Shard is now complete.");
-
-			// load the shard info into the correct objects
-			LoadShard (shardCfg);
+			HeartCore.GetCore ().Write ("Configuration on " + shardLocation + " Shard is now complete.");
 
 			return true;
-		}
-
-		private void LoadShard(Config t)
-		{
-			shardName = t.get ("shardName");
-			shardType = t.get ("shardType");
-			shardLocation = t.get ("shardLocation");
 		}
 
 		public void AnalyzeCommand (string s)
