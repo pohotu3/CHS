@@ -37,8 +37,8 @@ namespace ConnectionData
 	public class Packet
 	{
 		// these are all the different types of things we can send
-		public List<string> gData;
-		public string packetString;
+		public List<string> gData = null;
+		public string packetString = null;
 		public int packetInt;
 		public bool packetBool;
 		public PacketType packetType;

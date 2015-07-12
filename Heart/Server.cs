@@ -227,10 +227,12 @@ namespace Heart
 			// get a list of all current .shard files including the filepaths to them
 			string[] shards = Directory.GetFiles (baseDir, "*.shard", SearchOption.TopDirectoryOnly);
 
+			HeartCore.GetCore ().Write ("# SHARD FILES: " + shards.Length);
 			foreach (string shardFile in shards) {
 				// load the shard file into a config object for manipulation
 				Config t = new Config (shardFile);
-				if (t.get ("guid") == id) {
+
+				if (id == t.get("guid")) {
 					// load the information from the file
 					shardName = t.get ("shardName");
 					shardType = t.get ("shardType");
@@ -258,7 +260,7 @@ namespace Heart
 			shardLocation = Console.ReadLine ();
 
 			// create a new config object to load all this to
-			Config shardCfg = new Config(baseDir + shardName);
+			Config shardCfg = new Config(baseDir + shardName + ".shard");
 
 			// now save the Shard file to write it to the harddrive
 			shardCfg.set("shardName", shardName);
