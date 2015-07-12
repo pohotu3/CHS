@@ -82,7 +82,7 @@ namespace Shard
 				// creates the buffer array to be as large as possible to receive
 				buffer = new byte[master.SendBufferSize];
 				// gets the number of bytes received
-				readBytes = master.Receive (buffer);
+				readBytes = master.Receive (buffer); // EXCEPTION THROWN HERE TOO
 
 				// as long as we actually received bytes, we can process them
 				if (readBytes > 0) {

@@ -227,7 +227,6 @@ namespace Heart
 			// get a list of all current .shard files including the filepaths to them
 			string[] shards = Directory.GetFiles (baseDir, "*.shard", SearchOption.TopDirectoryOnly);
 
-			HeartCore.GetCore ().Write ("# SHARD FILES: " + shards.Length);
 			foreach (string shardFile in shards) {
 				// load the shard file into a config object for manipulation
 				Config t = new Config (shardFile);
