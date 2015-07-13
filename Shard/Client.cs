@@ -136,6 +136,7 @@ namespace Shard
 				Close ();
 				break;
 			case Packet.PacketType.Command:
+				ShardCore.getCore ().Write ("Server sent the response: " + p.packetString);
 				ShardCore.GetWindow().ServerResponse (p.packetString);
 				break;
 			default:

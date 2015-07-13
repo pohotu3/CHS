@@ -53,6 +53,8 @@ public partial class MainWindow: Gtk.Window
 		packet.packetString = EnterCommand.Text;
 		ShardCore.getCore ().GetClient ().Data_OUT (packet);
 		ShardCore.getCore ().Write ("Sent command packet to Heart.");
+
+		EnterCommand.Text = "";
 	}
 
 	public void ServerResponse(string s)

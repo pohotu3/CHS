@@ -37,8 +37,8 @@ namespace ConnectionData
 	public class Packet
 	{
 		// these are all the different types of things we can send
-		public List<string> gData = null;
-		public String packetString = null;
+		public List<string> gData;
+		public string packetString;
 		public int packetInt;
 		public bool packetBool;
 		public PacketType packetType;
@@ -68,6 +68,7 @@ namespace ConnectionData
 			this.packetBool = p.packetBool;
 			this.senderID = p.senderID;
 			this.packetType = p.packetType;
+			this.packetString = p.packetString;
 		}
 
 		// this converts the whole packet object into a byte array to send through the socket

@@ -206,15 +206,16 @@ namespace Heart
 				}
 								
 			}
-				
+
 			switch (p.packetType) {
 			case Packet.PacketType.CloseConnection:
 				HeartCore.GetCore ().Write ("Shard " + shardName + " has disconnected.");
 				Close ();
 				break;
 			case Packet.PacketType.Command:
-				string command = p.packetString.ToLower ();
+				string command = p.packetString.ToLower (); // PACKETSTRING IS SHOWING NULL
 				if (command == "help") {
+					HeartCore.GetCore ().Write (shardName + " sent a request 'help'. Responding.");
 					Packet t = new Packet(Packet.PacketType.Command, Server.guid);
 					t.packetString = "HELP";
 					Data_OUT (t);
