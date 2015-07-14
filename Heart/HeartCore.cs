@@ -81,6 +81,7 @@ namespace Heart
 			}
 
 			// load all the information from the cfg after it's set up
+			systemName = cfg.get ("systemName");
 			musicDir = cfg.get("musicDir");
 			movieDir = cfg.get ("movieDir");
 			commandKey = cfg.get ("commandKey");
@@ -116,6 +117,7 @@ namespace Heart
 
 			// this current code is temp, just for testing
 			// sets the different cfg values for future use, such as the media dir's
+			cfg.set ("systemName", systemName);
 			cfg.set("musicDir", musicDir);
 			cfg.set ("movieDir", movieDir);
 			cfg.set("commandKey", commandKey);

@@ -54,6 +54,9 @@ public partial class MainWindow: Gtk.Window
 		ShardCore.getCore ().GetClient ().Data_OUT (packet);
 		ShardCore.getCore ().Write ("Sent command packet to Heart.");
 
+		if (EnterCommand.Text == "quit" || EnterCommand.Text == "close" || EnterCommand.Text == "exit")
+			Application.Quit ();
+
 		EnterCommand.Text = "";
 	}
 

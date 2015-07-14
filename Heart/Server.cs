@@ -133,7 +133,10 @@ namespace Heart
 
 		public void Data_OUT (Packet p)
 		{
-			clientSocket.Send (p.ToBytes ());
+			try{
+				clientSocket.Send (p.ToBytes ());
+			} catch(Exception e){
+			}
 		}
 
 		private void Register ()
@@ -151,7 +154,6 @@ namespace Heart
 		{
 			clientSocket.Close ();
 			clientThread.Join ();
-			//Server._clients.Remove (this);
 		}
 
 		// clientdata thread - receives data from each client individually
@@ -204,7 +206,6 @@ namespace Heart
 					HeartCore.GetCore ().Write ("Shard using GUID " + id + " tried to connect, verification failed. Connection refused.");
 					this.Close ();
 				}
-								
 			}
 
 			switch (p.packetType) {
@@ -214,12 +215,27 @@ namespace Heart
 				break;
 			case Packet.PacketType.Command:
 				string command = p.packetString.ToLower (); // PACKETSTRING IS SHOWING NULL
-				if (command == "help") {
+
+				// analyze command and respond appropriately
+				switch(command) {
+				case "help":
+				case "commands":
+				case "command":
 					HeartCore.GetCore ().Write (shardName + " sent a request 'help'. Responding.");
-					Packet t = new Packet(Packet.PacketType.Command, Server.guid);
-					t.packetString = "HELP";
+					Packet t = new Packet (Packet.PacketType.Command, Server.guid);
+					t.packetString = "Hi, I'm " + HeartCore.systemName + ". Commands are designed to be intuitive. Enter something as though you would say it out loud and I'll process it!";
 					Data_OUT (t);
+					break;
+				case "quit":
+				case "exit":
+				case "disconnect":
+					HeartCore.GetCore ().Write (shardName + " send a request to disconnect. Disconnecting.");
+					Close ();
+					break;
+				default:
+					break;
 				}
+
 				break;
 			default:
 				break;
@@ -281,11 +297,6 @@ namespace Heart
 			HeartCore.GetCore ().Write ("Configuration on " + shardLocation + " Shard is now complete.");
 
 			return true;
-		}
-
-		public void AnalyzeCommand (string s)
-		{
-
 		}
 	}
 }

@@ -56,6 +56,7 @@ public partial class MainWindow
 		this.HeartOutput = new global::Gtk.Label ();
 		this.HeartOutput.Name = "HeartOutput";
 		this.HeartOutput.LabelProp = global::Mono.Unix.Catalog.GetString ("Server Output: ");
+		this.HeartOutput.Wrap = true;
 		this.fixed1.Add (this.HeartOutput);
 		global::Gtk.Fixed.FixedChild w4 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.HeartOutput]));
 		w4.X = 6;
