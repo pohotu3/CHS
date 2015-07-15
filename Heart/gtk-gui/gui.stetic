@@ -5,32 +5,16 @@
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
-    <widget-library name="../bin/Debug/Heart.exe" internal="true" />
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <widget-library name="../bin/Debug/Heart.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="Heart.HeartWindow" design-size="798 428">
+  <widget class="Gtk.Window" id="Heart.HeartCore" design-size="400 300">
     <property name="MemberName" />
-    <property name="Title" translatable="yes">HeartWindow</property>
+    <property name="Title" translatable="yes">MainWindow</property>
     <property name="WindowPosition">CenterOnParent</property>
+    <signal name="DeleteEvent" handler="OnDeleteEvent" />
     <child>
-      <widget class="Gtk.Fixed" id="fixed3">
-        <property name="MemberName" />
-        <property name="HasWindow">False</property>
-        <child>
-          <widget class="Gtk.Entry" id="CommandBox">
-            <property name="MemberName" />
-            <property name="WidthRequest">778</property>
-            <property name="CanFocus">True</property>
-            <property name="IsEditable">True</property>
-            <property name="InvisibleChar">●</property>
-            <signal name="Activated" handler="Command_Entered" />
-          </widget>
-          <packing>
-            <property name="X">8</property>
-            <property name="Y">394</property>
-          </packing>
-        </child>
-      </widget>
+      <placeholder />
     </child>
   </widget>
 </stetic-interface>
