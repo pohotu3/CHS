@@ -1,13 +1,37 @@
-﻿using System;
-using ConnectionData;
+﻿/*
+* Crystal Home Systems 
+* Created by Austin and Ezra
+* Open Source with Related GitHub Repo
+* UNDER DEVELOPMENT
+*
+* Copyright© 2015 Austin VanAlstyne, Bailey Thorson
+*/
+
+/*
+*This file is part of Cyrstal Home Systems.
+*
+*Cyrstal Home Systems is free software: you can redistribute it and/or modify
+*it under the terms of the GNU General Public License as published by
+*the Free Software Foundation, either version 3 of the License, or
+*(at your option) any later version.
+*
+*Cyrstal Home Systems is distributed in the hope that it will be useful,
+*but WITHOUT ANY WARRANTY; without even the implied warranty of
+*MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*GNU General Public License for more details.
+*
+*You should have received a copy of the GNU General Public License
+*along with Cyrstal Home Systems.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+using System;
 using Gtk;
+using ConnectionData;
 
 namespace Heart
 {
-	public partial class HeartCore: Gtk.Window
+	class HeartCore
 	{
-
-		private static HeartCore core = null;
 
 		private const string systemType = "Heart", version = "0.0.1";
 		public static string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/Heart/heart_config.cfg", logBaseDir = "/CrystalHomeSys/Heart/Logs/";
@@ -20,7 +44,10 @@ namespace Heart
 		private Log log = null;
 		private Server server = null;
 
-		public HeartCore () : base (Gtk.WindowType.Toplevel)
+		private static HeartCore core;
+		private static MainWindow mw;
+
+		public HeartCore ()
 		{
 			core = this;
 
@@ -30,21 +57,11 @@ namespace Heart
 			// allows the config file to be created in the home directory. ie: /home/austin/
 			configDir = System.Environment.GetEnvironmentVariable("HOME") + configDir;
 
+			// initialize the main window
+			mw = new MainWindow ();
+			mw.Show ();
+
 			Init ();
-		}
-
-		protected void OnDeleteEvent (object sender, DeleteEventArgs a)
-		{
-			Application.Quit ();
-			CloseHeart ();
-			a.RetVal = true;
-		}
-
-		public static void Main (string[] args)
-		{
-			Application.Init ();
-			new HeartCore ().Show ();
-			Application.Run ();
 		}
 
 		private void Init()
@@ -106,26 +123,34 @@ namespace Heart
 			Write ("New configuration file created at " + configDir);
 		}
 
-		// sets up a new shard config and returns the values
-		public static string[] InitNewShard()
-		{
-			return null;
-		}
-
-		public static HeartCore GetCore()
+		public static HeartCore GetCore ()
 		{
 			return core;
 		}
 
-		private void AnalyzeCommand(string s)
+		public Server GetServer ()
+		{
+			return server;
+		}
+
+		public MainWindow GetWindow ()
+		{
+			return mw;
+		}
+
+		public void Write (string s)
+		{
+			mw.Write (s);
+			log.write (s);
+		}
+
+		public void AnalyzeCommand(string s)
 		{
 			string[] commands = new string[] {"quit", "commands"};
 
 			switch (s.ToLower ()) {
 			case "quit":
-				Write ("Closing server.");
-				server.Close ();
-				Environment.Exit (0);
+				Close ();
 				break;
 			case "commands":
 				string temp = "Availabale Commands: ";
@@ -139,18 +164,19 @@ namespace Heart
 			}
 		}
 
-		public void Write(string s)
-		{
-			Console.WriteLine (s);
-			log.write (s);
-		}
-
-		public void CloseHeart()
+		public void Close ()
 		{
 			Write ("Closing down Heart...");
 			server.Close ();
 			Write ("Goodbye.");
 			Application.Quit ();
+		}
+
+		public static void Main (string[] args)
+		{
+			Application.Init ();
+			new HeartCore ();
+			Application.Run ();
 		}
 	}
 }

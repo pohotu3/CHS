@@ -8,13 +8,53 @@
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/Heart.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="Heart.HeartCore" design-size="400 300">
+  <widget class="Gtk.Window" id="Heart.MainWindow" design-size="932 491">
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
     <property name="WindowPosition">CenterOnParent</property>
     <signal name="DeleteEvent" handler="OnDeleteEvent" />
     <child>
-      <placeholder />
+      <widget class="Gtk.Fixed" id="fixed1">
+        <property name="MemberName" />
+        <property name="HasWindow">False</property>
+        <child>
+          <widget class="Gtk.Entry" id="CommandEnter">
+            <property name="MemberName" />
+            <property name="WidthRequest">912</property>
+            <property name="CanDefault">True</property>
+            <property name="HasDefault">True</property>
+            <property name="CanFocus">True</property>
+            <property name="IsEditable">True</property>
+            <signal name="Activated" handler="Command_Entry_Enter" />
+          </widget>
+          <packing>
+            <property name="X">8</property>
+            <property name="Y">453</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.ScrolledWindow" id="scrolledwindow2">
+            <property name="MemberName" />
+            <property name="WidthRequest">920</property>
+            <property name="HeightRequest">436</property>
+            <property name="CanFocus">True</property>
+            <property name="ShadowType">In</property>
+            <child>
+              <widget class="Gtk.TextView" id="ConsoleView">
+                <property name="MemberName" />
+                <property name="Editable">False</property>
+                <property name="AcceptsTab">False</property>
+                <property name="Text" translatable="yes" />
+                <signal name="SizeAllocated" handler="ConsoleViewScrollAuto" />
+              </widget>
+            </child>
+          </widget>
+          <packing>
+            <property name="X">6</property>
+            <property name="Y">5</property>
+          </packing>
+        </child>
+      </widget>
     </child>
   </widget>
 </stetic-interface>

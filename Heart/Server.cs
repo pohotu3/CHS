@@ -133,9 +133,9 @@ namespace Heart
 
 		public void Data_OUT (Packet p)
 		{
-			try{
+			try {
 				clientSocket.Send (p.ToBytes ());
-			} catch(Exception e){
+			} catch (Exception e) {
 			}
 		}
 
@@ -170,9 +170,9 @@ namespace Heart
 				buffer = new byte[clientSocket.SendBufferSize];
 
 				// gets the amount of bytes we've received
-				try{
+				try {
 					readBytes = clientSocket.Receive (buffer);
-				}catch(ObjectDisposedException e){
+				} catch (ObjectDisposedException e) {
 					return;
 				}
 
@@ -215,9 +215,8 @@ namespace Heart
 				break;
 			case Packet.PacketType.Command:
 				string command = p.packetString.ToLower (); // PACKETSTRING IS SHOWING NULL
-
 				// analyze command and respond appropriately
-				switch(command) {
+				switch (command) {
 				case "help":
 				case "commands":
 				case "command":
@@ -235,7 +234,6 @@ namespace Heart
 				default:
 					break;
 				}
-
 				break;
 			default:
 				break;
@@ -258,7 +256,7 @@ namespace Heart
 				// load the shard file into a config object for manipulation
 				Config t = new Config (shardFile);
 
-				if (id == t.get("guid")) {
+				if (id == t.get ("guid")) {
 					// load the information from the file
 					shardName = t.get ("shardName");
 					shardType = t.get ("shardType");
@@ -267,29 +265,26 @@ namespace Heart
 				}
 			}
 
-			// get shard information
-			HeartCore.GetCore ().Write ("New Shard Connected. Please enter the name you wish to assign it and then press enter.");
-			HeartCore.GetCore ().Write ("If you do not want to allow this Shard to connect, type REFUSE: ");
-			shardName = Console.ReadLine ();
-			if (shardName.ToUpper () == "REFUSE") {
+			// get all the shard info
+			string[] info = HeartCore.GetCore ().GetWindow ().InitNewShard ();
+			if (info == null) { // if the function returns null, the connection was refused by user
 				HeartCore.GetCore ().Write ("Shard refused. Closing connection.");
 				Packet t = new Packet (Packet.PacketType.CloseConnection, Server.guid);
 				t.packetString = "Connection Refused.";
 				Data_OUT (t);
-				Close ();
+				HeartCore.GetCore ().Close ();
+				return false;
 			}
 
-			HeartCore.GetCore ().Write ("Now please enter the type of Shard (options: media): ");
-			shardType = Console.ReadLine ();
-
-			HeartCore.GetCore ().Write ("Now please enter the location of the Shard (examples: bedroom, kitchen, living room): ");
-			shardLocation = Console.ReadLine ();
+			shardName = info [0];
+			shardType = info [1];
+			shardLocation = info [2];
 
 			// create a new config object to load all this to
-			Config shardCfg = new Config(baseDir + shardName + ".shard");
+			Config shardCfg = new Config (baseDir + shardName + ".shard");
 
 			// now save the Shard file to write it to the harddrive
-			shardCfg.set("shardName", shardName);
+			shardCfg.set ("shardName", shardName);
 			shardCfg.set ("shardType", shardType);
 			shardCfg.set ("shardLocation", shardLocation);
 			shardCfg.set ("guid", id);
