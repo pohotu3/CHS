@@ -84,6 +84,8 @@ namespace Heart
 		protected void ConsoleViewScrollAuto (object o, SizeAllocatedArgs args)
 		{
 			ConsoleView.ScrollToIter (ConsoleView.Buffer.EndIter, 0, false, 0, 0);
+			ConsoleView.GrabFocus ();
+			CommandEnter.GrabFocus ();
 		}
 
 		protected void Shard_Entry_Pressed (object sender, EventArgs e)

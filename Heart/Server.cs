@@ -90,6 +90,10 @@ namespace Heart
 		public void Close ()
 		{
 			listening = false;
+			listenerSocket.Close ();
+			listenerSocket.Dispose ();
+			listenThread.Join ();
+			listenThread.Abort ();
 
 			// send the close connection status to all clients
 			foreach (ClientData cd in _clients) {
@@ -99,8 +103,6 @@ namespace Heart
 				cd.Close ();
 			}
 
-			listenerSocket.Close ();
-			listenThread.Join ();
 			_clients.Clear ();
 		}
 	}
@@ -153,7 +155,9 @@ namespace Heart
 		public void Close ()
 		{
 			clientSocket.Close ();
+			clientSocket.Dispose ();
 			clientThread.Join ();
+			clientThread.Abort ();
 		}
 
 		// clientdata thread - receives data from each client individually

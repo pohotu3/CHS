@@ -133,11 +133,12 @@ namespace Shard
 				if (reason == null)
 					reason = "No Reason Given.";
 				ShardCore.getCore ().Write ("Server is closing the connection. Reason: " + reason);
+				ShardCore.GetWindow ().ServerResponse ("Server is closing the connection. Reason: " + reason);
 				Close ();
 				break;
 			case Packet.PacketType.Command:
 				ShardCore.getCore ().Write ("Server sent the response: " + p.packetString);
-				ShardCore.GetWindow().ServerResponse (p.packetString);
+				ShardCore.GetWindow ().ServerResponse (p.packetString);
 				break;
 			default:
 				break;

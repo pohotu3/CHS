@@ -47,7 +47,7 @@ namespace Heart
 			this.Notebook = new global::Gtk.Notebook ();
 			this.Notebook.CanFocus = true;
 			this.Notebook.Name = "Notebook";
-			this.Notebook.CurrentPage = 1;
+			this.Notebook.CurrentPage = 0;
 			this.Notebook.ShowTabs = false;
 			// Container child Notebook.Gtk.Notebook+NotebookChild
 			this.fixed2 = new global::Gtk.Fixed ();
@@ -64,6 +64,8 @@ namespace Heart
 			this.ConsoleView.HeightRequest = 446;
 			this.ConsoleView.CanFocus = true;
 			this.ConsoleView.Name = "ConsoleView";
+			this.ConsoleView.Editable = false;
+			this.ConsoleView.AcceptsTab = false;
 			this.scrolledwindow2.Add (this.ConsoleView);
 			this.fixed2.Add (this.scrolledwindow2);
 			global::Gtk.Fixed.FixedChild w2 = ((global::Gtk.Fixed.FixedChild)(this.fixed2 [this.scrolledwindow2]));
