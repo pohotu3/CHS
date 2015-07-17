@@ -25,6 +25,8 @@
 */
 
 using System;
+using System.IO;
+using System.Threading.Tasks;
 using Gtk;
 
 namespace Heart
@@ -33,7 +35,8 @@ namespace Heart
 	{
 
 		private TextBuffer consoleBuffer;
-		public bool initNewShard = false;
+		private string[] shardInfo;
+		private bool waitingForShardSetupComplete = true;
 
 		public MainWindow () : base (Gtk.WindowType.Toplevel)
 		{
@@ -59,26 +62,16 @@ namespace Heart
 
 		public string[] InitNewShard ()
 		{
-			string[] info = new string[3];
+			shardInfo = new string[3];
+
+			Notebook.CurrentPage = 1;
 
 			// get shard information
-			HeartCore.GetCore ().Write ("New Shard Connected. Please enter the name you wish to assign it and then press enter.");
-			HeartCore.GetCore ().Write ("If you do not want to allow this Shard to connect, type REFUSE: ");
-			//info[0] = Console.ReadLine ();
-			info [0] = "Test Shard";
-			if (info[0].ToUpper () == "REFUSE") {
-				return null;
+			while (waitingForShardSetupComplete) {
+				Task.Delay(100);
 			}
 
-			HeartCore.GetCore ().Write ("Now please enter the type of Shard (options: media): ");
-			//info[1] = Console.ReadLine ();
-			info [1] = "media";
-
-			HeartCore.GetCore ().Write ("Now please enter the location of the Shard (examples: bedroom, kitchen, living room): ");
-			//info[2] = Console.ReadLine ();
-			info [2] = "bedroom";
-
-			return info;
+			return shardInfo;
 		}
 
 		// what is called when the command_entry bar has 'enter' pressed on it
@@ -91,6 +84,22 @@ namespace Heart
 		protected void ConsoleViewScrollAuto (object o, SizeAllocatedArgs args)
 		{
 			ConsoleView.ScrollToIter (ConsoleView.Buffer.EndIter, 0, false, 0, 0);
+		}
+
+		protected void Shard_Entry_Pressed (object sender, EventArgs e)
+		{
+			// shard name
+			shardInfo[0] = nameEntry.Text;
+
+			// shard type
+			shardInfo[1] = typeEntry.ActiveText;
+
+			// shard location
+			shardInfo[2] = locationEntry.Text;
+
+			Notebook.CurrentPage = 0;
+
+			waitingForShardSetupComplete = false;
 		}
 	}
 }

@@ -4,13 +4,37 @@ namespace Heart
 {
 	public partial class MainWindow
 	{
-		private global::Gtk.Fixed fixed1;
+		private global::Gtk.Notebook Notebook;
 		
-		private global::Gtk.Entry CommandEnter;
+		private global::Gtk.Fixed fixed2;
 		
 		private global::Gtk.ScrolledWindow scrolledwindow2;
 		
 		private global::Gtk.TextView ConsoleView;
+		
+		private global::Gtk.Entry CommandEnter;
+		
+		private global::Gtk.Label label5;
+		
+		private global::Gtk.Fixed fixed3;
+		
+		private global::Gtk.Label label7;
+		
+		private global::Gtk.Entry nameEntry;
+		
+		private global::Gtk.ComboBox typeEntry;
+		
+		private global::Gtk.Label label10;
+		
+		private global::Gtk.Entry locationEntry;
+		
+		private global::Gtk.Label label9;
+		
+		private global::Gtk.Label label8;
+		
+		private global::Gtk.Button shardSubmit;
+		
+		private global::Gtk.Label label6;
 
 		protected virtual void Build ()
 		{
@@ -20,48 +44,146 @@ namespace Heart
 			this.Title = global::Mono.Unix.Catalog.GetString ("MainWindow");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			// Container child Heart.MainWindow.Gtk.Container+ContainerChild
-			this.fixed1 = new global::Gtk.Fixed ();
-			this.fixed1.Name = "fixed1";
-			this.fixed1.HasWindow = false;
-			// Container child fixed1.Gtk.Fixed+FixedChild
-			this.CommandEnter = new global::Gtk.Entry ();
-			this.CommandEnter.WidthRequest = 912;
-			this.CommandEnter.CanDefault = true;
-			this.CommandEnter.CanFocus = true;
-			this.CommandEnter.Name = "CommandEnter";
-			this.CommandEnter.IsEditable = true;
-			this.fixed1.Add (this.CommandEnter);
-			global::Gtk.Fixed.FixedChild w1 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.CommandEnter]));
-			w1.X = 8;
-			w1.Y = 453;
-			// Container child fixed1.Gtk.Fixed+FixedChild
+			this.Notebook = new global::Gtk.Notebook ();
+			this.Notebook.CanFocus = true;
+			this.Notebook.Name = "Notebook";
+			this.Notebook.CurrentPage = 1;
+			this.Notebook.ShowTabs = false;
+			// Container child Notebook.Gtk.Notebook+NotebookChild
+			this.fixed2 = new global::Gtk.Fixed ();
+			this.fixed2.Name = "fixed2";
+			this.fixed2.HasWindow = false;
+			// Container child fixed2.Gtk.Fixed+FixedChild
 			this.scrolledwindow2 = new global::Gtk.ScrolledWindow ();
-			this.scrolledwindow2.WidthRequest = 920;
-			this.scrolledwindow2.HeightRequest = 436;
 			this.scrolledwindow2.CanFocus = true;
 			this.scrolledwindow2.Name = "scrolledwindow2";
 			this.scrolledwindow2.ShadowType = ((global::Gtk.ShadowType)(1));
 			// Container child scrolledwindow2.Gtk.Container+ContainerChild
 			this.ConsoleView = new global::Gtk.TextView ();
+			this.ConsoleView.WidthRequest = 931;
+			this.ConsoleView.HeightRequest = 446;
+			this.ConsoleView.CanFocus = true;
 			this.ConsoleView.Name = "ConsoleView";
-			this.ConsoleView.Editable = false;
-			this.ConsoleView.AcceptsTab = false;
 			this.scrolledwindow2.Add (this.ConsoleView);
-			this.fixed1.Add (this.scrolledwindow2);
-			global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.scrolledwindow2]));
-			w3.X = 6;
-			w3.Y = 5;
-			this.Add (this.fixed1);
+			this.fixed2.Add (this.scrolledwindow2);
+			global::Gtk.Fixed.FixedChild w2 = ((global::Gtk.Fixed.FixedChild)(this.fixed2 [this.scrolledwindow2]));
+			w2.X = 7;
+			w2.Y = 7;
+			// Container child fixed2.Gtk.Fixed+FixedChild
+			this.CommandEnter = new global::Gtk.Entry ();
+			this.CommandEnter.WidthRequest = 946;
+			this.CommandEnter.CanFocus = true;
+			this.CommandEnter.Name = "CommandEnter";
+			this.CommandEnter.IsEditable = true;
+			this.CommandEnter.InvisibleChar = '●';
+			this.fixed2.Add (this.CommandEnter);
+			global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed2 [this.CommandEnter]));
+			w3.X = 7;
+			w3.Y = 471;
+			this.Notebook.Add (this.fixed2);
+			// Notebook tab
+			this.label5 = new global::Gtk.Label ();
+			this.label5.Name = "label5";
+			this.label5.LabelProp = global::Mono.Unix.Catalog.GetString ("Console");
+			this.Notebook.SetTabLabel (this.fixed2, this.label5);
+			this.label5.ShowAll ();
+			// Container child Notebook.Gtk.Notebook+NotebookChild
+			this.fixed3 = new global::Gtk.Fixed ();
+			this.fixed3.Name = "fixed3";
+			this.fixed3.HasWindow = false;
+			// Container child fixed3.Gtk.Fixed+FixedChild
+			this.label7 = new global::Gtk.Label ();
+			this.label7.Name = "label7";
+			this.label7.LabelProp = global::Mono.Unix.Catalog.GetString ("Setup New Shard");
+			this.fixed3.Add (this.label7);
+			global::Gtk.Fixed.FixedChild w5 = ((global::Gtk.Fixed.FixedChild)(this.fixed3 [this.label7]));
+			w5.X = 390;
+			w5.Y = 9;
+			// Container child fixed3.Gtk.Fixed+FixedChild
+			this.nameEntry = new global::Gtk.Entry ();
+			this.nameEntry.CanFocus = true;
+			this.nameEntry.Name = "nameEntry";
+			this.nameEntry.IsEditable = true;
+			this.nameEntry.InvisibleChar = '●';
+			this.fixed3.Add (this.nameEntry);
+			global::Gtk.Fixed.FixedChild w6 = ((global::Gtk.Fixed.FixedChild)(this.fixed3 [this.nameEntry]));
+			w6.X = 374;
+			w6.Y = 95;
+			// Container child fixed3.Gtk.Fixed+FixedChild
+			this.typeEntry = global::Gtk.ComboBox.NewText ();
+			this.typeEntry.AppendText (global::Mono.Unix.Catalog.GetString ("Media"));
+			this.typeEntry.AppendText (global::Mono.Unix.Catalog.GetString ("Security"));
+			this.typeEntry.AppendText (global::Mono.Unix.Catalog.GetString ("Thermometer"));
+			this.typeEntry.AppendText (global::Mono.Unix.Catalog.GetString ("Smart Mirror"));
+			this.typeEntry.Name = "typeEntry";
+			this.fixed3.Add (this.typeEntry);
+			global::Gtk.Fixed.FixedChild w7 = ((global::Gtk.Fixed.FixedChild)(this.fixed3 [this.typeEntry]));
+			w7.X = 389;
+			w7.Y = 168;
+			// Container child fixed3.Gtk.Fixed+FixedChild
+			this.label10 = new global::Gtk.Label ();
+			this.label10.Name = "label10";
+			this.label10.LabelProp = global::Mono.Unix.Catalog.GetString ("Where Do You Have the Shard?");
+			this.fixed3.Add (this.label10);
+			global::Gtk.Fixed.FixedChild w8 = ((global::Gtk.Fixed.FixedChild)(this.fixed3 [this.label10]));
+			w8.X = 353;
+			w8.Y = 224;
+			// Container child fixed3.Gtk.Fixed+FixedChild
+			this.locationEntry = new global::Gtk.Entry ();
+			this.locationEntry.CanFocus = true;
+			this.locationEntry.Name = "locationEntry";
+			this.locationEntry.IsEditable = true;
+			this.locationEntry.InvisibleChar = '●';
+			this.fixed3.Add (this.locationEntry);
+			global::Gtk.Fixed.FixedChild w9 = ((global::Gtk.Fixed.FixedChild)(this.fixed3 [this.locationEntry]));
+			w9.X = 378;
+			w9.Y = 251;
+			// Container child fixed3.Gtk.Fixed+FixedChild
+			this.label9 = new global::Gtk.Label ();
+			this.label9.Name = "label9";
+			this.label9.LabelProp = global::Mono.Unix.Catalog.GetString ("What Type of Shard is it?");
+			this.fixed3.Add (this.label9);
+			global::Gtk.Fixed.FixedChild w10 = ((global::Gtk.Fixed.FixedChild)(this.fixed3 [this.label9]));
+			w10.X = 375;
+			w10.Y = 141;
+			// Container child fixed3.Gtk.Fixed+FixedChild
+			this.label8 = new global::Gtk.Label ();
+			this.label8.Name = "label8";
+			this.label8.LabelProp = global::Mono.Unix.Catalog.GetString ("What Do You Want to Name the Shard?");
+			this.fixed3.Add (this.label8);
+			global::Gtk.Fixed.FixedChild w11 = ((global::Gtk.Fixed.FixedChild)(this.fixed3 [this.label8]));
+			w11.X = 330;
+			w11.Y = 66;
+			// Container child fixed3.Gtk.Fixed+FixedChild
+			this.shardSubmit = new global::Gtk.Button ();
+			this.shardSubmit.CanFocus = true;
+			this.shardSubmit.Name = "shardSubmit";
+			this.shardSubmit.UseUnderline = true;
+			this.shardSubmit.Label = global::Mono.Unix.Catalog.GetString ("Save New Shard");
+			this.fixed3.Add (this.shardSubmit);
+			global::Gtk.Fixed.FixedChild w12 = ((global::Gtk.Fixed.FixedChild)(this.fixed3 [this.shardSubmit]));
+			w12.X = 398;
+			w12.Y = 331;
+			this.Notebook.Add (this.fixed3);
+			global::Gtk.Notebook.NotebookChild w13 = ((global::Gtk.Notebook.NotebookChild)(this.Notebook [this.fixed3]));
+			w13.Position = 1;
+			// Notebook tab
+			this.label6 = new global::Gtk.Label ();
+			this.label6.Name = "label6";
+			this.label6.LabelProp = global::Mono.Unix.Catalog.GetString ("Shard Setup");
+			this.Notebook.SetTabLabel (this.fixed3, this.label6);
+			this.label6.ShowAll ();
+			this.Add (this.Notebook);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 932;
-			this.DefaultHeight = 491;
-			this.CommandEnter.HasDefault = true;
+			this.DefaultWidth = 965;
+			this.DefaultHeight = 533;
 			this.Show ();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
-			this.CommandEnter.Activated += new global::System.EventHandler (this.Command_Entry_Enter);
 			this.ConsoleView.SizeAllocated += new global::Gtk.SizeAllocatedHandler (this.ConsoleViewScrollAuto);
+			this.CommandEnter.Activated += new global::System.EventHandler (this.Command_Entry_Enter);
+			this.shardSubmit.Clicked += new global::System.EventHandler (this.Shard_Entry_Pressed);
 		}
 	}
 }
