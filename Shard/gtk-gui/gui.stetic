@@ -33,6 +33,7 @@
             <property name="CanFocus">True</property>
             <property name="IsEditable">True</property>
             <property name="InvisibleChar">●</property>
+            <signal name="Activated" handler="Send_Clicked" />
           </widget>
           <packing>
             <property name="X">115</property>
