@@ -51,7 +51,7 @@ namespace Heart
 
 		protected void OnDeleteEvent (object sender, DeleteEventArgs a)
 		{
-			Application.Quit ();
+			HeartCore.GetCore ().Close ();
 			a.RetVal = true;
 		}
 
@@ -78,6 +78,7 @@ namespace Heart
 		protected void Command_Entry_Enter (object sender, EventArgs e)
 		{
 			HeartCore.GetCore ().AnalyzeCommand (CommandEnter.Text);
+			CommandEnter.Text = "";
 		}
 
 		// automatically scrolls the console_view to the bottom of the page

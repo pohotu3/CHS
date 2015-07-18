@@ -95,9 +95,6 @@ namespace Heart
 			server = new Server (serverPort, guid); // port number isn't 100% firm, but no reason to change it
 			Write ("Created Server connection on port " + serverPort);
 
-			// another thing we could do is set up the console to be a browser based setup, using php or
-			// something, allowing remote connection instead of having to directly link up
-
 			// start listening for connections
 			server.Start ();
 			Write ("Started listening on IP: " + server.ip.Address + " Port: " + serverPort);
@@ -153,7 +150,7 @@ namespace Heart
 				Close ();
 				break;
 			case "commands":
-				string temp = "Availabale Commands: ";
+				string temp = "Available Commands: ";
 				for (int i = 0; i < commands.Length; i++) {
 					temp += commands [i] + " ";
 				}
