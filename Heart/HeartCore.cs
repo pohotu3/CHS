@@ -26,6 +26,7 @@
 
 using System;
 using Gtk;
+using System.Threading.Tasks;
 using ConnectionData;
 
 namespace Heart
@@ -75,22 +76,13 @@ namespace Heart
 			// initialize the configuration files
 			cfg = new Config (configDir);
 			if (!cfg.exists ()) {
-				// if the system hasnt been run before, generate a name for it here with the web api. For now, hardcode it
-				systemName = "Crystal";
-				InitConfig ();
+				// set the available window of the mainwindow to the first time setup page
+				mw.SetPage (MainWindow.FIRST_TIME_SETUP_PAGE);
+			} else {
+				LoadConfig ();
 			}
 
-			// load all the information from the cfg after it's set up
-			systemName = cfg.get ("systemName");
-			musicDir = cfg.get("musicDir");
-			movieDir = cfg.get ("movieDir");
-			commandKey = cfg.get ("commandKey");
-			guid = Guid.Parse(cfg.get("guid"));
-
-			/* 
-			 * set up all the network information and objects, do NOT start
-			 * listening yet however, wait until the UI is open and ready for commands
-			 */
+			// set up all the network information and objects, do NOT start
 			Write ("Creating Server on port " + serverPort);
 			server = new Server (serverPort, guid); // port number isn't 100% firm, but no reason to change it
 			Write ("Created Server connection on port " + serverPort);
@@ -101,23 +93,6 @@ namespace Heart
 
 			// start listening for command inputs to control the server.
 			Write ("Type quit to exit. Type commands for a list of available commands.");
-		}
-
-		private void InitConfig()
-		{
-			// start the first-time-setup information here, then save it to the cfg
-			string musicDir = "musicDir", movieDir = "movieDir", commandKey = "Ok " + systemName;
-
-			// this current code is temp, just for testing
-			// sets the different cfg values for future use, such as the media dir's
-			cfg.set ("systemName", systemName);
-			cfg.set("musicDir", musicDir);
-			cfg.set ("movieDir", movieDir);
-			cfg.set("commandKey", commandKey);
-			cfg.set ("guid", Guid.NewGuid ().ToString ()); // generates a GUID for the server
-			cfg.Save ();
-
-			Write ("New configuration file created at " + configDir);
 		}
 
 		public static HeartCore GetCore ()
@@ -143,7 +118,7 @@ namespace Heart
 
 		public void AnalyzeCommand(string s)
 		{
-			string[] commands = new string[] {"quit", "commands"};
+			string[] commands = new string[] {"quit", "commands", "config"};
 
 			switch (s.ToLower ()) {
 			case "quit":
@@ -156,17 +131,37 @@ namespace Heart
 				}
 				Write (temp);
 				break;
+			//case "config":
+			//	mw.SetPage (MainWindow.FIRST_TIME_SETUP_PAGE);
+			//	break;
 			default:
 				break;
 			}
 		}
 
+		// closes down connections and the quits the program
 		public void Close ()
 		{
 			Write ("Closing down Heart...");
 			server.Close ();
 			Write ("Goodbye.");
 			Application.Quit ();
+		}
+
+		public Config GetConfig ()
+		{
+			return cfg;
+		}
+
+		// loads up all the settings from the config to the variables
+		public void LoadConfig ()
+		{
+			// load all the information from the cfg after it's set up
+			systemName = cfg.get ("systemName");
+			musicDir = cfg.get ("musicDir");
+			movieDir = cfg.get ("movieDir");
+			commandKey = cfg.get ("commandKey");
+			guid = Guid.Parse (cfg.get ("guid"));
 		}
 
 		public static void Main (string[] args)

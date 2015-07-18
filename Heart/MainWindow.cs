@@ -28,6 +28,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Gtk;
+using ConnectionData;
 
 namespace Heart
 {
@@ -36,7 +37,9 @@ namespace Heart
 
 		private TextBuffer consoleBuffer;
 		private string[] shardInfo;
-		private bool waitingForShardSetupComplete = true;
+		public bool waitingForShardSetupComplete = true;
+
+		public const int CONSOLE_PAGE = 0, INIT_SHARD_PAGE = 1, FIRST_TIME_SETUP_PAGE = 2;
 
 		public MainWindow () : base (Gtk.WindowType.Toplevel)
 		{
@@ -64,7 +67,7 @@ namespace Heart
 		{
 			shardInfo = new string[3];
 
-			Notebook.CurrentPage = 1;
+			SetPage (INIT_SHARD_PAGE);
 
 			// get shard information
 			while (waitingForShardSetupComplete) {
@@ -72,6 +75,11 @@ namespace Heart
 			}
 
 			return shardInfo;
+		}
+
+		public void SetPage(int i)
+		{
+			Notebook.CurrentPage = i;
 		}
 
 		// what is called when the command_entry bar has 'enter' pressed on it
@@ -100,9 +108,29 @@ namespace Heart
 			// shard location
 			shardInfo[2] = locationEntry.Text;
 
-			Notebook.CurrentPage = 0;
+			SetPage (CONSOLE_PAGE);
 
 			waitingForShardSetupComplete = false;
+		}
+
+		protected void First_Time_Setup_Pressed (object sender, EventArgs e)
+		{
+			Config cfg = HeartCore.GetCore ().GetConfig ();
+
+			// make sure everything's set first to prevent crashes
+
+			cfg.set ("systemName", "Crystal"); // hardcoded for now, dynamically set later
+			cfg.set("musicDir", musicDir.Uri.ToString());
+			cfg.set ("movieDir", movieDir.Uri.ToString());
+			cfg.set("commandKey", commandKey.Text);
+			cfg.set ("guid", Guid.NewGuid ().ToString ()); // generates a GUID for the server
+			cfg.Save ();
+
+			HeartCore.GetCore ().LoadConfig ();
+
+			SetPage (CONSOLE_PAGE);
+
+			Write ("New configuration file created at " + HeartCore.configDir);
 		}
 	}
 }

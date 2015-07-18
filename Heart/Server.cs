@@ -217,9 +217,13 @@ namespace Heart
 				Close ();
 				break;
 			case Packet.PacketType.Command:
-				string command = p.packetString.ToLower (); // PACKETSTRING IS SHOWING NULL
+				string[] words = p.packetString.ToLower ().Split (); // PACKETSTRING IS SHOWING NULL
+				string command = words [0]; // the command is going to be the first word in the sentence (for now).
+				// later we can dynamically search for them
+
 				// analyze command and respond appropriately
 				switch (command) {
+				// when the client wants a list of commands
 				case "help":
 				case "commands":
 				case "command":
@@ -228,11 +232,18 @@ namespace Heart
 					t.packetString = "Hi, I'm " + HeartCore.systemName + ". Commands are designed to be intuitive. Enter something as though you would say it out loud and I'll process it!";
 					Data_OUT (t);
 					break;
+
+				// when the client wants to disconnect from the server
 				case "quit":
 				case "exit":
 				case "disconnect":
 					HeartCore.GetCore ().Write (shardName + " send a request to disconnect. Disconnecting.");
 					Close ();
+					break;
+
+				// when the client wants to start playing a type of media
+				case "play":
+				case "start":
 					break;
 				default:
 					break;

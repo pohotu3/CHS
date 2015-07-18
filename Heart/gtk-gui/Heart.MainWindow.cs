@@ -35,6 +35,26 @@ namespace Heart
 		private global::Gtk.Button shardSubmit;
 		
 		private global::Gtk.Label label6;
+		
+		private global::Gtk.Fixed fixed1;
+		
+		private global::Gtk.FileChooserButton musicDir;
+		
+		private global::Gtk.FileChooserButton movieDir;
+		
+		private global::Gtk.Label label11;
+		
+		private global::Gtk.Label label2;
+		
+		private global::Gtk.Label label3;
+		
+		private global::Gtk.Label label4;
+		
+		private global::Gtk.Entry commandKey;
+		
+		private global::Gtk.Button SetupButton;
+		
+		private global::Gtk.Label label1;
 
 		protected virtual void Build ()
 		{
@@ -47,7 +67,7 @@ namespace Heart
 			this.Notebook = new global::Gtk.Notebook ();
 			this.Notebook.CanFocus = true;
 			this.Notebook.Name = "Notebook";
-			this.Notebook.CurrentPage = 0;
+			this.Notebook.CurrentPage = 2;
 			this.Notebook.ShowTabs = false;
 			// Container child Notebook.Gtk.Notebook+NotebookChild
 			this.fixed2 = new global::Gtk.Fixed ();
@@ -175,17 +195,99 @@ namespace Heart
 			this.label6.LabelProp = global::Mono.Unix.Catalog.GetString ("Shard Setup");
 			this.Notebook.SetTabLabel (this.fixed3, this.label6);
 			this.label6.ShowAll ();
+			// Container child Notebook.Gtk.Notebook+NotebookChild
+			this.fixed1 = new global::Gtk.Fixed ();
+			this.fixed1.Name = "fixed1";
+			this.fixed1.HasWindow = false;
+			// Container child fixed1.Gtk.Fixed+FixedChild
+			this.musicDir = new global::Gtk.FileChooserButton (global::Mono.Unix.Catalog.GetString ("Select a Folder"), ((global::Gtk.FileChooserAction)(2)));
+			this.musicDir.WidthRequest = 243;
+			this.musicDir.Name = "musicDir";
+			this.fixed1.Add (this.musicDir);
+			global::Gtk.Fixed.FixedChild w14 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.musicDir]));
+			w14.X = 387;
+			w14.Y = 103;
+			// Container child fixed1.Gtk.Fixed+FixedChild
+			this.movieDir = new global::Gtk.FileChooserButton (global::Mono.Unix.Catalog.GetString ("Select a Folder"), ((global::Gtk.FileChooserAction)(2)));
+			this.movieDir.WidthRequest = 243;
+			this.movieDir.Name = "movieDir";
+			this.fixed1.Add (this.movieDir);
+			global::Gtk.Fixed.FixedChild w15 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.movieDir]));
+			w15.X = 387;
+			w15.Y = 204;
+			// Container child fixed1.Gtk.Fixed+FixedChild
+			this.label11 = new global::Gtk.Label ();
+			this.label11.Name = "label11";
+			this.label11.LabelProp = global::Mono.Unix.Catalog.GetString ("Setup Configuration");
+			this.fixed1.Add (this.label11);
+			global::Gtk.Fixed.FixedChild w16 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.label11]));
+			w16.X = 444;
+			w16.Y = 13;
+			// Container child fixed1.Gtk.Fixed+FixedChild
+			this.label2 = new global::Gtk.Label ();
+			this.label2.Name = "label2";
+			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Where is your music stored?");
+			this.fixed1.Add (this.label2);
+			global::Gtk.Fixed.FixedChild w17 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.label2]));
+			w17.X = 420;
+			w17.Y = 76;
+			// Container child fixed1.Gtk.Fixed+FixedChild
+			this.label3 = new global::Gtk.Label ();
+			this.label3.Name = "label3";
+			this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("Where are your movies stored?");
+			this.fixed1.Add (this.label3);
+			global::Gtk.Fixed.FixedChild w18 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.label3]));
+			w18.X = 414;
+			w18.Y = 179;
+			// Container child fixed1.Gtk.Fixed+FixedChild
+			this.label4 = new global::Gtk.Label ();
+			this.label4.Name = "label4";
+			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("What do you want your command key to be? (IE: Ok Google...)");
+			this.fixed1.Add (this.label4);
+			global::Gtk.Fixed.FixedChild w19 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.label4]));
+			w19.X = 316;
+			w19.Y = 254;
+			// Container child fixed1.Gtk.Fixed+FixedChild
+			this.commandKey = new global::Gtk.Entry ();
+			this.commandKey.CanFocus = true;
+			this.commandKey.Name = "commandKey";
+			this.commandKey.IsEditable = true;
+			this.commandKey.InvisibleChar = '●';
+			this.fixed1.Add (this.commandKey);
+			global::Gtk.Fixed.FixedChild w20 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.commandKey]));
+			w20.X = 435;
+			w20.Y = 280;
+			// Container child fixed1.Gtk.Fixed+FixedChild
+			this.SetupButton = new global::Gtk.Button ();
+			this.SetupButton.CanFocus = true;
+			this.SetupButton.Name = "SetupButton";
+			this.SetupButton.UseUnderline = true;
+			this.SetupButton.Label = global::Mono.Unix.Catalog.GetString ("Save Configuration");
+			this.fixed1.Add (this.SetupButton);
+			global::Gtk.Fixed.FixedChild w21 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.SetupButton]));
+			w21.X = 443;
+			w21.Y = 358;
+			this.Notebook.Add (this.fixed1);
+			global::Gtk.Notebook.NotebookChild w22 = ((global::Gtk.Notebook.NotebookChild)(this.Notebook [this.fixed1]));
+			w22.Position = 2;
+			// Notebook tab
+			this.label1 = new global::Gtk.Label ();
+			this.label1.Name = "label1";
+			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("page3");
+			this.Notebook.SetTabLabel (this.fixed1, this.label1);
+			this.label1.ShowAll ();
 			this.Add (this.Notebook);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 965;
+			this.DefaultWidth = 977;
 			this.DefaultHeight = 533;
 			this.Show ();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 			this.ConsoleView.SizeAllocated += new global::Gtk.SizeAllocatedHandler (this.ConsoleViewScrollAuto);
 			this.CommandEnter.Activated += new global::System.EventHandler (this.Command_Entry_Enter);
 			this.shardSubmit.Clicked += new global::System.EventHandler (this.Shard_Entry_Pressed);
+			this.SetupButton.Clicked += new global::System.EventHandler (this.First_Time_Setup_Pressed);
 		}
 	}
 }
