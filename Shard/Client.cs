@@ -151,7 +151,8 @@ namespace Shard
 			ShardCore.getCore ().Write ("Closing connection with Heart.");
 			running = false;
 			master.Close ();
-			listeningThread.Join ();
+			master.Dispose ();
+			listeningThread.Abort ();
 		}
 	}
 }

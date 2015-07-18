@@ -156,7 +156,6 @@ namespace Heart
 		{
 			clientSocket.Close ();
 			clientSocket.Dispose ();
-			clientThread.Join ();
 			clientThread.Abort ();
 		}
 
