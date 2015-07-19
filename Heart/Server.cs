@@ -245,6 +245,8 @@ namespace Heart
 				// when the client wants to start playing a type of media
 				case "play":
 				case "start":
+					HeartCore.GetCore ().Write (shardName + " sent a request to start streaming media. Finding file...");
+					string fileToPlay = "";
 					// find the media file the client is looking for
 					string[] mediaFiles = GenerateMediaList (); // ONLY MEDIA FILE NAMES, NO EXTENSIONS AND NO PATHS
 
@@ -259,6 +261,7 @@ namespace Heart
 					for (int i = 0; i < fileNames.Length; i++) {
 
 					}
+					HeartCore.GetCore ().Write ("File for " + shardName + " was found. Location: " + fileToPlay + ".");
 
 					// start streaming on seperate thread
 
