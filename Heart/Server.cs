@@ -246,12 +246,20 @@ namespace Heart
 				case "play":
 				case "start":
 					// find the media file the client is looking for
-					string[] mediaFiles = GenerateMediaList ();
+					string[] mediaFiles = GenerateMediaList (); // ONLY MEDIA FILE NAMES, NO EXTENSIONS AND NO PATHS
 
-					// initialize streaming
-					foreach (string s in mediaFiles) { // just for testing
-						HeartCore.GetCore ().Write ("Media File " + s);
+					// convert all the media files to just file names for easier searching
+					string[] fileNames = new string[mediaFiles.Length];
+					for (int i = 0; i < fileNames.Length; i++) {
+						fileNames[i] = mediaFiles[i].Split ('/').Last (); // remove the file path, leaving only the file name
+						fileNames[i] = fileNames[i].Split ('.').First (); // remove the extension end-piece
 					}
+
+					// find out if there's a matching file name for the command. deal with duplicate matches
+					for (int i = 0; i < fileNames.Length; i++) {
+
+					}
+
 					// start streaming on seperate thread
 
 					break;
@@ -264,24 +272,26 @@ namespace Heart
 			}
 		}
 
+		// generates a list of all media files in the given directories in the config file
 		private string[] GenerateMediaList ()
 		{
-			// get a list of all mediaFiles to add to the new Choices
 			string[] movieFiles = Directory.GetFiles (HeartCore.movieDir, "*.*", SearchOption.AllDirectories);
 			string[] musicFiles = Directory.GetFiles (HeartCore.musicDir, "*.*", SearchOption.AllDirectories);
 			ArrayList al = new ArrayList ();
+
+			// for all movie files
 			for (int i = 0; i < movieFiles.Length; i++) {
 				movieFiles [i] = movieFiles [i].ToLower ();
-				movieFiles [i] = movieFiles [i].Split ('\\').Last ();
-				movieFiles [i] = movieFiles [i].Split ('.').First ();
 				al.Add (movieFiles [i]);
 			}
+
+			// for all music files
 			for (int i = 0; i < musicFiles.Length; i++) {
 				musicFiles [i] = musicFiles [i].ToLower ();
-				musicFiles [i] = musicFiles [i].Split ('\\').Last ();
-				musicFiles [i] = musicFiles [i].Split ('.').First ();
 				al.Add (musicFiles [i]);
 			}
+
+			// return the arraylist of files in the form of a string[]
 			return (string[])al.ToArray (typeof(string));
 		}
 

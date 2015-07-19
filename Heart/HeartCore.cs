@@ -118,7 +118,7 @@ namespace Heart
 
 		public void AnalyzeCommand(string s)
 		{
-			string[] commands = new string[] {"quit", "commands", "config"};
+			string[] commands = new string[] {"quit", "commands"};
 
 			switch (s.ToLower ()) {
 			case "quit":
@@ -135,6 +135,11 @@ namespace Heart
 			//	mw.SetPage (MainWindow.FIRST_TIME_SETUP_PAGE);
 			//	break;
 			default:
+				string t = "Available Commands: ";
+				for (int i = 0; i < commands.Length; i++) {
+					t += commands [i] + " ";
+				}
+				Write("Command unrecognized. " + t);
 				break;
 			}
 		}
