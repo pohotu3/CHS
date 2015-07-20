@@ -120,8 +120,8 @@ namespace Heart
 			// make sure everything's set first to prevent crashes
 
 			cfg.set ("systemName", "Crystal"); // hardcoded for now, dynamically set later
-			cfg.set("musicDir", musicDir.CurrentFolder);
-			cfg.set ("movieDir", movieDir.CurrentFolder);
+			cfg.set("musicDir", musicDir.Filename);
+			cfg.set ("movieDir", movieDir.Filename);
 			cfg.set("commandKey", commandKey.Text);
 			cfg.set ("guid", Guid.NewGuid ().ToString ()); // generates a GUID for the server
 			cfg.Save ();
