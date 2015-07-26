@@ -41,6 +41,7 @@ namespace Shard
 		private Client client;
 		private Log log;
 		private Config config;
+		private Speech speech;
 		public Guid guid;
 		public static MainWindow mw;
 
@@ -78,7 +79,8 @@ namespace Shard
 				client = null;
 			}
 			// set up voice and get it primed to go
-
+			Write ("Setting up voice synthesis and recognition...");
+			speech = new Speech ();
 
 			// show window and handle that thread
 			ShowWindow ();
@@ -105,6 +107,11 @@ namespace Shard
 		public static ShardCore getCore()
 		{
 			return core;
+		}
+
+		public void Speak (string s)
+		{
+			speech.Speak (s);
 		}
 
 		public Client GetClient()
