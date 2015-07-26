@@ -218,7 +218,7 @@ namespace Heart
 				Close ();
 				break;
 			case Packet.PacketType.Command:
-				string[] words = p.packetString.ToLower ().Split (); // PACKETSTRING IS SHOWING NULL
+				string[] words = p.packetString.ToLower ().Split ();
 				string command = words [0]; // the command is going to be the first word in the sentence (for now).
 				// later we can dynamically search for them
 
@@ -246,9 +246,9 @@ namespace Heart
 				case "play":
 				case "start":
 					HeartCore.GetCore ().Write (shardName + " sent a request to start streaming media. Finding file...");
-					string fileToPlay = "";
+					string fileToPlay = ""; // the file we want to play
 					// find the media file the client is looking for
-					string[] mediaFiles = GenerateMediaList (); // ONLY MEDIA FILE NAMES, NO EXTENSIONS AND NO PATHS
+					string[] mediaFiles = GenerateMediaList (); // full file paths
 
 					// convert all the media files to just file names for easier searching
 					string[] fileNames = new string[mediaFiles.Length];
@@ -259,7 +259,12 @@ namespace Heart
 
 					// find out if there's a matching file name for the command. deal with duplicate matches
 					for (int i = 0; i < fileNames.Length; i++) {
+						string currentFile = fileNames [i];
 
+						// look at whether the words in the sent command match the current file name
+						for (int a = 1; i < words.Length; a++) { // start at 1 because we dont want to include the command word
+
+						}
 					}
 					HeartCore.GetCore ().Write ("File for " + shardName + " was found. Location: " + fileToPlay + ".");
 

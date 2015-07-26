@@ -33,6 +33,7 @@ namespace Shard
 {
 	class ShardCore
 	{
+		public const bool DEVELOPMENT = true;
 
 		public static string commandKey, logBaseDir = "/CrystalHomeSys/Shard/Shard Logs/", cfgBaseDir = "/CrystalHomeSys/Shard/shard_config.cfg";
 
@@ -69,11 +70,15 @@ namespace Shard
 			Write ("Configuration loaded.");
 			guid = Guid.Parse (config.get ("guid"));
 
-			// set up connections and connect to the server (this will set command key)
-			Write ("Creating connection to Heart...");
-			client = new Client ("127.0.0.1", 6976, guid);
-
+			if (!DEVELOPMENT) {
+				// set up connections and connect to the server (this will set command key)
+				Write ("Creating connection to Heart...");
+				client = new Client ("127.0.0.1", 6976, guid);
+			} else {
+				client = null;
+			}
 			// set up voice and get it primed to go
+
 
 			// show window and handle that thread
 			ShowWindow ();
