@@ -52,6 +52,8 @@ namespace Heart
 		{
 			core = this;
 
+			new TestAPI ();
+
 			// allows the log file to be created in the home directory
 			logBaseDir = System.Environment.GetEnvironmentVariable ("HOME") + logBaseDir;
 
