@@ -24,7 +24,8 @@ while 1:
   
   #print server response and data
   print(rsp.status, rsp.reason)
-  data_received = rsp.read()
-  print(data_received)
+  if rsp.status == 200:
+    data_received = rsp.read()
+    print(data_received)
   
 conn.close() 

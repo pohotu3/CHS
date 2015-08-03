@@ -24,26 +24,25 @@ class Log:
 class HTTPRequestHandler(BaseHTTPRequestHandler):
     #handle GET command
     def do_GET(self):
-        rootdir = expanduser("~") + "/CrystalHomeSys/Heart/" #file location
+        rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
         try:
-            if self.path.endswith('.html'):
-                print(rootdir + self.path)
-                f = open(rootdir + self.path) #open requested file
-                
-                #send code 200 response
-                self.send_response(200)
+            print(rootdir + self.path)
+            f = open(rootdir + self.path) #open requested file
             
-                #send header first
-                self.send_header('Content-type','text-html')
-                self.end_headers()
-                
-                #send file content to client
-                self.wfile.write(bytes(f.read(), "UTF-8"))
-                f.close()
-                return
+            #send code 200 response
+            self.send_response(200)
+            
+            #send header first
+            self.send_header('Content-type','text-html')
+            self.end_headers()
+            
+            #send file content to client
+            self.wfile.write(bytes(f.read(), "UTF-8"))
+            f.close()
+            return
       
         except IOError:
-            self.send_error(404, 'file not found')
+            self.send_error(404, 'File not found')
 
 log = Log() # create my log object
 #ip and port of server
