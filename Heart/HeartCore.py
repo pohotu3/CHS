@@ -24,7 +24,7 @@ class Log:
 class HTTPRequestHandler(BaseHTTPRequestHandler):
     #handle GET command
     def do_GET(self):
-        rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
+        rootdir = expanduser("~") + "/CrystalHomeSys/Heart/" #file location
         try:
             if self.path.endswith('.html'):
                 print(rootdir + self.path)
@@ -38,7 +38,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                 self.end_headers()
                 
                 #send file content to client
-                self.wfile.write(f.read())
+                self.wfile.write(bytes(f.read(), "UTF-8"))
                 f.close()
                 return
       
