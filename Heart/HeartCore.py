@@ -1,7 +1,7 @@
 from datetime import datetime
 from os.path import expanduser
 from http.server import BaseHTTPRequestHandler, HTTPServer
-import os
+import os, threading, sys
 
 class Log:
     now = datetime.now()
@@ -24,9 +24,10 @@ class Log:
 class HTTPRequestHandler(BaseHTTPRequestHandler):
     #handle GET command
     def do_GET(self):
-        rootdir = expanduser("~") + "/CrystalHomeSys/" #file location
+        rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
         try:
             if self.path.endswith('.html'):
+                print(rootdir + self.path)
                 f = open(rootdir + self.path) #open requested file
                 
                 #send code 200 response
@@ -45,11 +46,10 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             self.send_error(404, 'file not found')
 
 log = Log() # create my log object
-
 #ip and port of server
 #by default http server port is 80
 ip = '127.0.0.1'
-port = 8081
+port = 8080
 port_works = False
 while port_works == False:
     try:
@@ -60,5 +60,20 @@ while port_works == False:
         port = port + 1
 
 log.write("Starting HTTP server on ip " + ip + " port " + str(port))
-log.write('HTTP server is running... Press ^Z to quit.')
+log.write('HTTP server is running... Press \'k\' to quit.')
 httpd.serve_forever()
+
+def listenForClose():
+    running = True
+    while running:
+        keystroke = input()
+        if keystroke == "k":
+            running = False
+            httpd.server_close()
+            del httpd
+            sys.exit()
+            return
+
+close_thread = threading.Thread(target=listenForClose)
+close_thread.daemon = True
+close_thread.start()
