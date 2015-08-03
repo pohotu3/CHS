@@ -59,21 +59,20 @@ while port_works == False:
     except:
         port = port + 1
 
-log.write("Starting HTTP server on ip " + ip + " port " + str(port))
-log.write('HTTP server is running... Press \'k\' to quit.')
-httpd.serve_forever()
-
 def listenForClose():
     running = True
     while running:
         keystroke = input()
         if keystroke == "k":
             running = False
-            httpd.server_close()
-            del httpd
-            sys.exit()
+            log.write("Closing server...")
+            os._exit(0)
             return
 
 close_thread = threading.Thread(target=listenForClose)
 close_thread.daemon = True
 close_thread.start()
+
+log.write("Starting HTTP server on ip " + ip + " port " + str(port))
+log.write('HTTP server is running... Press \'k\' to quit.')
+httpd.serve_forever()
