@@ -48,7 +48,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
 log = Log() # create my log object
 #ip and port of server
 #by default http server port is 80
-ip = '127.0.0.1'
+ip = 'localhost'
 port = 80
 port_works = False
 while port_works == False:
