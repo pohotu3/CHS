@@ -12,7 +12,12 @@ cmd = input('input command (ex. GET index.html): ')
 cmd = cmd.split()
 
 #request command to server
-conn.request(cmd[0], cmd[1])
+if len(cmd) == 2:
+    conn.request(cmd[0], cmd[1], len(cmd[1]))
+elif len(cmd) == 3:
+    conn.request(cmd[0], cmd[1], cmd[2])
+
+#conn.request(cmd[0], cmd[1], cmd[2])
 
 #get response from server
 rsp = conn.getresponse()

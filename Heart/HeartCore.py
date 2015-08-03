@@ -45,10 +45,21 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             
     def do_PUT(self):
         rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
+        try:
+            content_len = int(self.headers['Content-Length'])
+            post_body = self.rfile.read(content_len)
+            post_body = post_body.decode("utf-8")
+            
+            f = open(rootdir + self.path, "a")
+            f.write(post_body + "\n")
+        except IOError:
+            self.send_error(404, "File not found")
         return
     
     def do_POST(self):
         rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
+        content_len = int(self.headers.getheader('content-length', 0))
+        post_body = self.rfile.read(content_len)
         return
     
     def do_DELETE(self):
