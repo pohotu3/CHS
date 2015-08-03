@@ -5,8 +5,9 @@ import sys
  
 #get http server ip
 http_server = sys.argv[1]
+http_socket = sys.argv[2]
 #create a connection
-conn = http.client.HTTPConnection(http_server)
+conn = http.client.HTTPConnection(http_server, http_socket)
  
 while 1:
   cmd = input('input command (ex. GET index.html): ')
