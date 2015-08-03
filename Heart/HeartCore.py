@@ -24,9 +24,8 @@ class Log:
 class HTTPRequestHandler(BaseHTTPRequestHandler):
     #handle GET command
     def do_GET(self):
-        rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
         try:
-            print(rootdir + self.path)
+            rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
             f = open(rootdir + self.path) #open requested file
             
             #send code 200 response
@@ -43,6 +42,20 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
       
         except IOError:
             self.send_error(404, 'File not found')
+            
+    def do_PUT(self):
+        rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
+        return
+    
+    def do_POST(self):
+        rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
+        return
+    
+    def do_DELETE(self):
+        rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
+        print("Deleting " + self.path)
+        os.remove(rootdir + self.path)
+        return
 
 log = Log() # create my log object
 #ip and port of server
