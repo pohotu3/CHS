@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<stetic-interface>
+  <configuration>
+    <images-root-path>..</images-root-path>
+    <target-gtk-version>2.12</target-gtk-version>
+  </configuration>
+  <import>
+    <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <widget-library name="../bin/Debug/Shard.exe" internal="true" />
+  </import>
+  <widget class="Gtk.Window" id="MainWindow" design-size="400 300">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">MainWindow</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <signal name="DeleteEvent" handler="OnDeleteEvent" />
+    <child>
+      <widget class="Gtk.Fixed" id="fixed1">
+        <property name="MemberName" />
+        <property name="HasWindow">False</property>
+        <child>
+          <widget class="Gtk.Label" id="Label">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">Enter Command:</property>
+          </widget>
+          <packing>
+            <property name="X">139</property>
+            <property name="Y">33</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Entry" id="EnterCommand">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="IsEditable">True</property>
+            <property name="InvisibleChar">●</property>
+            <signal name="Activated" handler="Send_Clicked" />
+          </widget>
+          <packing>
+            <property name="X">115</property>
+            <property name="Y">57</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Button" id="SendCommand">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Type">TextOnly</property>
+            <property name="Label" translatable="yes">Submit Command</property>
+            <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="Send_Clicked" />
+          </widget>
+          <packing>
+            <property name="X">127</property>
+            <property name="Y">85</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="HeartOutput">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">Server Output: </property>
+            <property name="Wrap">True</property>
+          </widget>
+          <packing>
+            <property name="X">6</property>
+            <property name="Y">168</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+</stetic-interface>

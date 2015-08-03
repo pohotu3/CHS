@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shard", "Shard\Shard.csproj", "{2B0E2FC3-CDD2-456A-AA2E-FA34E0BC2DB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionData", "ConnectionData\ConnectionData.csproj", "{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heart", "Heart\Heart.csproj", "{CF3378F5-0D8D-4F6D-AE18-F9690700C4A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B0E2FC3-CDD2-456A-AA2E-FA34E0BC2DB0}.Debug|x86.ActiveCfg = Debug|x86
+		{2B0E2FC3-CDD2-456A-AA2E-FA34E0BC2DB0}.Debug|x86.Build.0 = Debug|x86
+		{2B0E2FC3-CDD2-456A-AA2E-FA34E0BC2DB0}.Release|x86.ActiveCfg = Release|x86
+		{2B0E2FC3-CDD2-456A-AA2E-FA34E0BC2DB0}.Release|x86.Build.0 = Release|x86
+		{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}.Debug|x86.Build.0 = Debug|Any CPU
+		{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}.Release|x86.ActiveCfg = Release|Any CPU
+		{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}.Release|x86.Build.0 = Release|Any CPU
+		{CF3378F5-0D8D-4F6D-AE18-F9690700C4A9}.Debug|x86.ActiveCfg = Debug|x86
+		{CF3378F5-0D8D-4F6D-AE18-F9690700C4A9}.Debug|x86.Build.0 = Debug|x86
+		{CF3378F5-0D8D-4F6D-AE18-F9690700C4A9}.Release|x86.ActiveCfg = Release|x86
+		{CF3378F5-0D8D-4F6D-AE18-F9690700C4A9}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Shard\Shard.csproj
+	EndGlobalSection
+EndGlobal
