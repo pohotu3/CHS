@@ -13,7 +13,7 @@ cmd = cmd.split()
 
 #request command to server
 if len(cmd) == 2:
-    conn.request(cmd[0], cmd[1], len(cmd[1]))
+    conn.request(cmd[0], cmd[1], cmd[1])
 elif len(cmd) == 3:
     conn.request(cmd[0], cmd[1], cmd[2])
 
