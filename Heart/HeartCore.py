@@ -54,12 +54,15 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             content_len = int(self.headers['Content-Length'])
             post_body = self.rfile.read(content_len)
             post_body = post_body.decode("utf-8")
-                        
+            
+            if not os.path.isfile(rootdir + self.path):
+                self.send_response(201)
+                log.write("PUT " + post_body + " to " + self.path + ". File was created and updated.")
+            else:
+                self.send_response(204)
+                log.write("PUT " + post_body + " to " + self.path + ". File updated.")
+
             f = open(rootdir + self.path, "a")
-            
-            log.write("PUT " + post_body + " to " + self.path)
-            
-            self.send_response(200)
             
             self.send_header('Content-type','text-html')
             self.end_headers()
@@ -105,7 +108,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         try:
             os.remove(rootdir + self.path)
             log.write("DELETE requested " + self.path)
-            self.send_response(200)
+            self.send_response(204)
             
             self.send_header('Content-type','text-html')
             self.end_headers()
