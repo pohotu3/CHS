@@ -11,21 +11,24 @@ conn = http.client.HTTPConnection(http_server, http_socket)
 cmd = input('input command (ex. GET index.html): ')
 cmd = cmd.split()
 
-#request command to server
-if len(cmd) == 2:
-    conn.request(cmd[0], cmd[1], len(cmd[1]))
-elif len(cmd) == 3:
-    conn.request(cmd[0], cmd[1], cmd[2])
+body = []
 
-#conn.request(cmd[0], cmd[1], cmd[2])
+for x in range(2, len(cmd)):
+    body.append(cmd[x])
+    
+body = " ".join(body)
+
+#request command to server
+conn.request(cmd[0], cmd[1], body)
 
 #get response from server
 rsp = conn.getresponse()
 
 #print server response and data
 print(rsp.status, rsp.reason)
-if rsp.status == 200:
+if not rsp.status == 404:
     data_received = rsp.read()
+    data_received = data_received
     print(data_received)
   
 conn.close() 

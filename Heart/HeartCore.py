@@ -1,7 +1,8 @@
 from datetime import datetime
 from os.path import expanduser
 from http.server import BaseHTTPRequestHandler, HTTPServer
-import os, threading, sys
+from os import path
+import os, threading, sys, os.path
 
 class Log:
     now = datetime.now()
@@ -20,27 +21,51 @@ class Log:
         print(s)
         self.logFile.write(str(self.now.hour) + ":" + str(self.now.minute) + ":" + str(self.now.second) + ">>> " + s + "\n")
         return
-    
+
+log = Log() # create my log object
+
 class HTTPRequestHandler(BaseHTTPRequestHandler):
+    def log_request(self, code='-', size='-'):
+        return
+    
     #handle GET command
     def do_GET(self):
         try:
             rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
-            f = open(rootdir + self.path) #open requested file
             
-            #send code 200 response
-            self.send_response(200)
+            log.write("GET " + self.path + " requested")
             
-            #send header first
-            self.send_header('Content-type','text-html')
-            self.end_headers()
-            
-            #send file content to client
-            self.wfile.write(bytes(f.read(), "UTF-8"))
-            f.close()
+            if os.path.isfile(rootdir + self.path):
+                f = open(rootdir + self.path) #open requested file
+                self.send_response(200)
+                self.send_header('Content-type','text-html')
+                self.end_headers()
+                self.wfile.write(bytes(f.read(), "UTF-8"))
+                f.close()
+            else:
+                file_paths = []  # List which will store all of the full filepaths.
+                used_files = []
+
+                # Walk the tree.
+                for root, directories, files in os.walk(rootdir + self.path):
+                    for filename in files:
+                        # Join the two strings in order to form the full filepath.
+                        filepath = os.path.join(root, filename)
+                        file_paths.append(filepath)  # Add it to the list.
+                
+                for f in file_paths:
+                    temp = f.rsplit('/', 1)
+                    used_files.append(temp[1])
+                
+                self.send_response(200)
+                self.send_header('Content-type','text-html')
+                self.end_headers()
+                self.wfile.write(bytes('\n'.join(used_files), "UTF-8"))
+                
             return
       
         except IOError:
+            log.write("GET requested " + self.path + ". 404 Not Found")
             self.send_error(404, 'File not found')
             
     def do_PUT(self):
@@ -50,25 +75,68 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             post_body = self.rfile.read(content_len)
             post_body = post_body.decode("utf-8")
             
+            if not os.path.isfile(rootdir + self.path):
+                self.send_response(201)
+                log.write("PUT " + post_body + " to " + self.path + ". File was created and updated.")
+            else:
+                self.send_response(204)
+                log.write("PUT " + post_body + " to " + self.path + ". File updated.")
+
             f = open(rootdir + self.path, "a")
+            
+            self.send_header('Content-type','text-html')
+            self.end_headers()
+            
             f.write(post_body + "\n")
+            f.close()
+            return
+        
         except IOError:
+            log.write("PUT requested " + self.path + ". 404 Not Found")
             self.send_error(404, "File not found")
         return
     
     def do_POST(self):
         rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
-        content_len = int(self.headers.getheader('content-length', 0))
-        post_body = self.rfile.read(content_len)
+        try:
+            content_len = int(self.headers['Content-Length'])
+            post_body = self.rfile.read(content_len)
+            post_body = post_body.decode("utf-8")
+            
+            if not os.path.exists(rootdir + self.path):
+                os.makedirs(rootdir + self.path)
+            
+            f = open(rootdir + self.path + post_body, "a")
+            f.close()
+            
+            log.write("POST requested " + self.path + "" + post_body)
+            
+            self.send_response(201)
+            
+            self.send_header('Content-type','text-html')
+            self.end_headers()
+            
+            self.wfile.write(bytes("Created new file " + self.path + "" + post_body, "UTF-8"))
+            return
+        except IOError:
+            log.write("POST requested " + self.path + "" + post_body + ". 404 Not Found")
+            self.send_error(404, "File not found")
         return
     
     def do_DELETE(self):
         rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
-        print("Deleting " + self.path)
-        os.remove(rootdir + self.path)
-        return
+        try:
+            os.remove(rootdir + self.path)
+            log.write("DELETE requested " + self.path)
+            self.send_response(204)
+            
+            self.send_header('Content-type','text-html')
+            self.end_headers()
+            return
+        except IOError:
+            log.write("DELETE requested " + self.path + ". 404 Not Found")
+            self.send_error(404, "File not found")
 
-log = Log() # create my log object
 #ip and port of server
 #by default http server port is 80
 ip = 'localhost'
