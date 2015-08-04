@@ -24,6 +24,9 @@ class Log:
 log = Log() # create my log object
 
 class HTTPRequestHandler(BaseHTTPRequestHandler):
+    def log_request(self, code='-', size='-'):
+        return
+    
     #handle GET command
     def do_GET(self):
         try:
