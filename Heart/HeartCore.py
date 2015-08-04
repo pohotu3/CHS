@@ -20,7 +20,9 @@ class Log:
         print(s)
         self.logFile.write(str(self.now.hour) + ":" + str(self.now.minute) + ":" + str(self.now.second) + ">>> " + s + "\n")
         return
-    
+
+log = Log() # create my log object
+
 class HTTPRequestHandler(BaseHTTPRequestHandler):
     #handle GET command
     def do_GET(self):
@@ -51,24 +53,51 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             post_body = post_body.decode("utf-8")
             
             f = open(rootdir + self.path, "a")
+            
+            log.write("PUT " + post_body + " to " + self.path)
+            
+            self.send_response(200)
+            
+            self.send_header('Content-type','text-html')
+            self.end_headers()
+            
             f.write(post_body + "\n")
+            f.close()
+            return
+        
         except IOError:
             self.send_error(404, "File not found")
         return
     
     def do_POST(self):
         rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
-        content_len = int(self.headers.getheader('content-length', 0))
-        post_body = self.rfile.read(content_len)
+        try:
+            content_len = int(self.headers['Content-Length'])
+            post_body = self.rfile.read(content_len)
+            post_body = post_body.decode("utf-8")
+            
+            self.send_response(200)
+            
+            self.send_header('Content-type','text-html')
+            self.end_headers()
+            return
+        except IOError:
+            self.send_error(404, "File not found")
         return
     
     def do_DELETE(self):
         rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
-        print("Deleting " + self.path)
-        os.remove(rootdir + self.path)
-        return
+        try:
+            os.remove(rootdir + self.path)
+            log.write("Deleting " + self.path)
+            self.send_response(200)
+            
+            self.send_header('Content-type','text-html')
+            self.end_headers()
+            return
+        except IOError:
+            self.send_error(404, "File not found")
 
-log = Log() # create my log object
 #ip and port of server
 #by default http server port is 80
 ip = 'localhost'
