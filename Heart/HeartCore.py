@@ -1,6 +1,7 @@
 from datetime import datetime
 from os.path import expanduser
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from os import path
 import os, threading, sys, os.path
 
 class Log:
@@ -31,20 +32,36 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         try:
             rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
-            f = open(rootdir + self.path) #open requested file
             
             log.write("GET " + self.path + " requested")
             
-            #send code 200 response
-            self.send_response(200)
-            
-            #send header first
-            self.send_header('Content-type','text-html')
-            self.end_headers()
-            
-            #send file content to client
-            self.wfile.write(bytes(f.read(), "UTF-8"))
-            f.close()
+            if os.path.isfile(rootdir + self.path):
+                f = open(rootdir + self.path) #open requested file
+                self.send_response(200)
+                self.send_header('Content-type','text-html')
+                self.end_headers()
+                self.wfile.write(bytes(f.read(), "UTF-8"))
+                f.close()
+            else:
+                file_paths = []  # List which will store all of the full filepaths.
+                used_files = []
+
+                # Walk the tree.
+                for root, directories, files in os.walk(rootdir + self.path):
+                    for filename in files:
+                        # Join the two strings in order to form the full filepath.
+                        filepath = os.path.join(root, filename)
+                        file_paths.append(filepath)  # Add it to the list.
+                
+                for f in file_paths:
+                    temp = f.rsplit('/', 1)
+                    used_files.append(temp[1])
+                
+                self.send_response(200)
+                self.send_header('Content-type','text-html')
+                self.end_headers()
+                self.wfile.write(bytes('\n'.join(used_files), "UTF-8"))
+                
             return
       
         except IOError:
