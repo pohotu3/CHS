@@ -24,7 +24,9 @@ rsp = conn.getresponse()
 
 #print server response and data
 print(rsp.status, rsp.reason)
-data_received = rsp.read()
-print(data_received)
+if not rsp.status == 404:
+    data_received = rsp.read()
+    data_received = data_received
+    print(data_received)
   
 conn.close() 
