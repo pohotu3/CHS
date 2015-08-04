@@ -32,14 +32,15 @@ namespace Heart
 			process.Arguments = args;
 			process.FileName = filePathDir;
 			process.UseShellExecute = false;
-			process.RedirectStandardInput = false;
 			process.RedirectStandardOutput = true;
 
 			p = Process.Start (process);
 			using (StreamReader reader = p.StandardOutput)
 			{
 				while (true) {
+					write ("running");
 					string foo = reader.ReadLine ();
+					write ("running1");
 					write (foo);
 				}
 			}
