@@ -4,26 +4,6 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from os import path
 import os, threading, sys, os.path
 
-class Log:
-    now = datetime.now()
-    fileName = str(now.month) + "-" + str(now.day) + "-" + str(now.year)
-    home = expanduser("~")
-    fileDir = home + "/CrystalHomeSys/Heart/Logs/" + fileName + ".txt"
-    logFile = open(fileDir, "a")
-    
-    def __init__(self):
-        self.write("-------------SYSTEM STARTUP----------------")
-        self.write("Welcome to Crystal Home Systems")
-        self.write("Created Log file at " + self.fileDir)
-        return
-    
-    def write(self, s):
-        print(s)
-        self.logFile.write(str(self.now.hour) + ":" + str(self.now.minute) + ":" + str(self.now.second) + ">>> " + s + "\n")
-        return
-
-log = Log() # create my log object
-
 class HTTPRequestHandler(BaseHTTPRequestHandler):
     def log_request(self, code='-', size='-'):
         return
@@ -33,7 +13,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         try:
             rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
             
-            log.write("GET " + self.path + " requested")
+            print("GET " + self.path + " requested")
             
             if os.path.isfile(rootdir + self.path):
                 f = open(rootdir + self.path) #open requested file
@@ -65,7 +45,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             return
       
         except IOError:
-            log.write("GET requested " + self.path + ". 404 Not Found")
+            print("GET requested " + self.path + ". 404 Not Found")
             self.send_error(404, 'File not found')
             
     def do_PUT(self):
@@ -77,10 +57,10 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             
             if not os.path.isfile(rootdir + self.path):
                 self.send_response(201)
-                log.write("PUT " + post_body + " to " + self.path + ". File was created and updated.")
+                print("PUT " + post_body + " to " + self.path + ". File was created and updated.")
             else:
                 self.send_response(204)
-                log.write("PUT " + post_body + " to " + self.path + ". File updated.")
+                print("PUT " + post_body + " to " + self.path + ". File updated.")
 
             f = open(rootdir + self.path, "a")
             
@@ -92,7 +72,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             return
         
         except IOError:
-            log.write("PUT requested " + self.path + ". 404 Not Found")
+            print("PUT requested " + self.path + ". 404 Not Found")
             self.send_error(404, "File not found")
         return
     
@@ -109,7 +89,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             f = open(rootdir + self.path + post_body, "a")
             f.close()
             
-            log.write("POST requested " + self.path + "" + post_body)
+            print("POST requested " + self.path + "" + post_body)
             
             self.send_response(201)
             
@@ -119,7 +99,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(bytes("Created new file " + self.path + "" + post_body, "UTF-8"))
             return
         except IOError:
-            log.write("POST requested " + self.path + "" + post_body + ". 404 Not Found")
+            print("POST requested " + self.path + "" + post_body + ". 404 Not Found")
             self.send_error(404, "File not found")
         return
     
@@ -127,14 +107,14 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
         try:
             os.remove(rootdir + self.path)
-            log.write("DELETE requested " + self.path)
+            print("DELETE requested " + self.path)
             self.send_response(204)
             
             self.send_header('Content-type','text-html')
             self.end_headers()
             return
         except IOError:
-            log.write("DELETE requested " + self.path + ". 404 Not Found")
+            print("DELETE requested " + self.path + ". 404 Not Found")
             self.send_error(404, "File not found")
 
 #ip and port of server
@@ -156,7 +136,7 @@ def listenForClose():
         keystroke = input()
         if keystroke == "k":
             running = False
-            log.write("Closing server...")
+            print("Closing server...")
             os._exit(0)
             return
 
@@ -164,6 +144,6 @@ close_thread = threading.Thread(target=listenForClose)
 close_thread.daemon = True
 close_thread.start()
 
-log.write("Starting HTTP server on ip " + ip + " port " + str(port))
-log.write('HTTP server is running... Press \'k\' to quit.')
+print("Starting HTTP server on ip " + ip + " port " + str(port))
+print('HTTP server is running... Press \'k\' to quit.')
 httpd.serve_forever()

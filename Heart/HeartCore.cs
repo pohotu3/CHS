@@ -47,12 +47,11 @@ namespace Heart
 
 		private static HeartCore core;
 		private static MainWindow mw;
+		private PythonScript python_api;
 
 		public HeartCore ()
 		{
 			core = this;
-
-			new TestAPI ();
 
 			// allows the log file to be created in the home directory
 			logBaseDir = System.Environment.GetEnvironmentVariable ("HOME") + logBaseDir;
@@ -95,6 +94,8 @@ namespace Heart
 
 			// start listening for command inputs to control the server.
 			Write ("Type quit to exit. Type commands for a list of available commands.");
+
+			python_api = new PythonScript ("python3", "HeartAPI.py", Write);
 		}
 
 		public static HeartCore GetCore ()
@@ -152,6 +153,7 @@ namespace Heart
 			Write ("Closing down Heart...");
 			server.Close ();
 			Write ("Goodbye.");
+			python_api.Stop ();
 			Application.Quit ();
 		}
 

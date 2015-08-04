@@ -80,7 +80,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="HeartAPI.py" />
-    <None Include="testclient.py" />
+    <None Include="HeartAPI.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

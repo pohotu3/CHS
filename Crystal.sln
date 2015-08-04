@@ -26,7 +26,4 @@ Global
 		{CF3378F5-0D8D-4F6D-AE18-F9690700C4A9}.Release|x86.ActiveCfg = Release|x86
 		{CF3378F5-0D8D-4F6D-AE18-F9690700C4A9}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Shard\Shard.csproj
-	EndGlobalSection
 EndGlobal
