@@ -1,7 +1,7 @@
 from datetime import datetime
 from os.path import expanduser
 from http.server import BaseHTTPRequestHandler, HTTPServer
-import os, threading, sys
+import os, threading, sys, os.path
 
 class Log:
     now = datetime.now()
@@ -52,6 +52,10 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             post_body = self.rfile.read(content_len)
             post_body = post_body.decode("utf-8")
             
+            if not os.path.isfile(rootdir + self.path):
+                self.send_error(404, "File not found")
+                return
+            
             f = open(rootdir + self.path, "a")
             
             log.write("PUT " + post_body + " to " + self.path)
@@ -76,10 +80,18 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             post_body = self.rfile.read(content_len)
             post_body = post_body.decode("utf-8")
             
-            self.send_response(200)
+            if not os.path.exists(rootdir + self.path):
+                os.makedirs(rootdir + self.path)
+            
+            f = open(rootdir + self.path + post_body, "a")
+            f.close()
+            
+            self.send_response(201)
             
             self.send_header('Content-type','text-html')
             self.end_headers()
+            
+            self.wfile.write(bytes("Created new file " + self.path + "" + post_body, "UTF-8"))
             return
         except IOError:
             self.send_error(404, "File not found")
