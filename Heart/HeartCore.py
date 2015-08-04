@@ -30,6 +30,8 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
             f = open(rootdir + self.path) #open requested file
             
+            log.write("GET " + self.path + " requested")
+            
             #send code 200 response
             self.send_response(200)
             
@@ -43,6 +45,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             return
       
         except IOError:
+            log.write("GET requested " + self.path + ". 404 Not Found")
             self.send_error(404, 'File not found')
             
     def do_PUT(self):
@@ -51,11 +54,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             content_len = int(self.headers['Content-Length'])
             post_body = self.rfile.read(content_len)
             post_body = post_body.decode("utf-8")
-            
-            if not os.path.isfile(rootdir + self.path):
-                self.send_error(404, "File not found")
-                return
-            
+                        
             f = open(rootdir + self.path, "a")
             
             log.write("PUT " + post_body + " to " + self.path)
@@ -70,6 +69,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             return
         
         except IOError:
+            log.write("PUT requested " + self.path + ". 404 Not Found")
             self.send_error(404, "File not found")
         return
     
@@ -86,6 +86,8 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             f = open(rootdir + self.path + post_body, "a")
             f.close()
             
+            log.write("POST requested " + self.path + "" + post_body)
+            
             self.send_response(201)
             
             self.send_header('Content-type','text-html')
@@ -94,6 +96,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(bytes("Created new file " + self.path + "" + post_body, "UTF-8"))
             return
         except IOError:
+            log.write("POST requested " + self.path + "" + post_body + ". 404 Not Found")
             self.send_error(404, "File not found")
         return
     
@@ -101,13 +104,14 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
         try:
             os.remove(rootdir + self.path)
-            log.write("Deleting " + self.path)
+            log.write("DELETE requested " + self.path)
             self.send_response(200)
             
             self.send_header('Content-type','text-html')
             self.end_headers()
             return
         except IOError:
+            log.write("DELETE requested " + self.path + ". 404 Not Found")
             self.send_error(404, "File not found")
 
 #ip and port of server
