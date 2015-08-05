@@ -26,7 +26,7 @@ namespace Heart
 			script_thread.Start ();
 		}
 
-		private void Run()
+		private void Run ()
 		{
 			process = new ProcessStartInfo ();
 			process.Arguments = args;
@@ -35,18 +35,15 @@ namespace Heart
 			process.RedirectStandardOutput = true;
 
 			p = Process.Start (process);
-			using (StreamReader reader = p.StandardOutput)
-			{
-				while (true) {
-					write ("running");
-					string foo = reader.ReadLine ();
-					write ("running1");
-					write (foo);
-				}
+			while (true) {
+				write ("running");
+				string foo = p.StandardOutput.ReadLine ();
+				write ("running1");
+				write (foo);
 			}
 		}
 
-		public void Stop()
+		public void Stop ()
 		{
 			p.Kill ();
 			script_thread.Abort ();
