@@ -7,6 +7,7 @@ namespace Shard
 	{
 		public Speech ()
 		{
+
 		}
 
 		public void Speak (string s)
@@ -15,4 +16,3 @@ namespace Shard
 		}
 	}
 }
-
