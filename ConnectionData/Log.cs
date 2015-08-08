@@ -43,7 +43,7 @@ namespace ConnectionData
 				System.IO.Directory.CreateDirectory(s);
 
 			// sets the filename var to mm-dd-yyyy
-			fileName = s + dt.Month + "-" + dt.Day + "-" + dt.Year;
+			fileName = s + dt.Month + "-" + dt.Day + "-" + dt.Year + ".log";
 		}
 
 		// writes a line to the log file, creating the log file if it doesnt exist

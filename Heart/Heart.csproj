@@ -56,6 +56,7 @@
       <Package>gtk-sharp-2.0</Package>
     </Reference>
     <Reference Include="Mono.Posix" />
+    <Reference Include="System.Web.Services" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -69,6 +70,7 @@
     <Compile Include="HeartCore.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="gtk-gui\Heart.MainWindow.cs" />
+    <Compile Include="PythonScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -76,5 +78,10 @@
       <Project>{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}</Project>
       <Name>ConnectionData</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HeartAPI.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
