@@ -14,6 +14,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
             
             print("GET " + self.path + " requested")
+            sys.stdout.flush()
             
             if os.path.isfile(rootdir + self.path):
                 f = open(rootdir + self.path) #open requested file
@@ -46,6 +47,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
       
         except IOError:
             print("GET requested " + self.path + ". 404 Not Found")
+            sys.stdout.flush()
             self.send_error(404, 'File not found')
             
     def do_PUT(self):
@@ -58,10 +60,11 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             if not os.path.isfile(rootdir + self.path):
                 self.send_response(201)
                 print("PUT " + post_body + " to " + self.path + ". File was created and updated.")
+                sys.stdout.flush()
             else:
                 self.send_response(204)
                 print("PUT " + post_body + " to " + self.path + ". File updated.")
-
+                sys.stdout.flush()
             f = open(rootdir + self.path, "a")
             
             self.send_header('Content-type','text-html')
@@ -73,6 +76,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         
         except IOError:
             print("PUT requested " + self.path + ". 404 Not Found")
+            sys.stdout.flush()
             self.send_error(404, "File not found")
         return
     
@@ -90,6 +94,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             f.close()
             
             print("POST requested " + self.path + "" + post_body)
+            sys.stdout.flush()
             
             self.send_response(201)
             
@@ -100,6 +105,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             return
         except IOError:
             print("POST requested " + self.path + "" + post_body + ". 404 Not Found")
+            sys.stdout.flush()
             self.send_error(404, "File not found")
         return
     
@@ -108,6 +114,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         try:
             os.remove(rootdir + self.path)
             print("DELETE requested " + self.path)
+            sys.stdout.flush()
             self.send_response(204)
             
             self.send_header('Content-type','text-html')
@@ -115,6 +122,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             return
         except IOError:
             print("DELETE requested " + self.path + ". 404 Not Found")
+            sys.stdout.flush()
             self.send_error(404, "File not found")
 
 #ip and port of server
@@ -137,6 +145,7 @@ def listenForClose():
         if keystroke == "k":
             running = False
             print("Closing server...")
+            sys.stdout.flush()
             os._exit(0)
             return
 
@@ -145,5 +154,7 @@ close_thread.daemon = True
 close_thread.start()
 
 print("Starting HTTP server on ip " + ip + " port " + str(port))
+sys.stdout.flush()
 print('HTTP server is running... Press \'k\' to quit.')
+sys.stdout.flush()
 httpd.serve_forever()

@@ -24,6 +24,8 @@ namespace Heart
 
 			script_thread = new Thread (Run);
 			script_thread.Start ();
+			script_thread.Join ();
+			Console.WriteLine ("JOINED");
 		}
 
 		private void Run ()
