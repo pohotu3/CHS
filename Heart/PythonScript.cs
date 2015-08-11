@@ -14,17 +14,16 @@ namespace Heart
 		Thread script_thread;
 
 		string filePathDir, args;
-		Action<string> write;
+		Action<string> Write;
 
-		public PythonScript (string filePathDir, string args, Action<string> write)
+		public PythonScript (string filePathDir, string args, Action<string> Write)
 		{
 			this.filePathDir = filePathDir;
 			this.args = args;
-			this.write = write;
+			this.Write = Write;
 
 			script_thread = new Thread (Run);
 			script_thread.Start ();
-			script_thread.Join ();
 			Console.WriteLine ("JOINED");
 		}
 
@@ -38,10 +37,8 @@ namespace Heart
 
 			p = Process.Start (process);
 			while (true) {
-				write ("running");
 				string foo = p.StandardOutput.ReadLine ();
-				write ("running1");
-				write (foo);
+				Write (foo);
 			}
 		}
 

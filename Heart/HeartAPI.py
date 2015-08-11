@@ -13,7 +13,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         try:
             rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
             
-            print("GET " + self.path + " requested")
+            print("PYTHON API: " + "GET " + self.path + " requested")
             sys.stdout.flush()
             
             if os.path.isfile(rootdir + self.path):
@@ -46,7 +46,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             return
       
         except IOError:
-            print("GET requested " + self.path + ". 404 Not Found")
+            print("PYTHON API: " + "GET requested " + self.path + ". 404 Not Found")
             sys.stdout.flush()
             self.send_error(404, 'File not found')
             
@@ -59,11 +59,11 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             
             if not os.path.isfile(rootdir + self.path):
                 self.send_response(201)
-                print("PUT " + post_body + " to " + self.path + ". File was created and updated.")
+                print("PYTHON API: " + "PUT " + post_body + " to " + self.path + ". File was created and updated.")
                 sys.stdout.flush()
             else:
                 self.send_response(204)
-                print("PUT " + post_body + " to " + self.path + ". File updated.")
+                print("PYTHON API: " + "PUT " + post_body + " to " + self.path + ". File updated.")
                 sys.stdout.flush()
             f = open(rootdir + self.path, "a")
             
@@ -75,7 +75,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             return
         
         except IOError:
-            print("PUT requested " + self.path + ". 404 Not Found")
+            print("PYTHON API: " + "PUT requested " + self.path + ". 404 Not Found")
             sys.stdout.flush()
             self.send_error(404, "File not found")
         return
@@ -93,7 +93,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             f = open(rootdir + self.path + post_body, "a")
             f.close()
             
-            print("POST requested " + self.path + "" + post_body)
+            print("PYTHON API: " + "POST requested " + self.path + "" + post_body)
             sys.stdout.flush()
             
             self.send_response(201)
@@ -104,7 +104,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(bytes("Created new file " + self.path + "" + post_body, "UTF-8"))
             return
         except IOError:
-            print("POST requested " + self.path + "" + post_body + ". 404 Not Found")
+            print("PYTHON API: " + "POST requested " + self.path + "" + post_body + ". 404 Not Found")
             sys.stdout.flush()
             self.send_error(404, "File not found")
         return
@@ -113,7 +113,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
         try:
             os.remove(rootdir + self.path)
-            print("DELETE requested " + self.path)
+            print("PYTHON API: " + "DELETE requested " + self.path)
             sys.stdout.flush()
             self.send_response(204)
             
@@ -121,7 +121,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             self.end_headers()
             return
         except IOError:
-            print("DELETE requested " + self.path + ". 404 Not Found")
+            print("PYTHON API: " + "DELETE requested " + self.path + ". 404 Not Found")
             sys.stdout.flush()
             self.send_error(404, "File not found")
 
@@ -144,7 +144,7 @@ def listenForClose():
         keystroke = input()
         if keystroke == "k":
             running = False
-            print("Closing server...")
+            print("PYTHON API: " + "Closing server...")
             sys.stdout.flush()
             os._exit(0)
             return
@@ -153,8 +153,8 @@ close_thread = threading.Thread(target=listenForClose)
 close_thread.daemon = True
 close_thread.start()
 
-print("Starting HTTP server on ip " + ip + " port " + str(port))
+print("PYTHON API: " + "Starting HTTP server on ip " + ip + " port " + str(port))
 sys.stdout.flush()
-print('HTTP server is running... Press \'k\' to quit.')
+print("PYTHON API: " + 'HTTP server is running... Press \'k\' to quit.')
 sys.stdout.flush()
 httpd.serve_forever()
