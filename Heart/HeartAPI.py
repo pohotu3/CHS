@@ -127,8 +127,8 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
 
 #ip and port of server
 #by default http server port is 80
-ip = 'localhost'
-port = 80
+ip = sys.argv[1]
+port = int(sys.argv[2])
 port_works = False
 while port_works == False:
     try:
@@ -138,23 +138,6 @@ while port_works == False:
     except:
         port = port + 1
 
-def listenForClose():
-    running = True
-    while running:
-        keystroke = input()
-        if keystroke == "k":
-            running = False
-            print("PYTHON API: " + "Closing server...")
-            sys.stdout.flush()
-            os._exit(0)
-            return
-
-close_thread = threading.Thread(target=listenForClose)
-close_thread.daemon = True
-close_thread.start()
-
-print("PYTHON API: " + "Starting HTTP server on ip " + ip + " port " + str(port))
-sys.stdout.flush()
-print("PYTHON API: " + 'HTTP server is running... Press \'k\' to quit.')
+print("Python API Server starting on IP: " + ip + " Port: " + str(port))
 sys.stdout.flush()
 httpd.serve_forever()
