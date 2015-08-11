@@ -92,10 +92,10 @@ namespace Heart
 			server.Start ();
 			Write ("Heart Server started listening on IP: " + server.ip.Address + " Port: " + serverPort);
 
-			python_api = new PythonScript ("python3", "HeartAPI.py" + " " + server.ip.Address + " " + serverPort, Write);
-
 			// start listening for command inputs to control the server.
 			Write ("Type quit to exit. Type commands for a list of available commands.");
+
+			python_api = new PythonScript ("python3", "HeartAPI.py" + " " + server.ip.Address + " " + serverPort, Write);
 		}
 
 		public static HeartCore GetCore ()
