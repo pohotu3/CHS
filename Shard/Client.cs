@@ -56,9 +56,7 @@ namespace Shard
 			try {
 				// tries to connect to the socket located at the IP and socket given
 				master.Connect (ip);
-				ShardCore.getCore().Write("Connected to Heart at IP " + ipAddress + " Socket: " + socket);
 			} catch {
-				ShardCore.getCore().Write ("Could not connect to " + ipAddress + " on Socket: " + socket);
 				Thread.Sleep (1000);
 
 				// we dont want the client socket continuing if we were not able to connect
@@ -100,7 +98,6 @@ namespace Shard
 		public void Data_OUT(Packet p)
 		{
 			if (!connected && p.packetType != Packet.PacketType.Registration) {
-				ShardCore.getCore ().Write ("We are not connected yet. Please try restarting...");
 				return;
 			}
 			master.Send (p.ToBytes ());
@@ -112,33 +109,27 @@ namespace Shard
 			switch (p.packetType) {
 			case Packet.PacketType.Registration:
 				// if the server is sending the registration packet (start of connection)
-				ShardCore.getCore ().Write ("Received registration packet from Heart.");
 				serverGuid = p.senderID;
 
 				// now save that to a file if this is the first connection, otherwise compare it to the file
 
 				// set the commandKey from the server registration packet
-				ShardCore.commandKey = p.packetString;
+				//#######################################
+                //ShardCore.commandKey = p.packetString;
 
 				// send client registration packet
 				Data_OUT (new Packet (Packet.PacketType.Registration, guid));
-				ShardCore.getCore ().Write ("Sent registration packet to Heart.");
 				break;
 			case Packet.PacketType.Handshake:
-				ShardCore.getCore ().Write ("Handshake received. Connection Established.");
 				connected = true;
 				break;
 			case Packet.PacketType.CloseConnection:
 				string reason = p.packetString;
 				if (reason == null)
 					reason = "No Reason Given.";
-				ShardCore.getCore ().Write ("Server is closing the connection. Reason: " + reason);
-				ShardCore.GetWindow ().ServerResponse ("Server is closing the connection. Reason: " + reason);
 				Close ();
 				break;
 			case Packet.PacketType.Command:
-				ShardCore.getCore ().Write ("Server sent the response: " + p.packetString);
-				ShardCore.GetWindow ().ServerResponse (p.packetString);
 				break;
 			default:
 				break;
@@ -148,7 +139,6 @@ namespace Shard
 		public void Close()
 		{
 			Data_OUT (new Packet (Packet.PacketType.CloseConnection, guid));
-			ShardCore.getCore ().Write ("Closing connection with Heart.");
 			running = false;
 			master.Close ();
 			master.Dispose ();
