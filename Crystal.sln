@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionData", "Connectio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heart", "Heart\Heart.csproj", "{CF3378F5-0D8D-4F6D-AE18-F9690700C4A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shard", "Shard\Shard.csproj", "{745F5AD2-6800-4F14-A445-C2C30C3897AE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,16 +39,6 @@ Global
 		{CF3378F5-0D8D-4F6D-AE18-F9690700C4A9}.Release|Mixed Platforms.Build.0 = Release|x86
 		{CF3378F5-0D8D-4F6D-AE18-F9690700C4A9}.Release|x86.ActiveCfg = Release|x86
 		{CF3378F5-0D8D-4F6D-AE18-F9690700C4A9}.Release|x86.Build.0 = Release|x86
-		{745F5AD2-6800-4F14-A445-C2C30C3897AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{745F5AD2-6800-4F14-A445-C2C30C3897AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{745F5AD2-6800-4F14-A445-C2C30C3897AE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{745F5AD2-6800-4F14-A445-C2C30C3897AE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{745F5AD2-6800-4F14-A445-C2C30C3897AE}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{745F5AD2-6800-4F14-A445-C2C30C3897AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{745F5AD2-6800-4F14-A445-C2C30C3897AE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{745F5AD2-6800-4F14-A445-C2C30C3897AE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{745F5AD2-6800-4F14-A445-C2C30C3897AE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{745F5AD2-6800-4F14-A445-C2C30C3897AE}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -34,6 +34,7 @@ using System.Speech.Synthesis;
 using System.Speech.Recognition;
 using System.IO;
 using System.Collections;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace CrystalHomeSystems
 {
