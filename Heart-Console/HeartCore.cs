@@ -72,7 +72,6 @@ namespace HeartConsole
 			cfg = new Config (configDir);
 			LoadConfig ();
 			
-
 			// set up all the network information and objects, do NOT start
 			Write ("Creating Server on port " + serverPort);
 			server = new Server (serverPort, guid); // port number isn't 100% firm, but no reason to change it
