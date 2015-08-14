@@ -122,7 +122,7 @@ namespace HeartConsole
 		{
 			this.clientSocket = clientSocket;
 
-			HeartCore.GetCore ().Write ("Incoming connection from shard. IP: " + clientSocket.AddressFamily.ToString ());
+			HeartCore.GetCore ().Write ("Incoming connection from Shard. IP: " + clientSocket.AddressFamily.ToString ());
 
 			// after we accept a connection, we start a new thread for listening to the client
 			clientThread = new Thread (Data_IN);
@@ -139,6 +139,8 @@ namespace HeartConsole
 			try {
 				clientSocket.Send (p.ToBytes ());
 			} catch (Exception e) {
+                HeartCore.GetCore().Write("Unable to send data to the Shard at IP " + clientSocket.AddressFamily.ToString() + ". Closing connection, please restart the Shard.");
+                Close();
 			}
 		}
 
@@ -146,7 +148,13 @@ namespace HeartConsole
 		{
 			// this function will send the client the server GUID BEFORE the client sends theirs
 			Packet p = new Packet (Packet.PacketType.Registration, Server.guid);
-			p.packetString = HeartCore.commandKey;
+            
+            // if the config file was not set up, notify the shard that it will be unable to connect until it's been set
+            if (HeartCore.cfg_set)
+                p.packetString = HeartCore.commandKey;
+            else
+                p.packetString = "denied";
+
 			Data_OUT (p);
 			HeartCore.GetCore ().Write ("Sent registration packet to " + clientSocket.AddressFamily.ToString ());
 

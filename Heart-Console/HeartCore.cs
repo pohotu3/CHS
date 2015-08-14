@@ -30,136 +30,149 @@ using ConnectionData;
 
 namespace HeartConsole
 {
-	class HeartCore
-	{
+    class HeartCore
+    {
 
-		private const string systemType = "Heart", version = "0.0.1";
-		public static string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/Heart/heart_config.cfg", logBaseDir = "/CrystalHomeSys/Heart/Logs/";
-		private const int serverPort = 6976;
+        private const string systemType = "Heart", version = "0.0.1";
+        public static string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/Heart/heart_config.cfg", logBaseDir = "/CrystalHomeSys/Heart/Logs/";
+        private const int serverPort = 6976;
+        public static bool cfg_set = false;
 
-		// unique identifier for the server
-		private Guid guid;
+        // unique identifier for the server
+        private Guid guid;
 
-		private Config cfg = null;
-		private Log log = null;
-		private Server server = null;
+        private Config cfg = null;
+        private Log log = null;
+        private Server server = null;
 
-		private static HeartCore core;
-		private PythonScript python_api;
+        private static HeartCore core;
+        private PythonScript python_api;
 
-		public HeartCore ()
-		{
-			core = this;
+        public HeartCore()
+        {
+            core = this;
 
-			// allows the log file to be created in the home directory
-			logBaseDir = System.Environment.GetEnvironmentVariable ("HOME") + logBaseDir;
+            // allows the log file to be created in the home directory
+            logBaseDir = System.Environment.GetEnvironmentVariable("HOME") + logBaseDir;
 
-			// allows the config file to be created in the home directory. ie: /home/austin/
-			configDir = System.Environment.GetEnvironmentVariable("HOME") + configDir;
+            // allows the config file to be created in the home directory. ie: /home/austin/
+            configDir = System.Environment.GetEnvironmentVariable("HOME") + configDir;
 
-			Init ();
-		}
+            Init();
+        }
 
-		private void Init()
-		{
-			// set up logging here
-			log = new Log(logBaseDir);
-			Write ("#############################SYSTEM STARTUP###################################");
-			Write ("System logging initialized...");
-			Write ("Log located at " + log.fileName);
+        private void Init()
+        {
+            // set up logging here
+            log = new Log(logBaseDir);
+            Write("#############################SYSTEM STARTUP###################################");
+            Write("System logging initialized...");
+            Write("Log located at " + log.fileName);
 
-			// initialize the configuration files
-			cfg = new Config (configDir);
-			LoadConfig ();
-			
-			// set up all the network information and objects, do NOT start
-			Write ("Creating Server on port " + serverPort);
-			server = new Server (serverPort, guid); // port number isn't 100% firm, but no reason to change it
-			Write ("Created Server connection on port " + serverPort);
+            // initialize the configuration files
+            Write("Setting up configuration...");
+            cfg = new Config(configDir);
 
-			// start listening for connections
-			server.Start ();
-			Write ("Heart Server started listening on IP: " + server.ip.Address + " Port: " + serverPort);
+            if (cfg.exists())
+            {
+                LoadConfig();
+                Write("Configuration file found. Loading settings.");
+            }
+            else
+            {
+                Write("Configuration file does not exist. Creating file. Please configure your server with your web browser.");
+                cfg.set("cfg_set", cfg_set.ToString());
+                cfg.Save();
+            }
 
-			// start listening for command inputs to control the server.
-			Write ("Type quit to exit. Type commands for a list of available commands.");
+            // set up all the network information and objects, do NOT start
+            Write("Creating Server on port " + serverPort);
+            server = new Server(serverPort, guid); // port number isn't 100% firm, but no reason to change it
+            Write("Created Server connection on port " + serverPort);
 
-			python_api = new PythonScript ("python3", "HeartAPI.py" + " " + server.ip.Address + " " + serverPort, Write);
-		}
+            // start listening for connections
+            server.Start();
+            Write("Heart Server started listening on IP: " + server.ip.Address + " Port: " + serverPort);
 
-		public static HeartCore GetCore ()
-		{
-			return core;
-		}
+            python_api = new PythonScript("python3", "HeartAPI.py" + " " + server.ip.Address + " " + serverPort, Write);
+        }
 
-		public Server GetServer ()
-		{
-			return server;
-		}
+        public static HeartCore GetCore()
+        {
+            return core;
+        }
 
-		public void Write (string s)
-		{
-			Console.WriteLine (s);
-			log.write (s);
-		}
+        public Server GetServer()
+        {
+            return server;
+        }
 
-		public void AnalyzeCommand(string s)
-		{
-			string[] commands = new string[] {"quit", "commands"};
+        public void Write(string s)
+        {
+            Console.WriteLine(s);
+            log.write(s);
+        }
 
-			switch (s.ToLower ()) {
-			case "quit":
-				Close ();
-				break;
-			case "commands":
-				string temp = "Available Commands: ";
-				for (int i = 0; i < commands.Length; i++) {
-					temp += commands [i] + " ";
-				}
-				Write (temp);
-				break;
-				//case "config":
-				//	mw.SetPage (MainWindow.FIRST_TIME_SETUP_PAGE);
-				//	break;
-			default:
-				string t = "Available Commands: ";
-				for (int i = 0; i < commands.Length; i++) {
-					t += commands [i] + " ";
-				}
-				Write("Command unrecognized. " + t);
-				break;
-			}
-		}
+        public void AnalyzeCommand(string s)
+        {
+            string[] commands = new string[] { "quit", "commands" };
 
-		// closes down connections and the quits the program
-		public void Close ()
-		{
-			Write ("Closing down Heart...");
-			server.Close ();
-			Write ("Goodbye.");
-			python_api.Stop ();
-			Environment.Exit (0);
-		}
+            switch (s.ToLower())
+            {
+                case "quit":
+                    Close();
+                    break;
+                case "commands":
+                    string temp = "Available Commands: ";
+                    for (int i = 0; i < commands.Length; i++)
+                    {
+                        temp += commands[i] + " ";
+                    }
+                    Write(temp);
+                    break;
+                //case "config":
+                //	mw.SetPage (MainWindow.FIRST_TIME_SETUP_PAGE);
+                //	break;
+                default:
+                    string t = "Available Commands: ";
+                    for (int i = 0; i < commands.Length; i++)
+                    {
+                        t += commands[i] + " ";
+                    }
+                    Write("Command unrecognized. " + t);
+                    break;
+            }
+        }
 
-		public Config GetConfig ()
-		{
-			return cfg;
-		}
+        // closes down connections and the quits the program
+        public void Close()
+        {
+            Write("Closing down Heart...");
+            server.Close();
+            Write("Goodbye.");
+            python_api.Stop();
+            Environment.Exit(0);
+        }
 
-		// loads up all the settings from the config to the variables
-		public void LoadConfig ()
-		{
-			// load all the information from the cfg after it's set up
-			systemName = cfg.get ("systemName");
-			musicDir = cfg.get ("musicDir");
-			movieDir = cfg.get ("movieDir");
-			commandKey = cfg.get ("commandKey");
-			guid = Guid.Parse (cfg.get ("guid"));
-		}
+        public Config GetConfig()
+        {
+            return cfg;
+        }
 
-		public static void Main (string[] args)
-		{
-			new HeartCore ();
-		}
-	}
+        // loads up all the settings from the config to the variables
+        public void LoadConfig()
+        {
+            // load all the information from the cfg after it's set up
+            systemName = cfg.get("systemName");
+            musicDir = cfg.get("musicDir");
+            movieDir = cfg.get("movieDir");
+            commandKey = cfg.get("commandKey");
+            guid = Guid.Parse(cfg.get("guid"));
+        }
+
+        public static void Main(string[] args)
+        {
+            new HeartCore();
+        }
+    }
 }
