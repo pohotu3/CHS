@@ -66,7 +66,7 @@ namespace HeartConsole
             catch (Exception e)
             {
                 HeartCore.GetCore().Write("Unable to start process. Details: " + e.Message);
-                HeartCore.GetCore().Close();
+                //HeartCore.GetCore().Close();
             }
 
             while (true)

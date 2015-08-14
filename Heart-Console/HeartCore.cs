@@ -83,6 +83,7 @@ namespace HeartConsole
             {
                 Write("Configuration file does not exist. Creating file. Please configure your server with your web browser.");
                 cfg.set("cfg_set", cfg_set.ToString());
+                cfg.set("guid", Guid.NewGuid());
                 cfg.Save();
             }
 
@@ -95,7 +96,13 @@ namespace HeartConsole
             server.Start();
             Write("Heart Server started listening on IP: " + server.ip.Address + " Port: " + serverPort);
 
-            python_api = new PythonScript("python3", "HeartAPI.py" + " " + server.ip.Address + " " + serverPort, Write);
+            string py_var;
+            if (Environment.OSVersion.Platform.ToString() == "Win32NT")
+                py_var = "python";
+            else
+                py_var = "python3";
+
+            python_api = new PythonScript(py_var, "HeartAPI.py" + " " + server.ip.Address + " " + serverPort, Write);
         }
 
         public static HeartCore GetCore()
@@ -131,9 +138,6 @@ namespace HeartConsole
                     }
                     Write(temp);
                     break;
-                //case "config":
-                //	mw.SetPage (MainWindow.FIRST_TIME_SETUP_PAGE);
-                //	break;
                 default:
                     string t = "Available Commands: ";
                     for (int i = 0; i < commands.Length; i++)
@@ -170,7 +174,6 @@ namespace HeartConsole
                 musicDir = cfg.get("musicDir");
                 movieDir = cfg.get("movieDir");
                 commandKey = cfg.get("commandKey");
-                guid = Guid.Parse(cfg.get("guid"));
             }
             catch (Exception e)
             {
@@ -178,11 +181,13 @@ namespace HeartConsole
                 File.Delete(cfg.FileName());
                 cfg.reload();
                 cfg.set("cfg_set", cfg_set.ToString());
+                cfg.set("guid", Guid.NewGuid());
                 cfg.Save();
             }
 
             // this variable is guarenteed to be in the cfg file
             cfg_set = Boolean.Parse(cfg.get("cfg_set"));
+            guid = Guid.Parse(cfg.get("guid"));
         }
 
         public static void Main(string[] args)
