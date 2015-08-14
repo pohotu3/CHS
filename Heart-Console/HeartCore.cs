@@ -27,6 +27,7 @@
 using System;
 using System.Threading.Tasks;
 using ConnectionData;
+using System.IO;
 
 namespace HeartConsole
 {
@@ -163,11 +164,25 @@ namespace HeartConsole
         public void LoadConfig()
         {
             // load all the information from the cfg after it's set up
-            systemName = cfg.get("systemName");
-            musicDir = cfg.get("musicDir");
-            movieDir = cfg.get("movieDir");
-            commandKey = cfg.get("commandKey");
-            guid = Guid.Parse(cfg.get("guid"));
+            try
+            {
+                systemName = cfg.get("systemName");
+                musicDir = cfg.get("musicDir");
+                movieDir = cfg.get("movieDir");
+                commandKey = cfg.get("commandKey");
+                guid = Guid.Parse(cfg.get("guid"));
+            }
+            catch (Exception e)
+            {
+                Write("Unable to load config file. Deleting file. Please set up the configuration over your web browser.");
+                File.Delete(cfg.FileName());
+                cfg.reload();
+                cfg.set("cfg_set", cfg_set.ToString());
+                cfg.Save();
+            }
+
+            // this variable is guarenteed to be in the cfg file
+            cfg_set = Boolean.Parse(cfg.get("cfg_set"));
         }
 
         public static void Main(string[] args)

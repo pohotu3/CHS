@@ -128,8 +128,16 @@ namespace HeartConsole
 			clientThread = new Thread (Data_IN);
 			clientThread.Start (clientSocket);
 
-			HeartCore.GetCore ().Write ("Registering with client " + clientSocket.AddressFamily.ToString ());
-			Register ();
+            if (HeartCore.cfg_set)
+            {
+                HeartCore.GetCore().Write("Registering with client " + clientSocket.AddressFamily.ToString());
+                Register();
+            }
+            else
+            {
+                HeartCore.GetCore().Write("Refusing connection with client " + clientSocket.AddressFamily.ToString() + ". Please set up the config file.");
+                HeartCore.GetCore().Write("After config is set up, try again.");
+            }
 
 			// wait until we grab the GUID from the client, and then compare it against already generated files
 		}
@@ -148,17 +156,10 @@ namespace HeartConsole
 		{
 			// this function will send the client the server GUID BEFORE the client sends theirs
 			Packet p = new Packet (Packet.PacketType.Registration, Server.guid);
-            
-            // if the config file was not set up, notify the shard that it will be unable to connect until it's been set
-            if (HeartCore.cfg_set)
-                p.packetString = HeartCore.commandKey;
-            else
-                p.packetString = "denied";
+            p.packetString = HeartCore.commandKey;
 
 			Data_OUT (p);
 			HeartCore.GetCore ().Write ("Sent registration packet to " + clientSocket.AddressFamily.ToString ());
-
-			// now we wait for the client to send registration packet. We WILL NOT read other packets till their verified
 		}
 
 		public void Close ()

@@ -138,5 +138,10 @@ namespace ConnectionData
 		{
 			return list.Count;
 		}
+
+        public string FileName()
+        {
+            return filename;
+        }
 	}
 }
