@@ -4,7 +4,7 @@ Created by Austin and Ezra
 Open Source with Related GitHub Repo
 UNDER DEVELOPMENT
 
-Copyright© 2015 Austin VanAlstyne, Bailey Thorson
+Copyright 2015 Austin VanAlstyne, Bailey Thorson
 
 This file is part of Cyrstal Home Systems.
 
@@ -28,15 +28,15 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from os import path
 import os, threading, sys, os.path
 
-class HTTPRequestHandler(BaseHTTPRequestHandler):
+class HTTPRequestHandler(BaseHTTPRequestHandler):	
     def log_request(self, code='-', size='-'):
         return
     
     #handle GET command
     def do_GET(self):
         try:
-            rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
-            
+            rootdir = sys.argv[3]
+            print(str(rootdir))
             print("PYTHON API: " + "GET " + self.path + " requested")
             sys.stdout.flush()
             
@@ -75,7 +75,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             self.send_error(404, 'File not found')
             
     def do_PUT(self):
-        rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
+        rootdir = sys.argv[3]
         try:
             content_len = int(self.headers['Content-Length'])
             post_body = self.rfile.read(content_len)
@@ -105,7 +105,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         return
     
     def do_POST(self):
-        rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
+        rootdir = sys.argv[3]
         try:
             content_len = int(self.headers['Content-Length'])
             post_body = self.rfile.read(content_len)
@@ -134,7 +134,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         return
     
     def do_DELETE(self):
-        rootdir = expanduser("~") + "/CrystalHomeSys/Heart" #file location
+        rootdir = sys.argv[3]
         try:
             os.remove(rootdir + self.path)
             print("PYTHON API: " + "DELETE requested " + self.path)

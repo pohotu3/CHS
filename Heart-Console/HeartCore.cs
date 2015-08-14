@@ -35,7 +35,7 @@ namespace HeartConsole
     {
 
         private const string systemType = "Heart", version = "0.0.1";
-        public static string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/Heart/heart_config.cfg", logBaseDir = "/CrystalHomeSys/Heart/Logs/";
+        public static string systemName = "", musicDir = "", movieDir = "", commandKey = "", baseDir = "/CrystalHomeSys/Heart", configDir = baseDir + "/heart_config.cfg", logBaseDir = baseDir + "/Logs/";
         private const int serverPort = 6976;
         public static bool cfg_set = false;
 
@@ -52,6 +52,8 @@ namespace HeartConsole
         public HeartCore()
         {
             core = this;
+
+            baseDir = System.Environment.GetEnvironmentVariable("HOME") + baseDir;
 
             // allows the log file to be created in the home directory
             logBaseDir = System.Environment.GetEnvironmentVariable("HOME") + logBaseDir;
@@ -102,7 +104,7 @@ namespace HeartConsole
             else
                 py_var = "python3";
 
-            python_api = new PythonScript(py_var, "HeartAPI.py" + " " + server.ip.Address + " " + serverPort, Write);
+            python_api = new PythonScript(py_var, "HeartAPI.py" + " " + server.ip.Address + " " + serverPort + " " + baseDir, Write);
         }
 
         public static HeartCore GetCore()
