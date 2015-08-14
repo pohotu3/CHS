@@ -98,11 +98,11 @@ namespace HeartConsole
 
             string py_var;
             if (Environment.OSVersion.Platform.ToString() == "Win32NT")
-                py_var = "python";
+                py_var = Environment.GetEnvironmentVariable("PY_HOME", EnvironmentVariableTarget.Machine) + "/python.exe";
             else
                 py_var = "python3";
 
-            //python_api = new PythonScript(py_var, "HeartAPI.py" + " " + server.ip.Address + " " + serverPort, Write);
+            python_api = new PythonScript(py_var, "HeartAPI.py" + " " + server.ip.Address + " " + serverPort, Write);
         }
 
         public static HeartCore GetCore()

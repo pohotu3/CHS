@@ -38,12 +38,12 @@ namespace HeartConsole
         Process p;
         Thread script_thread;
 
-        string filePathDir, args;
+        string cmd, args;
         Action<string> Write;
 
-        public PythonScript(string filePathDir, string args, Action<string> Write)
+        public PythonScript(string cmd, string args, Action<string> Write)
         {
-            this.filePathDir = filePathDir;
+            this.cmd = cmd;
             this.args = args;
             this.Write = Write;
 
@@ -55,19 +55,19 @@ namespace HeartConsole
         {
             process = new ProcessStartInfo();
             process.Arguments = args;
-            process.FileName = filePathDir;
+            process.FileName = cmd;
             process.UseShellExecute = false;
             process.RedirectStandardOutput = true;
 
-            try
-            {
+//            try
+  //          {
                 p = Process.Start(process);
-            }
-            catch (Exception e)
-            {
-                HeartCore.GetCore().Write("Unable to start process. Details: " + e.Message);
-                HeartCore.GetCore().Close();
-            }
+      //      }
+        //    catch (Exception e)
+          //  {
+            //    HeartCore.GetCore().Write("Unable to start process. Details: " + e.Message);
+              //  HeartCore.GetCore().Close();
+            //}
 
             while (true)
             {
