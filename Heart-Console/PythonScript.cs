@@ -59,15 +59,15 @@ namespace HeartConsole
             process.UseShellExecute = false;
             process.RedirectStandardOutput = true;
 
-//            try
-  //          {
+            try
+            {
                 p = Process.Start(process);
-      //      }
-        //    catch (Exception e)
-          //  {
-            //    HeartCore.GetCore().Write("Unable to start process. Details: " + e.Message);
-              //  HeartCore.GetCore().Close();
-            //}
+            }
+            catch (Exception e)
+            {
+                HeartCore.GetCore().Write("Unable to start process. Details: " + e.Message);
+                HeartCore.GetCore().Close();
+            }
 
             while (true)
             {
