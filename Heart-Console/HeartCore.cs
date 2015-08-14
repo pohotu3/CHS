@@ -102,7 +102,7 @@ namespace HeartConsole
             else
                 py_var = "python3";
 
-            python_api = new PythonScript(py_var, "HeartAPI.py" + " " + server.ip.Address + " " + serverPort, Write);
+            //python_api = new PythonScript(py_var, "HeartAPI.py" + " " + server.ip.Address + " " + serverPort, Write);
         }
 
         public static HeartCore GetCore()
@@ -119,34 +119,6 @@ namespace HeartConsole
         {
             Console.WriteLine(s);
             log.write(s);
-        }
-
-        public void AnalyzeCommand(string s)
-        {
-            string[] commands = new string[] { "quit", "commands" };
-
-            switch (s.ToLower())
-            {
-                case "quit":
-                    Close();
-                    break;
-                case "commands":
-                    string temp = "Available Commands: ";
-                    for (int i = 0; i < commands.Length; i++)
-                    {
-                        temp += commands[i] + " ";
-                    }
-                    Write(temp);
-                    break;
-                default:
-                    string t = "Available Commands: ";
-                    for (int i = 0; i < commands.Length; i++)
-                    {
-                        t += commands[i] + " ";
-                    }
-                    Write("Command unrecognized. " + t);
-                    break;
-            }
         }
 
         // closes down connections and the quits the program
@@ -168,21 +140,29 @@ namespace HeartConsole
         public void LoadConfig()
         {
             // load all the information from the cfg after it's set up
-            try
+            if (!cfg_set)
             {
-                systemName = cfg.get("systemName");
-                musicDir = cfg.get("musicDir");
-                movieDir = cfg.get("movieDir");
-                commandKey = cfg.get("commandKey");
+                Write("Config is not set up. Shards will be refused until that is set.");
             }
-            catch (Exception e)
+            else
             {
-                Write("Unable to load config file. Deleting file. Please set up the configuration over your web browser.");
-                File.Delete(cfg.FileName());
-                cfg.reload();
-                cfg.set("cfg_set", cfg_set.ToString());
-                cfg.set("guid", Guid.NewGuid());
-                cfg.Save();
+                try
+                {
+                    systemName = cfg.get("systemName");
+                    musicDir = cfg.get("musicDir");
+                    movieDir = cfg.get("movieDir");
+                    commandKey = cfg.get("commandKey");
+                }
+                catch (Exception e)
+                {
+                    Write("Unable to load config file. Deleting file. Please set up the configuration over your web browser.");
+                    var temp_guid = cfg.get("guid");
+                    File.Delete(cfg.FileName());
+                    cfg.reload();
+                    cfg.set("cfg_set", "False");
+                    cfg.set("guid", temp_guid);
+                    cfg.Save();
+                }
             }
 
             // this variable is guarenteed to be in the cfg file
