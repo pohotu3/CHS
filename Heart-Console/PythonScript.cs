@@ -31,46 +31,61 @@ using System.Threading;
 
 namespace HeartConsole
 {
-	public class PythonScript
-	{
+    public class PythonScript
+    {
 
-		ProcessStartInfo process;
-		Process p;
-		Thread script_thread;
+        ProcessStartInfo process;
+        Process p;
+        Thread script_thread;
 
-		string filePathDir, args;
-		Action<string> Write;
+        string filePathDir, args;
+        Action<string> Write;
 
-		public PythonScript (string filePathDir, string args, Action<string> Write)
+        public PythonScript(string filePathDir, string args, Action<string> Write)
+        {
+            this.filePathDir = filePathDir;
+            this.args = args;
+            this.Write = Write;
+
+            script_thread = new Thread(Run);
+            script_thread.Start();
+        }
+
+        private void Run()
+        {
+            process = new ProcessStartInfo();
+            process.Arguments = args;
+            process.FileName = filePathDir;
+            process.UseShellExecute = false;
+            process.RedirectStandardOutput = true;
+
+            try
+            {
+                p = Process.Start(process);
+            }
+            catch (Exception e)
+            {
+                HeartCore.GetCore().Write("Unable to start process. Details: " + e.Message);
+                HeartCore.GetCore().Close();
+            }
+
+            while (true)
+            {
+                string foo = p.StandardOutput.ReadLine();
+                Write(foo);
+            }
+        }
+
+        public void Stop()
 		{
-			this.filePathDir = filePathDir;
-			this.args = args;
-			this.Write = Write;
+            try
+            {
+                p.Kill();
+            }
+            catch (Exception e) { }
 
-			script_thread = new Thread (Run);
-			script_thread.Start ();
-		}
-
-		private void Run ()
-		{
-			process = new ProcessStartInfo ();
-			process.Arguments = args;
-			process.FileName = filePathDir;
-			process.UseShellExecute = false;
-			process.RedirectStandardOutput = true;
-
-			p = Process.Start (process);
-			while (true) {
-				string foo = p.StandardOutput.ReadLine ();
-				Write (foo);
-			}
-		}
-
-		public void Stop ()
-		{
-			p.Kill ();
 			script_thread.Abort ();
 		}
-	}
+    }
 }
 
