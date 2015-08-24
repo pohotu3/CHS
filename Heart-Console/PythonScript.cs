@@ -69,7 +69,7 @@ namespace HeartConsole
                 HeartCore.GetCore().Close();
             }
 
-            while (true)
+            while (script_thread.IsAlive)
             {
                 string foo = p.StandardOutput.ReadLine();
                 Write(foo);

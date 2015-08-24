@@ -47,7 +47,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(bytes(f.read(), "UTF-8"))
                 f.close()
-            else:
+            elif os.path.isdir(rootdir + self.path):
                 file_paths = []  # List which will store all of the full filepaths.
                 used_files = []
 
@@ -66,7 +66,8 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                 self.send_header('Content-type','text-html')
                 self.end_headers()
                 self.wfile.write(bytes('\n'.join(used_files), "UTF-8"))
-                
+            else:
+                self.send_error(404, 'File not found')
             return
       
         except IOError:
