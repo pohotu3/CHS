@@ -113,7 +113,7 @@ namespace HeartConsole
 		public Socket clientSocket;
 		public Thread clientThread;
 		public string id;
-		private bool verified = false;
+		private bool verified = false, initialized = false;
 
 		// shard details loaded from verification
 		private string shardName = "", shardType = "", shardLocation = "";
@@ -137,6 +137,10 @@ namespace HeartConsole
             {
                 HeartCore.GetCore().Write("Refusing connection with client " + clientSocket.AddressFamily.ToString() + ". Please set up the config file.");
                 HeartCore.GetCore().Write("After config is set up, try again.");
+                Packet temp = new Packet(Packet.PacketType.Error, Server.guid);
+                temp.packetString = "Heart configuration is not set up. All connections will be refused until it is.";
+                Data_OUT(temp);
+                Close();
             }
 
 			// wait until we grab the GUID from the client, and then compare it against already generated files
@@ -216,10 +220,20 @@ namespace HeartConsole
 					Data_OUT (new Packet (Packet.PacketType.Handshake, Server.guid));
 					return;
 				} else {
-					HeartCore.GetCore ().Write ("Shard using GUID " + id + " tried to connect, verification failed. Connection refused.");
+					HeartCore.GetCore ().Write ("Shard using GUID " + id + " and IP " + clientSocket.AddressFamily.ToString() + " tried to connect, verification failed. Connection refused.");
 					this.Close ();
 				}
 			}
+
+            // deny packet info if the shard has not been set up before
+            if (!initialized)
+            {
+                HeartCore.GetCore().Write("Shard " + id + " is trying to send a packet, but it hasn't been set up. Please do so.");
+                Packet temp = new Packet(Packet.PacketType.Error, Server.guid);
+                temp.packetString = "You are not set up with the Heart. All commands will be rejected until you are.";
+                Data_OUT(p);
+                return;
+            }
 
 			switch (p.packetType) {
 			case Packet.PacketType.CloseConnection:
@@ -315,7 +329,7 @@ namespace HeartConsole
 		// finds shard info file saved, and if doesnt exist runs through init system for it
 		private bool RetrieveShard (string guid)
 		{
-			string baseDir = System.Environment.GetEnvironmentVariable ("HOME") + "/CrystalHomeSys/Heart/Shard Files/";
+			string baseDir = System.Environment.GetEnvironmentVariable ("HOME") + "/CrystalHomeSys/Heart/Shard_Files/";
 
 			// make sure the baseDir exists first
 			if (!Directory.Exists (baseDir))

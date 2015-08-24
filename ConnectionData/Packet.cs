@@ -106,7 +106,7 @@ namespace ConnectionData
 		// allows us to define what kind of packet it is
 		public enum PacketType
 		{
-			Registration, CloseConnection, Command, Handshake
+			Registration, CloseConnection, Command, Handshake, Error
 		}
 	}
 }
