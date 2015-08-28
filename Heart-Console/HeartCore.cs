@@ -77,8 +77,10 @@ namespace HeartConsole
 
             if (cfg.exists())
             {
-                LoadConfig();
                 Write("Configuration file found. Loading settings.");
+                LoadConfig();
+                if (cfg.get("cfg_set") == Boolean.TrueString)
+                    ConsolidateFiles();
             }
             else
             {
@@ -104,6 +106,15 @@ namespace HeartConsole
                 py_var = "python3";
 
             python_api = new PythonScript(py_var, "HeartAPI.py" + " " + server.ip.Address + " " + serverPort + " " + baseDir, Write);
+        }
+
+        private void ConsolidateFiles()
+        {
+            string[] fileList = Directory.GetFiles(@"F:\Media\Temp");
+            foreach(string s in fileList){
+                
+            }
+            System.IO.File.Move("oldfilename", "newfilename");
         }
 
         public static HeartCore GetCore()
