@@ -37,6 +37,11 @@
     <Compile Include="HeartCore.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="PythonScript.cs" />
+    <Compile Include="Variables.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Variables.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -46,8 +51,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="HeartAPI.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Variables.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Variables.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 </Project>

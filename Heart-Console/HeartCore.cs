@@ -35,7 +35,7 @@ namespace HeartConsole
     {
 
         public static string systemName = "", musicDir = "", movieDir = "", commandKey = "", baseDir = Variables.Default.baseDir, configDir = baseDir + Variables.Default.configDir, logBaseDir = baseDir + Variables.Default.logBaseDir;
-        private const int serverPort = Variables.Default.serverPort;
+        private int serverPort = Variables.Default.serverPort;
         public static bool cfg_set = false;
 
         // unique identifier for the server
