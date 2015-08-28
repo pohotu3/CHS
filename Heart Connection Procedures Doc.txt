@@ -9,7 +9,7 @@ accepts an incoming connection on the port
 either:
 sends (the first) Registration packet to client containing server GUID for authentication and the command key (ie "ok crystal")
 or:
-Declines and closes connection with an error packet (info in the packetString) because the config isn't set up
+Declines and closes connection with an error packet (info in the packetString) because the heart's config isn't set up
 
 waits for registration packet from shard that contains shard GUID. This allows the heart to identify per shard, with details such
 	as location, name, type, etc (heart will not accept other data without this packet)
