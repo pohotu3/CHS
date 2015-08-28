@@ -34,9 +34,8 @@ namespace HeartConsole
     class HeartCore
     {
 
-        private const string systemType = "Heart", version = "0.0.1";
-        public static string systemName = "", musicDir = "", movieDir = "", commandKey = "", baseDir = "/CrystalHomeSys/Heart", configDir = baseDir + "/heart_config.cfg", logBaseDir = baseDir + "/Logs/";
-        private const int serverPort = 6976;
+        public static string systemName = "", musicDir = "", movieDir = "", commandKey = "", baseDir = Variables.Default.baseDir, configDir = baseDir + Variables.Default.configDir, logBaseDir = baseDir + Variables.Default.logBaseDir;
+        private const int serverPort = Variables.Default.serverPort;
         public static bool cfg_set = false;
 
         // unique identifier for the server

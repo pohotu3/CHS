@@ -355,7 +355,7 @@ namespace HeartConsole
         // shard files are loaded individually and the GUID setting is read, not the file name
         private bool RetrieveShard(string guid)
         {
-            string baseDir = System.Environment.GetEnvironmentVariable("HOME") + "/CrystalHomeSys/Heart/Shard_Files/";
+            string baseDir = Variables.Default.baseDir + Variables.Default.shardFileDir;
 
             // make sure the baseDir exists first
             if (!Directory.Exists(baseDir))
