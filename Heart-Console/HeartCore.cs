@@ -79,8 +79,8 @@ namespace HeartConsole
             {
                 Write("Configuration file found. Loading settings.");
                 LoadConfig();
-                if (cfg.get("cfg_set") == Boolean.TrueString)
-                    ConsolidateFiles();
+                //if (cfg.get("cfg_set") == Boolean.TrueString)
+                //    ConsolidateFiles();
             }
             else
             {
