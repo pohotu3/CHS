@@ -26,7 +26,7 @@ from datetime import datetime
 from os.path import expanduser
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from os import path
-import os, threading, sys, os.path
+import os, threading, sys, os.path, inspect
 
 class HTTPRequestHandler(BaseHTTPRequestHandler):	
 	def log_request(self, code='-', size='-'):
@@ -39,7 +39,10 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
 			print("PYTHON API: " + "GET " + self.path + " requested")
 			sys.stdout.flush()
 			if self.path == '/':
-				f = open(rootdir + self.path + "index.html")
+				run_path = os.path.realpath(__file__)
+				drive, path = os.path.splitdrive(run_path)
+				path, filename = os.path.split(path)
+				f = open(drive + path + "\API\index.html")
 				self.send_response(200)
 				self.send_header('Content-type', 'text-html')
 				self.end_headers()
