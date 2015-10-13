@@ -30,17 +30,10 @@ report.
 
 Crystal is built on the Raspberry Pi, and runs on Ubuntu Mate for the rPi2. The
 software you downloaded will be able to flash directly to a SD card and plug into
-your pi and run right out of the box! There are a couple of things to note before
-you do that though.
+your pi and run right out of the box! [Here is a full video tutorial on how to get your system running!]()
 
-* Our system runs off of Bluetooth services. This is because we needed a secure
-system in place to prevent a 3rd party from slipping into the connection stream
-and messing with your home. This also allows us to know for SURE that our devices
-will stay running, even if your home network goes down. This is perfect for security
-systems around your home.
-
-* When you add a new Shard to your home, after you power it on the bluetooth will
-turn on and broadcast itself to the world! To connect it to your Heart, simply go
+* When you add a new Shard to your home, after you power it on the WiFi will configure and connect, and it's almost ready
+to use! To connect it to your Heart, simply go
 to [INSERT WEB URL HERE TO ACCESS REMOTE SHARD PAGE]() and click on "Attach Shard",
 and walk through the wizard.
 
