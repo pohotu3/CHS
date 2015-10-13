@@ -65,7 +65,7 @@ namespace HeartConsole
             }
             catch (Exception e)
             {
-                HeartCore.GetCore().Write("Unable to start process. Details: " + e.Message);
+                HeartCore.GetCore().Write("Unable to start Python process. Details: " + e.Message);
                 HeartCore.GetCore().Close();
             }
 

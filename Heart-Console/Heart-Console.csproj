@@ -53,7 +53,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="HeartAPI.py">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Variables.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

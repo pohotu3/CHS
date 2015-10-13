@@ -101,7 +101,7 @@ namespace HeartConsole
 
             string py_var;
             if (Environment.OSVersion.Platform.ToString() == "Win32NT")
-                py_var = Environment.GetEnvironmentVariable("PY_HOME", EnvironmentVariableTarget.Machine) + "/python.exe";
+                py_var = Environment.GetEnvironmentVariable("PY_HOME", EnvironmentVariableTarget.Machine) + "python";
             else
                 py_var = "python3";
 
