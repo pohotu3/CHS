@@ -85,9 +85,7 @@ namespace HeartConsole
             else
             {
                 Write("Configuration file does not exist. Creating file. Please configure your server with your web browser.");
-                cfg.set("cfg_set", cfg_set.ToString());
-                cfg.set("guid", Guid.NewGuid());
-                cfg.Save();
+                CreateCFG();
             }
 
             // set up all the network information and objects, do NOT start
@@ -155,9 +153,14 @@ namespace HeartConsole
             // check if the cfg file has been set up already or not
             try
             {
+                // these two settings are guarenteed to be in the file. if they're not, re create the file
                 cfg_set = Boolean.Parse(cfg.get("cfg_set"));
+                guid = Guid.Parse(cfg.get("guid"));
             }
-            catch (Exception e) { }
+            catch (Exception e) {
+                // if the file cannot be read, recreate the file
+                CreateCFG();
+            }
 
             if (!cfg_set)
             {
@@ -172,21 +175,27 @@ namespace HeartConsole
                     movieDir = cfg.get("movieDir");
                     commandKey = cfg.get("commandKey");
                 }
-                catch (Exception e) // if the cfg file cannot be loaded for any reason, we will delete the file and reset it to default settings waiting to be set up
+                catch (Exception e)
                 {
+                    // if the cfg file cannot be loaded for any reason, we will delete the file and reset it to default settings waiting to be set up
                     Write("Unable to load config file. Deleting file. Please set up the configuration over your web browser.");
-                    var temp_guid = cfg.get("guid");
-                    File.Delete(cfg.FileName());
-                    cfg.reload();
-                    cfg.set("cfg_set", "False");
-                    cfg.set("guid", temp_guid);
-                    cfg.Save();
+                    CreateCFG();
                 }
             }
+        }
 
-            // this variable is guarenteed to be in the cfg file
-            cfg_set = Boolean.Parse(cfg.get("cfg_set"));
-            guid = Guid.Parse(cfg.get("guid"));
+        // this function creates a new CFG, and it will try to delete the old version (whether or not it exists) just to be safe
+        private void CreateCFG()
+        {
+            try
+            {
+                File.Delete(cfg.FileName());
+            }
+            catch (Exception e) { }
+            cfg.reload();
+            cfg.set("cfg_set", "False");
+            cfg.set("guid", Guid.NewGuid().ToString());
+            cfg.Save();
         }
 
         public static void Main(string[] args)
