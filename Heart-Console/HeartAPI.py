@@ -26,7 +26,7 @@ from datetime import datetime
 from os.path import expanduser
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from os import path
-import os, threading, sys, os.path, inspect
+import os, threading, sys, os.path, inspect, mimetypes
 
 class HTTPRequestHandler(BaseHTTPRequestHandler):	
 	def log_request(self, code='-', size='-'):
@@ -38,20 +38,21 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
 			rootdir = sys.argv[3]
 			print("PYTHON API: " + "GET " + self.path + " requested")
 			sys.stdout.flush()
+			run_path = os.path.realpath(__file__)
+			drive, path = os.path.splitdrive(run_path)
+			path, filename = os.path.split(path)
 			if self.path == '/':
-				run_path = os.path.realpath(__file__)
-				drive, path = os.path.splitdrive(run_path)
-				path, filename = os.path.split(path)
 				f = open(drive + path + "\API\index.html")
 				self.send_response(200)
 				self.send_header('Content-type', 'text-html')
 				self.end_headers()
 				self.wfile.write(bytes(f.read(), "UTF-8"))
 				f.close()
-			elif os.path.isfile(rootdir + self.path):
-				f = open(rootdir + self.path) #open requested file
+			elif os.path.isfile(drive + path + "/API" + self.path):
+				mimeType = mimetypes.guess_type(self.path)[0]
+				f = open(drive + path + "/API" + self.path) #open requested file
 				self.send_response(200)
-				self.send_header('Content-type','text-html')
+				self.send_header('Content-type', mimeType)
 				self.end_headers()
 				self.wfile.write(bytes(f.read(), "UTF-8"))
 				f.close()
@@ -75,7 +76,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
 				self.end_headers()
 				self.wfile.write(bytes('\n'.join(used_files), "UTF-8"))
 			else:
-				self.send_error(404, 'File not found')
+				self.send_error(404, 'File not found %s' % self.path)
 			return
 	  
 		except IOError:

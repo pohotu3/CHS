@@ -25,7 +25,6 @@
 */
 
 using System;
-using System.Threading.Tasks;
 using ConnectionData;
 using System.IO;
 
@@ -108,6 +107,7 @@ namespace HeartConsole
             python_api = new PythonScript(py_var, "HeartAPI.py" + " " + server.ip.Address + " " + serverPort + " " + baseDir, Write);
         }
 
+        // goal of this function is to systematically rename all the media files to more friendly names. I'm thinking of using python to do this instead though
         private void ConsolidateFiles()
         {
             string[] fileList = Directory.GetFiles(@"F:\Media\Temp");
