@@ -74,6 +74,7 @@ namespace HeartConsole
             Write("Setting up configuration...");
             cfg = new Config(configDir);
 
+            // if the cfg file already exists, load the settings. If not, set up the basics and wait for it to be set up remotely
             if (cfg.exists())
             {
                 Write("Configuration file found. Loading settings.");
@@ -151,7 +152,13 @@ namespace HeartConsole
         // loads up all the settings from the config to the variables
         public void LoadConfig()
         {
-            // load all the information from the cfg after it's set up
+            // check if the cfg file has been set up already or not
+            try
+            {
+                cfg_set = Boolean.Parse(cfg.get("cfg_set"));
+            }
+            catch (Exception e) { }
+
             if (!cfg_set)
             {
                 Write("Config is not set up. Shards will be refused until that is set.");
@@ -165,7 +172,7 @@ namespace HeartConsole
                     movieDir = cfg.get("movieDir");
                     commandKey = cfg.get("commandKey");
                 }
-                catch (Exception e)
+                catch (Exception e) // if the cfg file cannot be loaded for any reason, we will delete the file and reset it to default settings waiting to be set up
                 {
                     Write("Unable to load config file. Deleting file. Please set up the configuration over your web browser.");
                     var temp_guid = cfg.get("guid");
