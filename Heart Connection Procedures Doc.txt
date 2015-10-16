@@ -30,4 +30,9 @@ Heart closes the connection with a CloseConnection packet containing reason in p
 
 
 
-Heart Socket Connection Procedures:
+Heart API Connection Procedures:
+
+Hosts on it's own IP
+
+Hosts on port 6977
+

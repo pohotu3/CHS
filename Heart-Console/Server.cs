@@ -77,7 +77,7 @@ namespace HeartConsole
         {
             while (listening)
             {
-                // perameter 5 is the backlog, allows 5 connection attempts at the same time
+                // parameter 5 is the backlog, allows 5 connection attempts at the same time
                 // prevents DDOSING in a way
                 listenerSocket.Listen(5);
 
@@ -129,14 +129,14 @@ namespace HeartConsole
 
             HeartCore.GetCore().Write("Incoming connection from Shard. IP: " + clientSocket.AddressFamily.ToString());
 
-            // after we accept a connection, we start a new thread for listening to the client
-            clientThread = new Thread(Data_IN);
-            clientThread.Start(clientSocket);
-
             if (HeartCore.cfg_set)
             {
                 HeartCore.GetCore().Write("Registering with client " + clientSocket.AddressFamily.ToString());
                 Register();
+                
+                // after we accept a connection, we start a new thread for listening to the client
+                clientThread = new Thread(Data_IN);
+                clientThread.Start(clientSocket);
             }
             else
             {
@@ -147,8 +147,6 @@ namespace HeartConsole
                 Data_OUT(temp);
                 Close();
             }
-
-            // wait until we grab the GUID from the client, and then compare it against already generated files
         }
 
         public void Data_OUT(Packet p)
@@ -159,7 +157,7 @@ namespace HeartConsole
             }
             catch (Exception e)
             {
-                HeartCore.GetCore().Write("Unable to send data to the Shard at IP " + clientSocket.AddressFamily.ToString() + ". Closing connection, please restart the Shard.");
+                HeartCore.GetCore().Write("Unable to send data to the Shard at IP " + clientSocket.AddressFamily.ToString() + ". Closing connection. Restart the Shard.");
                 Close();
             }
         }
