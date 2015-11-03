@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shard_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Shard GUI" Height="720" Width="1280" Topmost="True" Cursor="None" WindowState="Maximized" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#FF2B2B2B" Foreground="White" WindowStyle="None">
     <Grid>
         
     </Grid>

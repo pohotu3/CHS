@@ -23,6 +23,7 @@ namespace Shard_WPF
         public MainWindow()
         {
             InitializeComponent();
+            new ShardCore(this);
         }
     }
 }
