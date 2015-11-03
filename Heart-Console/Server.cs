@@ -142,9 +142,7 @@ namespace HeartConsole
             {
                 HeartCore.GetCore().Write("Refusing connection with client " + clientSocket.AddressFamily.ToString() + ". Please set up the config file.");
                 HeartCore.GetCore().Write("After config is set up, try again.");
-                Packet temp = new Packet(Packet.PacketType.Error, Server.guid);
-                temp.packetString = "Heart configuration is not set up. All connections will be refused until it is.";
-                Data_OUT(temp);
+                SendClientError("Heart configuration is not set up. All connections will be refused until it is.");
                 Close();
             }
         }
@@ -244,9 +242,7 @@ namespace HeartConsole
                 else
                 {
                     HeartCore.GetCore().Write("Shard using GUID " + id + " and IP " + clientSocket.AddressFamily.ToString() + " tried to connect, verification failed. Please set up the Shard.");
-                    Packet vPacket = new Packet(Packet.PacketType.Error, Server.guid);
-                    vPacket.packetString = "Shard is not set up. Please set up the shard through your internet browser.";
-                    Data_OUT(vPacket);
+                    SendClientError("Shard is not set up. Please set up the shard through your internet browser.");
                     return;
                 }
             }
@@ -320,8 +316,18 @@ namespace HeartConsole
                     }
                     break;
                 default:
+                    HeartCore.GetCore().Write(shardName + " sent an unrecognized packet type. Command ignored.");
+                    SendClientError("Unrecognized packet type was sent. Please restart the Shard and try again.");
                     break;
             }
+        }
+
+        private void SendClientError(String msg)
+        {
+            Packet vPacket = new Packet(Packet.PacketType.Error, Server.guid);
+            vPacket.packetString = msg;
+            Data_OUT(vPacket);
+            return;
         }
 
         // generates a list of all media files in the given directories in the config file
