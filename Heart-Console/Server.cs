@@ -254,62 +254,13 @@ namespace HeartConsole
                     Close();
                     break;
                 case Packet.PacketType.Command:
-                    string[] words = p.packetString.ToLower().Split();
-                    string command = words[0]; // the command is going to be the first word in the sentence (for now).
-                    // later we can dynamically search for them
+                    string[] splitCommandArray = p.packetString.ToLower().Split();
+                    string commandWord = splitCommandArray[0]; // I want a better way to do this part
 
                     // analyze command and respond appropriately
                     switch (command)
                     {
-                        // when the client wants a list of commands
-                        case "help":
-                        case "commands":
-                        case "command":
-                            HeartCore.GetCore().Write(shardName + " sent a request 'help'. Responding.");
-                            Packet t = new Packet(Packet.PacketType.Command, Server.guid);
-                            t.packetString = "Hi, I'm " + HeartCore.systemName + ". Commands are designed to be intuitive. Enter something as though you would say it out loud and I'll process it!";
-                            Data_OUT(t);
-                            break;
-
-                        // when the client wants to disconnect from the server
-                        case "quit":
-                        case "exit":
-                        case "disconnect":
-                            HeartCore.GetCore().Write(shardName + " send a request to disconnect. Disconnecting.");
-                            Close();
-                            break;
-
-                        // when the client wants to start playing a type of media
-                        case "play":
-                        case "start":
-                            HeartCore.GetCore().Write(shardName + " sent a request to start streaming media. Finding file...");
-                            string fileToPlay = ""; // the file we want to play
-                            // find the media file the client is looking for
-                            string[] mediaFiles = GenerateMediaList(); // full file paths
-
-                            // convert all the media files to just file names for easier searching
-                            string[] fileNames = new string[mediaFiles.Length];
-                            for (int i = 0; i < fileNames.Length; i++)
-                            {
-                                fileNames[i] = mediaFiles[i].Split('/').Last(); // remove the file path, leaving only the file name
-                                fileNames[i] = fileNames[i].Split('.').First(); // remove the extension end-piece
-                            }
-
-                            // find out if there's a matching file name for the command. deal with duplicate matches
-                            for (int i = 0; i < fileNames.Length; i++)
-                            {
-                                string currentFile = fileNames[i];
-
-                                // look at whether the words in the sent command match the current file name
-                                for (int a = 1; i < words.Length; a++)
-                                { // start at 1 because we dont want to include the command word
-
-                                }
-                            }
-                            HeartCore.GetCore().Write("File for " + shardName + " was found. Location: " + fileToPlay + ".");
-
-                            // start streaming on seperate thread
-
+                        case "":
                             break;
                         default:
                             break;
@@ -329,34 +280,9 @@ namespace HeartConsole
             Data_OUT(vPacket);
             return;
         }
-
-        // generates a list of all media files in the given directories in the config file
-        private string[] GenerateMediaList()
-        {
-            string[] movieFiles = Directory.GetFiles(HeartCore.movieDir, "*.*", SearchOption.AllDirectories);
-            string[] musicFiles = Directory.GetFiles(HeartCore.musicDir, "*.*", SearchOption.AllDirectories);
-            ArrayList al = new ArrayList();
-
-            // for all movie files
-            for (int i = 0; i < movieFiles.Length; i++)
-            {
-                movieFiles[i] = movieFiles[i].ToLower();
-                al.Add(movieFiles[i]);
-            }
-
-            // for all music files
-            for (int i = 0; i < musicFiles.Length; i++)
-            {
-                musicFiles[i] = musicFiles[i].ToLower();
-                al.Add(musicFiles[i]);
-            }
-
-            // return the arraylist of files in the form of a string[]
-            return (string[])al.ToArray(typeof(string));
-        }
-
-        // finds shard info file saved
-        // shard files are loaded individually and the GUID setting is read, not the file name
+       
+        // Loads all of the shard files, pulls their GUID from the data, checks for a match and returns if there is one.
+        // if there is a match, load the info to variables
         private bool RetrieveShard(string guid)
         {
             string baseDir = Variables.Default.baseDir + Variables.Default.shardFileDir;
@@ -384,40 +310,7 @@ namespace HeartConsole
                 }
             }
 
-            return false;
-
-            // THIS BLOCK IS FOR SETTING UP A NEW SHARD AUTOMATICALLY. WE DONT WANT THIS
-            /*
-            // get all the shard info
-            //string[] info = HeartCore.GetCore ().GetWindow ().InitNewShard ();
-            string[] info = { "testName", "testType", "testLocation" };
-            if (info == null)
-            { // if the function returns null, the connection was refused by user
-                HeartCore.GetCore().Write("Shard refused. Closing connection.");
-                Packet t = new Packet(Packet.PacketType.CloseConnection, Server.guid);
-                t.packetString = "Connection Refused.";
-                Data_OUT(t);
-                HeartCore.GetCore().Close();
-                return false;
-            }
-
-            shardName = info[0];
-            shardType = info[1];
-            shardLocation = info[2];
-
-            // create a new config object to load all this to
-            Config shardCfg = new Config(baseDir + shardName + ".shard");
-
-            // now save the Shard file to write it to the harddrive
-            shardCfg.set("shardName", shardName);
-            shardCfg.set("shardType", shardType);
-            shardCfg.set("shardLocation", shardLocation);
-            shardCfg.set("guid", id);
-            shardCfg.Save();
-            HeartCore.GetCore().Write("Configuration on " + shardLocation + " Shard is now complete.");
-
-            return true;
-            */
+            return false; // returns false if there's no match
         }
     }
 }
