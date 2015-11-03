@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionData", "ConnectionData\ConnectionData.csproj", "{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heart", "Heart\Heart.csproj", "{CF3378F5-0D8D-4F6D-AE18-F9690700C4A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heart-Console", "Heart-Console\Heart-Console.csproj", "{7D55261A-4FA7-4B96-B69B-26930BDB5B18}"
 EndProject
@@ -21,9 +21,8 @@ Global
 		{7D55261A-4FA7-4B96-B69B-26930BDB5B18}.Debug|x86.Build.0 = Debug|x86
 		{7D55261A-4FA7-4B96-B69B-26930BDB5B18}.Release|x86.ActiveCfg = Release|x86
 		{7D55261A-4FA7-4B96-B69B-26930BDB5B18}.Release|x86.Build.0 = Release|x86
-		{CF3378F5-0D8D-4F6D-AE18-F9690700C4A9}.Debug|x86.ActiveCfg = Debug|x86
-		{CF3378F5-0D8D-4F6D-AE18-F9690700C4A9}.Debug|x86.Build.0 = Debug|x86
-		{CF3378F5-0D8D-4F6D-AE18-F9690700C4A9}.Release|x86.ActiveCfg = Release|x86
-		{CF3378F5-0D8D-4F6D-AE18-F9690700C4A9}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
