@@ -66,7 +66,7 @@ namespace HeartConsole
         {
             // set up logging here
             log = new Log(logBaseDir);
-            Write("#############################SYSTEM STARTUP###################################");
+            Write("#############################CHS HEART LAUNCHED###################################");
             Write("System logging initialized...");
             Write("Log located at " + log.fileName);
 
@@ -79,8 +79,6 @@ namespace HeartConsole
             {
                 Write("Configuration file found. Loading settings.");
                 LoadConfig();
-                //if (cfg.get("cfg_set") == Boolean.TrueString)
-                //    ConsolidateFiles();
             }
             else
             {
@@ -97,23 +95,9 @@ namespace HeartConsole
             server.Start();
             Write("Heart Server started listening on IP: " + server.ip.Address + " Port: " + serverPort);
 
-            string py_var;
-            if (Environment.OSVersion.Platform.ToString() == "Win32NT")
-                py_var = Environment.GetEnvironmentVariable("PY_HOME", EnvironmentVariableTarget.Machine) + "python";
-            else
-                py_var = "python3";
+            
 
-            python_api = new PythonScript(py_var, "HeartAPI.py" + " " + server.ip.Address + " " + serverPort + " " + baseDir, Write);
-        }
-
-        // goal of this function is to systematically rename all the media files to more friendly names. I'm thinking of using python to do this instead though
-        private void ConsolidateFiles()
-        {
-            string[] fileList = Directory.GetFiles(@"F:\Media\Temp");
-            foreach(string s in fileList){
-                
-            }
-            System.IO.File.Move("oldfilename", "newfilename");
+            python_api = new PythonScript("HeartAPI.py" + " " + server.ip.Address + " " + serverPort + " " + baseDir, Write);
         }
 
         public static HeartCore GetCore()

@@ -258,7 +258,7 @@ namespace HeartConsole
                     string commandWord = splitCommandArray[0]; // I want a better way to do this part
 
                     // analyze command and respond appropriately
-                    switch (command)
+                    switch (commandWord)
                     {
                         case "":
                             break;

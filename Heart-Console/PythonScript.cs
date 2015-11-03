@@ -41,9 +41,16 @@ namespace HeartConsole
         string cmd, args;
         Action<string> Write;
 
-        public PythonScript(string cmd, string args, Action<string> Write)
+        // args is going to be a string with spaces seperating each arguement, Write is the write function
+        public PythonScript(string args, Action<string> Write)
         {
-            this.cmd = cmd;
+            string py_var;
+            if (Environment.OSVersion.Platform.ToString() == "Win32NT")
+                py_var = Environment.GetEnvironmentVariable("PY_HOME", EnvironmentVariableTarget.Machine) + "python";
+            else
+                py_var = "python3";
+
+            this.cmd = py_var;
             this.args = args;
             this.Write = Write;
 

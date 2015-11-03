@@ -103,7 +103,7 @@ namespace ConnectionData
 			return "127.0.0.1";	
 		}
 
-		// allows us to define what kind of packet it is
+		// List of packet types
 		public enum PacketType
 		{
 			Registration, CloseConnection, Command, Handshake, Error
