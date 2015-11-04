@@ -133,7 +133,7 @@ namespace HeartConsole
             {
                 HeartCore.GetCore().Write("Registering with client " + clientSocket.AddressFamily.ToString());
                 Register();
-                
+
                 // after we accept a connection, we start a new thread for listening to the client
                 clientThread = new Thread(Data_IN);
                 clientThread.Start(clientSocket);
@@ -230,7 +230,7 @@ namespace HeartConsole
                 if (RetrieveShard(id))
                 {
                     verified = true;
-                    
+
                     // shard information is loaded into the local var's from the RetrieveShard() function
 
                     // confirm successful connection
@@ -280,7 +280,7 @@ namespace HeartConsole
             Data_OUT(vPacket);
             return;
         }
-       
+
         // Loads all of the shard files, pulls their GUID from the data, checks for a match and returns if there is one.
         // if there is a match, load the info to variables
         private bool RetrieveShard(string guid)

@@ -20,17 +20,13 @@ namespace Shard_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        
+        ShardCore core;
+
         public MainWindow()
         {
             InitializeComponent();
-            new ShardCore(this);
-        }
-
-        public void Write(string s)
-        {
-            consoleBlock.Text += "\n";
-            consoleBlock.Text += s;
-            scrollPanel.ScrollToBottom();
+            core = new ShardCore(this);
         }
 
         private void exit_Click(object sender, RoutedEventArgs e)

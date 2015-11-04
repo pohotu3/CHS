@@ -10,16 +10,35 @@ namespace Shard_WPF
     {
 
         private Client client;
-
+        private static ShardCore core;
         private MainWindow mw;
+        public static string commandKey;
 
         public ShardCore(MainWindow mw)
         {
             this.mw = mw;
-            mw.Write("##################Crystal Shard Dev has been Started##################");
+            core = this;
+            Write("##################Crystal Shard Dev has been Started##################");
 
-            mw.Write("Setting up client...");
-            client = new Client(6977, Guid.NewGuid());
+            Write("Setting up client...");
+            client = new Client("localhost", 6977, Guid.NewGuid());
+        }
+
+        public void Write(string s)
+        {
+            mw.consoleBlock.Text += "\n";
+            mw.consoleBlock.Text += s;
+            mw.scrollPanel.ScrollToBottom();
+        }
+
+        public static ShardCore GetCore()
+        {
+            return core;
+        }
+
+        public Client GetClient()
+        {
+            return client;
         }
     }
 }
