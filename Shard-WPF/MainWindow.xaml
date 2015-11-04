@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="Shard GUI" Height="720" Width="1280" Topmost="True" Cursor="None" WindowState="Maximized" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#FF2B2B2B" Foreground="White" WindowStyle="None">
     <Grid>
-        
+        <Label x:Name="titleLabel" Content="Crystal Shard" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="75" Foreground="#FFC7C7C7" FontFamily="advent" Margin="0,0,0,0"/>
+        <Label x:Name="devLabel" Content="//Development_Build//" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="25" FontFamily="advent" Margin="0,0,0,0">
+            <Label.Foreground>
+                <SolidColorBrush Color="#FFC7C7C7" Opacity="0.5"/>
+            </Label.Foreground>
+        </Label>
+
     </Grid>
 </Window>
