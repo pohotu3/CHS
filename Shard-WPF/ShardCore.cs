@@ -8,10 +8,18 @@ namespace Shard_WPF
 {
     class ShardCore
     {
+
+        private Client client;
+
+        private MainWindow mw;
+
         public ShardCore(MainWindow mw)
         {
-            for (int i = 0; i < 100; i++)
-                mw.Write("test");
+            this.mw = mw;
+            mw.Write("##################Crystal Shard Dev has been Started##################");
+
+            mw.Write("Setting up client...");
+            client = new Client(6977, Guid.NewGuid());
         }
     }
 }

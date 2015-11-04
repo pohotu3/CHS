@@ -8,9 +8,14 @@ namespace Shard_WPF
 {
     class Client
     {
-        public Client()
-        {
 
+        private int port;
+        private string id;
+
+        public Client(int port, Guid g)
+        {
+            this.port = port;
+            id = g.ToString();
         }
     }
 }
