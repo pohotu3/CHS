@@ -25,5 +25,17 @@ namespace Shard_WPF
             InitializeComponent();
             new ShardCore(this);
         }
+
+        public void Write(string s)
+        {
+            consoleBlock.Text += "\n";
+            consoleBlock.Text += s;
+            scrollPanel.ScrollToBottom();
+        }
+
+        private void exit_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
     }
 }
