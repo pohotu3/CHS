@@ -25,17 +25,16 @@
 */
 
 using System;
-using System.Threading.Tasks;
 using ConnectionData;
+using System.IO;
 
 namespace HeartConsole
 {
     class HeartCore
     {
 
-        private const string systemType = "Heart", version = "0.0.1";
-        public static string systemName = "", musicDir = "", movieDir = "", commandKey = "", configDir = "/CrystalHomeSys/Heart/heart_config.cfg", logBaseDir = "/CrystalHomeSys/Heart/Logs/";
-        private const int serverPort = 6976;
+        public static string systemName = "", musicDir = "", movieDir = "", commandKey = "", baseDir = Variables.Default.baseDir, configDir = baseDir + Variables.Default.configDir, logBaseDir = baseDir + Variables.Default.logBaseDir;
+        private int serverPort = Variables.Default.serverPort;
         public static bool cfg_set = false;
 
         // unique identifier for the server
@@ -52,6 +51,8 @@ namespace HeartConsole
         {
             core = this;
 
+            baseDir = System.Environment.GetEnvironmentVariable("HOME") + baseDir;
+
             // allows the log file to be created in the home directory
             logBaseDir = System.Environment.GetEnvironmentVariable("HOME") + logBaseDir;
 
@@ -65,7 +66,7 @@ namespace HeartConsole
         {
             // set up logging here
             log = new Log(logBaseDir);
-            Write("#############################SYSTEM STARTUP###################################");
+            Write("#############################CHS HEART LAUNCHED###################################");
             Write("System logging initialized...");
             Write("Log located at " + log.fileName);
 
@@ -73,16 +74,16 @@ namespace HeartConsole
             Write("Setting up configuration...");
             cfg = new Config(configDir);
 
+            // if the cfg file already exists, load the settings. If not, set up the basics and wait for it to be set up remotely
             if (cfg.exists())
             {
-                LoadConfig();
                 Write("Configuration file found. Loading settings.");
+                LoadConfig();
             }
             else
             {
                 Write("Configuration file does not exist. Creating file. Please configure your server with your web browser.");
-                cfg.set("cfg_set", cfg_set.ToString());
-                cfg.Save();
+                CreateCFG();
             }
 
             // set up all the network information and objects, do NOT start
@@ -94,7 +95,9 @@ namespace HeartConsole
             server.Start();
             Write("Heart Server started listening on IP: " + server.ip.Address + " Port: " + serverPort);
 
-            python_api = new PythonScript("python3", "HeartAPI.py" + " " + server.ip.Address + " " + serverPort, Write);
+            
+
+            python_api = new PythonScript("HeartAPI.py" + " " + server.ip.Address + " " + serverPort + " " + baseDir, Write);
         }
 
         public static HeartCore GetCore()
@@ -111,37 +114,6 @@ namespace HeartConsole
         {
             Console.WriteLine(s);
             log.write(s);
-        }
-
-        public void AnalyzeCommand(string s)
-        {
-            string[] commands = new string[] { "quit", "commands" };
-
-            switch (s.ToLower())
-            {
-                case "quit":
-                    Close();
-                    break;
-                case "commands":
-                    string temp = "Available Commands: ";
-                    for (int i = 0; i < commands.Length; i++)
-                    {
-                        temp += commands[i] + " ";
-                    }
-                    Write(temp);
-                    break;
-                //case "config":
-                //	mw.SetPage (MainWindow.FIRST_TIME_SETUP_PAGE);
-                //	break;
-                default:
-                    string t = "Available Commands: ";
-                    for (int i = 0; i < commands.Length; i++)
-                    {
-                        t += commands[i] + " ";
-                    }
-                    Write("Command unrecognized. " + t);
-                    break;
-            }
         }
 
         // closes down connections and the quits the program
@@ -162,12 +134,52 @@ namespace HeartConsole
         // loads up all the settings from the config to the variables
         public void LoadConfig()
         {
-            // load all the information from the cfg after it's set up
-            systemName = cfg.get("systemName");
-            musicDir = cfg.get("musicDir");
-            movieDir = cfg.get("movieDir");
-            commandKey = cfg.get("commandKey");
-            guid = Guid.Parse(cfg.get("guid"));
+            // check if the cfg file has been set up already or not
+            try
+            {
+                // these two settings are guarenteed to be in the file. if they're not, re create the file
+                cfg_set = Boolean.Parse(cfg.get("cfg_set"));
+                guid = Guid.Parse(cfg.get("guid"));
+            }
+            catch (Exception e) {
+                // if the file cannot be read, recreate the file
+                CreateCFG();
+            }
+
+            if (!cfg_set)
+            {
+                Write("Config is not set up. Shards will be refused until that is set.");
+            }
+            else
+            {
+                try
+                {
+                    systemName = cfg.get("systemName");
+                    musicDir = cfg.get("musicDir");
+                    movieDir = cfg.get("movieDir");
+                    commandKey = cfg.get("commandKey");
+                }
+                catch (Exception e)
+                {
+                    // if the cfg file cannot be loaded for any reason, we will delete the file and reset it to default settings waiting to be set up
+                    Write("Unable to load config file. Deleting file. Please set up the configuration over your web browser.");
+                    CreateCFG();
+                }
+            }
+        }
+
+        // this function creates a new CFG, and it will try to delete the old version (whether or not it exists) just to be safe
+        private void CreateCFG()
+        {
+            try
+            {
+                File.Delete(cfg.FileName());
+            }
+            catch (Exception e) { }
+            cfg.reload();
+            cfg.set("cfg_set", "False");
+            cfg.set("guid", Guid.NewGuid().ToString());
+            cfg.Save();
         }
 
         public static void Main(string[] args)

@@ -38,332 +38,279 @@ using ConnectionData;
 
 namespace HeartConsole
 {
-	public class Server
-	{
+    public class Server
+    {
 
-		private int port;
-		public static string guid;
-		public static bool listening = false;
+        private int port;
+        public static string guid;
+        public static bool listening = false;
 
-		private static Socket listenerSocket;
-		private static List<ClientData> _clients;
-		private static Thread listenThread;
-		public IPEndPoint ip;
+        private static Socket listenerSocket;
+        private static List<ClientData> _clients;
+        private static Thread listenThread;
+        public IPEndPoint ip;
 
-		// create all the connection objects
-		public Server (int listeningPort, Guid g)
-		{
-			port = listeningPort;
-			guid = g.ToString ();
+        // create all the connection objects
+        public Server(int listeningPort, Guid g)
+        {
+            port = listeningPort;
+            guid = g.ToString();
 
-			listenerSocket = new Socket (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-			_clients = new List<ClientData> ();
+            listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            _clients = new List<ClientData>();
 
-			//ip = new IPEndPoint (IPAddress.Parse (Packet.GetIP4Address ()), port);
-			ip = new IPEndPoint (IPAddress.Parse ("127.0.0.1"), port);
-			listenerSocket.Bind (ip);
+            //ip = new IPEndPoint (IPAddress.Parse (Packet.GetIP4Address ()), port);
+            ip = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
+            listenerSocket.Bind(ip);
 
-			listenThread = new Thread (ListenThread);
-		}
+            listenThread = new Thread(ListenThread);
+        }
 
-		public void Start ()
-		{
-			listening = true;
-			listenThread.Start ();
-		}
+        public void Start()
+        {
+            listening = true;
+            listenThread.Start();
+        }
 
-		// listener - listens for clients trying to connect
-		private void ListenThread ()
-		{
-			while (listening) {
-				// perameter 5 is the backlog, allows 5 connection attempts at the same time
-				// prevents DDOSING in a way
-				listenerSocket.Listen (5);
+        // listener - listens for clients trying to connect
+        private void ListenThread()
+        {
+            while (listening)
+            {
+                // parameter 5 is the backlog, allows 5 connection attempts at the same time
+                // prevents DDOSING in a way
+                listenerSocket.Listen(5);
 
-				try {
-					_clients.Add (new ClientData (listenerSocket.Accept ()));
-				} catch {
-				}
-			}
-		}
+                try
+                {
+                    _clients.Add(new ClientData(listenerSocket.Accept()));
+                }
+                catch
+                {
+                }
+            }
+        }
 
-		// closes all connections and releases resources
-		public void Close ()
-		{
-			listening = false;
-			listenerSocket.Close ();
-			listenerSocket.Dispose ();
-			listenThread.Join ();
-			listenThread.Abort ();
+        // closes all connections and releases resources
+        public void Close()
+        {
+            listening = false;
+            listenerSocket.Close();
+            listenerSocket.Dispose();
+            listenThread.Join();
+            listenThread.Abort();
 
-			// send the close connection status to all clients
-			foreach (ClientData cd in _clients) {
-				Packet p = new Packet (Packet.PacketType.CloseConnection, guid);
-				p.packetString = "maintenence";
-				cd.Data_OUT (p);
-				cd.Close ();
-			}
+            // send the close connection status to all clients
+            foreach (ClientData cd in _clients)
+            {
+                Packet p = new Packet(Packet.PacketType.CloseConnection, guid);
+                p.packetString = "maintenence";
+                cd.Data_OUT(p);
+                cd.Close();
+            }
 
-			_clients.Clear ();
-		}
-	}
+            _clients.Clear();
+        }
+    }
 
-	class ClientData
-	{
-		public Socket clientSocket;
-		public Thread clientThread;
-		public string id;
-		private bool verified = false;
+    class ClientData
+    {
+        public Socket clientSocket;
+        public Thread clientThread;
+        public string id;
+        private bool verified = false;
 
-		// shard details loaded from verification
-		private string shardName = "", shardType = "", shardLocation = "";
+        // shard details loaded from verification
+        private string shardName = "", shardType = "", shardLocation = "";
 
-		public ClientData (Socket clientSocket)
-		{
-			this.clientSocket = clientSocket;
+        public ClientData(Socket clientSocket)
+        {
+            this.clientSocket = clientSocket;
 
-			HeartCore.GetCore ().Write ("Incoming connection from Shard. IP: " + clientSocket.AddressFamily.ToString ());
+            HeartCore.GetCore().Write("Incoming connection from Shard. IP: " + clientSocket.AddressFamily.ToString());
 
-			// after we accept a connection, we start a new thread for listening to the client
-			clientThread = new Thread (Data_IN);
-			clientThread.Start (clientSocket);
-
-			HeartCore.GetCore ().Write ("Registering with client " + clientSocket.AddressFamily.ToString ());
-			Register ();
-
-			// wait until we grab the GUID from the client, and then compare it against already generated files
-		}
-
-		public void Data_OUT (Packet p)
-		{
-			try {
-				clientSocket.Send (p.ToBytes ());
-			} catch (Exception e) {
-                HeartCore.GetCore().Write("Unable to send data to the Shard at IP " + clientSocket.AddressFamily.ToString() + ". Closing connection, please restart the Shard.");
-                Close();
-			}
-		}
-
-		private void Register ()
-		{
-			// this function will send the client the server GUID BEFORE the client sends theirs
-			Packet p = new Packet (Packet.PacketType.Registration, Server.guid);
-            
-            // if the config file was not set up, notify the shard that it will be unable to connect until it's been set
             if (HeartCore.cfg_set)
-                p.packetString = HeartCore.commandKey;
+            {
+                HeartCore.GetCore().Write("Registering with client " + clientSocket.AddressFamily.ToString());
+                Register();
+                
+                // after we accept a connection, we start a new thread for listening to the client
+                clientThread = new Thread(Data_IN);
+                clientThread.Start(clientSocket);
+            }
             else
-                p.packetString = "denied";
+            {
+                HeartCore.GetCore().Write("Refusing connection with client " + clientSocket.AddressFamily.ToString() + ". Please set up the config file.");
+                HeartCore.GetCore().Write("After config is set up, try again.");
+                SendClientError("Heart configuration is not set up. All connections will be refused until it is.");
+                Close();
+            }
+        }
 
-			Data_OUT (p);
-			HeartCore.GetCore ().Write ("Sent registration packet to " + clientSocket.AddressFamily.ToString ());
+        public void Data_OUT(Packet p)
+        {
+            try
+            {
+                clientSocket.Send(p.ToBytes());
+            }
+            catch (Exception e)
+            {
+                HeartCore.GetCore().Write("Unable to send data to the Shard at IP " + clientSocket.AddressFamily.ToString() + ". Closing connection. Restart the Shard.");
+                Close();
+            }
+        }
 
-			// now we wait for the client to send registration packet. We WILL NOT read other packets till their verified
-		}
+        private void Register()
+        {
+            // this function will send the client the server GUID BEFORE the client sends theirs
+            Packet p = new Packet(Packet.PacketType.Registration, Server.guid);
+            p.packetString = HeartCore.commandKey;
 
-		public void Close ()
-		{
-			clientSocket.Close ();
-			clientSocket.Dispose ();
-			clientThread.Abort ();
-		}
+            Data_OUT(p);
+            HeartCore.GetCore().Write("Sent registration packet to " + clientSocket.AddressFamily.ToString());
+        }
 
-		// clientdata thread - receives data from each client individually
-		public void Data_IN (object cSocket)
-		{
-			Socket clientSocket = (Socket)cSocket;
+        public void Close()
+        {
+            clientSocket.Close();
+            clientSocket.Dispose();
+            clientThread.Abort();
+        }
 
-			byte[] buffer;
-			int readBytes;
+        // clientdata thread - receives data from each client individually
+        public void Data_IN(object cSocket)
+        {
+            Socket clientSocket = (Socket)cSocket;
 
-			// infinite loop, i'm thinking about doing it a different way later
-			while (Server.listening) {
-				// sets our buffer array to the max size we're able to receive
-				buffer = new byte[clientSocket.SendBufferSize];
+            byte[] buffer;
+            int readBytes;
 
-				// gets the amount of bytes we've received
-				try {
-					readBytes = clientSocket.Receive (buffer);
-				} catch (ObjectDisposedException e) {
-					return;
-				}
+            // infinite loop, i'm thinking about doing it a different way later
+            while (Server.listening)
+            {
+                // sets our buffer array to the max size we're able to receive
+                buffer = new byte[clientSocket.SendBufferSize];
 
-				// if we actually recieve something, then sort through it
-				if (readBytes > 0) {
-					// handle data
-					Packet packet = new Packet (buffer);
-					DataManager (packet);
-				}
-			}
-		}
+                // gets the amount of bytes we've received
+                try
+                {
+                    readBytes = clientSocket.Receive(buffer);
+                }
+                catch (ObjectDisposedException e)
+                {
+                    return;
+                }
 
-		// this will handle everything about the packet
-		public void DataManager (Packet p)
-		{
-			// if the client is not verified, we will not accept any other type of packet
-			if (!verified) {
-				if (p.packetType != Packet.PacketType.Registration)
-					return;
-				id = p.senderID;
-				// now we verify the ID against the given saves. if it passes, verified = true
-				if (RetrieveShard (id)) {
-					verified = true;
-					// now we load all the shard information from the saved file
+                // if we actually recieve something, then sort through it
+                if (readBytes > 0)
+                {
+                    // handle data
+                    Packet packet = new Packet(buffer);
+                    DataManager(packet);
+                }
+            }
+        }
 
-					// confirm successful connection
-					HeartCore.GetCore ().Write ("Shard " + shardName + " registered and connected successfully. Sending handshake.");
-					Data_OUT (new Packet (Packet.PacketType.Handshake, Server.guid));
-					return;
-				} else {
-					HeartCore.GetCore ().Write ("Shard using GUID " + id + " tried to connect, verification failed. Connection refused.");
-					this.Close ();
-				}
-			}
+        // this will handle everything about the packet
+        public void DataManager(Packet p)
+        {
+            // if the client is not verified, we will not accept any other type of packet
+            // this if statement checks if the connected client has been set up before
+            if (!verified)
+            {
+                // if the client is sending something other than a registration packet, bounce the request
+                // (only the registration packet is allowed when the connection isn't verified)
+                if (p.packetType != Packet.PacketType.Registration)
+                    return;
 
-			switch (p.packetType) {
-			case Packet.PacketType.CloseConnection:
-				HeartCore.GetCore ().Write ("Shard " + shardName + " has disconnected.");
-				Close ();
-				break;
-			case Packet.PacketType.Command:
-				string[] words = p.packetString.ToLower ().Split ();
-				string command = words [0]; // the command is going to be the first word in the sentence (for now).
-				// later we can dynamically search for them
+                // assign the local GUID var to the packet's sender ID
+                id = p.senderID;
 
-				// analyze command and respond appropriately
-				switch (command) {
-				// when the client wants a list of commands
-				case "help":
-				case "commands":
-				case "command":
-					HeartCore.GetCore ().Write (shardName + " sent a request 'help'. Responding.");
-					Packet t = new Packet (Packet.PacketType.Command, Server.guid);
-					t.packetString = "Hi, I'm " + HeartCore.systemName + ". Commands are designed to be intuitive. Enter something as though you would say it out loud and I'll process it!";
-					Data_OUT (t);
-					break;
+                // search shard cfg files that have been created previously for the client's id. if there's a match, continue
+                if (RetrieveShard(id))
+                {
+                    verified = true;
+                    
+                    // shard information is loaded into the local var's from the RetrieveShard() function
 
-				// when the client wants to disconnect from the server
-				case "quit":
-				case "exit":
-				case "disconnect":
-					HeartCore.GetCore ().Write (shardName + " send a request to disconnect. Disconnecting.");
-					Close ();
-					break;
+                    // confirm successful connection
+                    HeartCore.GetCore().Write("Shard " + shardName + " registered and connected successfully. Sending handshake.");
+                    Data_OUT(new Packet(Packet.PacketType.Handshake, Server.guid));
+                    return;
+                }
+                // if there isnt a match, inform the client that it needs to be initialized. Maintain connection though, don't close it.
+                else
+                {
+                    HeartCore.GetCore().Write("Shard using GUID " + id + " and IP " + clientSocket.AddressFamily.ToString() + " tried to connect, verification failed. Please set up the Shard.");
+                    SendClientError("Shard is not set up. Please set up the shard through your internet browser.");
+                    return;
+                }
+            }
 
-				// when the client wants to start playing a type of media
-				case "play":
-				case "start":
-					HeartCore.GetCore ().Write (shardName + " sent a request to start streaming media. Finding file...");
-					string fileToPlay = ""; // the file we want to play
-					// find the media file the client is looking for
-					string[] mediaFiles = GenerateMediaList (); // full file paths
+            switch (p.packetType)
+            {
+                case Packet.PacketType.CloseConnection:
+                    HeartCore.GetCore().Write("Shard " + shardName + " has disconnected.");
+                    Close();
+                    break;
+                case Packet.PacketType.Command:
+                    string[] splitCommandArray = p.packetString.ToLower().Split();
+                    string commandWord = splitCommandArray[0]; // I want a better way to do this part
 
-					// convert all the media files to just file names for easier searching
-					string[] fileNames = new string[mediaFiles.Length];
-					for (int i = 0; i < fileNames.Length; i++) {
-						fileNames[i] = mediaFiles[i].Split ('/').Last (); // remove the file path, leaving only the file name
-						fileNames[i] = fileNames[i].Split ('.').First (); // remove the extension end-piece
-					}
+                    // analyze command and respond appropriately
+                    switch (commandWord)
+                    {
+                        case "":
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    HeartCore.GetCore().Write(shardName + " sent an unrecognized packet type. Command ignored.");
+                    SendClientError("Unrecognized packet type was sent. Please restart the Shard and try again.");
+                    break;
+            }
+        }
 
-					// find out if there's a matching file name for the command. deal with duplicate matches
-					for (int i = 0; i < fileNames.Length; i++) {
-						string currentFile = fileNames [i];
+        private void SendClientError(String msg)
+        {
+            Packet vPacket = new Packet(Packet.PacketType.Error, Server.guid);
+            vPacket.packetString = msg;
+            Data_OUT(vPacket);
+            return;
+        }
+       
+        // Loads all of the shard files, pulls their GUID from the data, checks for a match and returns if there is one.
+        // if there is a match, load the info to variables
+        private bool RetrieveShard(string guid)
+        {
+            string baseDir = Variables.Default.baseDir + Variables.Default.shardFileDir;
 
-						// look at whether the words in the sent command match the current file name
-						for (int a = 1; i < words.Length; a++) { // start at 1 because we dont want to include the command word
+            // make sure the baseDir exists first
+            if (!Directory.Exists(baseDir))
+                Directory.CreateDirectory(baseDir);
 
-						}
-					}
-					HeartCore.GetCore ().Write ("File for " + shardName + " was found. Location: " + fileToPlay + ".");
+            // get a list of all current .shard files including the filepaths to them
+            string[] shards = Directory.GetFiles(baseDir, "*.shard", SearchOption.TopDirectoryOnly);
 
-					// start streaming on seperate thread
+            foreach (string shardFile in shards)
+            {
+                // load the shard file into a config object for manipulation
+                Config t = new Config(shardFile);
 
-					break;
-				default:
-					break;
-				}
-				break;
-			default:
-				break;
-			}
-		}
+                // if the connected client ID matches that in a cfg file
+                if (id == t.get("guid"))
+                {
+                    // load the information from the file to the local var's
+                    shardName = t.get("shardName");
+                    shardType = t.get("shardType");
+                    shardLocation = t.get("shardLocation");
+                    return true;
+                }
+            }
 
-		// generates a list of all media files in the given directories in the config file
-		private string[] GenerateMediaList ()
-		{
-			string[] movieFiles = Directory.GetFiles (HeartCore.movieDir, "*.*", SearchOption.AllDirectories);
-			string[] musicFiles = Directory.GetFiles (HeartCore.musicDir, "*.*", SearchOption.AllDirectories);
-			ArrayList al = new ArrayList ();
-
-			// for all movie files
-			for (int i = 0; i < movieFiles.Length; i++) {
-				movieFiles [i] = movieFiles [i].ToLower ();
-				al.Add (movieFiles [i]);
-			}
-
-			// for all music files
-			for (int i = 0; i < musicFiles.Length; i++) {
-				musicFiles [i] = musicFiles [i].ToLower ();
-				al.Add (musicFiles [i]);
-			}
-
-			// return the arraylist of files in the form of a string[]
-			return (string[])al.ToArray (typeof(string));
-		}
-
-		// finds shard info file saved, and if doesnt exist runs through init system for it
-		private bool RetrieveShard (string guid)
-		{
-			string baseDir = System.Environment.GetEnvironmentVariable ("HOME") + "/CrystalHomeSys/Heart/Shard Files/";
-
-			// make sure the baseDir exists first
-			if (!Directory.Exists (baseDir))
-				Directory.CreateDirectory (baseDir);
-
-			// get a list of all current .shard files including the filepaths to them
-			string[] shards = Directory.GetFiles (baseDir, "*.shard", SearchOption.TopDirectoryOnly);
-
-			foreach (string shardFile in shards) {
-				// load the shard file into a config object for manipulation
-				Config t = new Config (shardFile);
-
-				if (id == t.get ("guid")) {
-					// load the information from the file
-					shardName = t.get ("shardName");
-					shardType = t.get ("shardType");
-					shardLocation = t.get ("shardLocation");
-					return true;
-				}
-			}
-
-			// get all the shard info
-			//string[] info = HeartCore.GetCore ().GetWindow ().InitNewShard ();
-			string[] info = {"testName", "testType", "testLocation"};
-			if (info == null) { // if the function returns null, the connection was refused by user
-				HeartCore.GetCore ().Write ("Shard refused. Closing connection.");
-				Packet t = new Packet (Packet.PacketType.CloseConnection, Server.guid);
-				t.packetString = "Connection Refused.";
-				Data_OUT (t);
-				HeartCore.GetCore ().Close ();
-				return false;
-			}
-
-			shardName = info [0];
-			shardType = info [1];
-			shardLocation = info [2];
-
-			// create a new config object to load all this to
-			Config shardCfg = new Config (baseDir + shardName + ".shard");
-
-			// now save the Shard file to write it to the harddrive
-			shardCfg.set ("shardName", shardName);
-			shardCfg.set ("shardType", shardType);
-			shardCfg.set ("shardLocation", shardLocation);
-			shardCfg.set ("guid", id);
-			shardCfg.Save ();
-			HeartCore.GetCore ().Write ("Configuration on " + shardLocation + " Shard is now complete.");
-
-			return true;
-		}
-	}
+            return false; // returns false if there's no match
+        }
+    }
 }
