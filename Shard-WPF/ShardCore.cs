@@ -1,4 +1,5 @@
 ﻿using System;
+using ConnectionData;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,16 @@ namespace Shard_WPF
             mw.consoleBlock.Text += "\n";
             mw.consoleBlock.Text += s;
             mw.scrollPanel.ScrollToBottom();
+        }
+
+        public void SendPacket(Packet p)
+        {
+            client.Data_OUT(p);
+        }
+
+        public void Speak(string s)
+        {
+            Write(s);
         }
 
         public static ShardCore GetCore()
