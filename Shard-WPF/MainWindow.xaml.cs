@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,12 +17,9 @@ using System.Windows.Shapes;
 
 namespace Shard_WPF
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        
+
         ShardCore core;
 
         public MainWindow()
@@ -30,11 +28,19 @@ namespace Shard_WPF
             core = new ShardCore(this);
         }
 
+        public void Write(string s)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                consoleBlock.Text += "\n";
+                consoleBlock.Text += s;
+                scrollPanel.ScrollToBottom();
+            });
+        }
+
         private void exit_Click(object sender, RoutedEventArgs e)
         {
-            Packet temp = new Packet(Packet.PacketType.CloseConnection, core.guid.ToString());
-            temp.packetString = "User closed connection";
-            core.SendPacket(temp);
+            core.GetClient().Close();
             Environment.Exit(0);
         }
     }

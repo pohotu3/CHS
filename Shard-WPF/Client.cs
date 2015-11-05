@@ -28,6 +28,7 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using System.IO;
+using System.Windows.Threading;
 using System.Threading;
 using ConnectionData;
 

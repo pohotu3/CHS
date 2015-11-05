@@ -1,5 +1,6 @@
 ﻿using System;
 using ConnectionData;
+using System.Windows.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,9 +30,7 @@ namespace Shard_WPF
 
         public void Write(string s)
         {
-            mw.consoleBlock.Text += "\n";
-            mw.consoleBlock.Text += s;
-            mw.scrollPanel.ScrollToBottom();
+            mw.Write(s);
         }
 
         public void SendPacket(Packet p)
