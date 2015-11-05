@@ -38,7 +38,8 @@ namespace Shard_WPF
 
         private int port;
         private string ipAddress, guid, serverGuid;
-        private bool running = false, connected = false;
+        private bool running = false;
+        private bool connected = false; // unable to use Data_OUT() if this is set to false
 
         public Socket socket;
         private Thread listeningThread;
@@ -99,6 +100,7 @@ namespace Shard_WPF
             }
         }
 
+        // Unable to send data if bool connected = false
         public void Data_OUT(Packet p)
         {
             if (connected && p.packetType != Packet.PacketType.Registration)
@@ -110,39 +112,38 @@ namespace Shard_WPF
         {
             switch (p.packetType)
             {
-                case Packet.PacketType.Registration:
-                    // if the server is sending the registration packet (start of connection)
-                    ShardCore.GetCore().Write("Received registration packet from Heart.");
+                case Packet.PacketType.Registration: // if the server is sending the registration packet (start of connection)
+                    ShardCore.GetCore().Write("Received registration packet from Heart.");                  // #######################################
                     serverGuid = p.senderID;
+                    ShardCore.commandKey = p.packetString; // set the commandKey from the server registration packet
 
-                    // now save that to a file if this is the first connection, otherwise compare it to the file
-
-                    // set the commandKey from the server registration packet
-                    ShardCore.commandKey = p.packetString;
-
-                    // send client registration packet
-                    Data_OUT(new Packet(Packet.PacketType.Registration, guid));
-                    ShardCore.GetCore().Write("Sent registration packet to Heart.");
+                    Data_OUT(new Packet(Packet.PacketType.Registration, guid)); // send client registration packet
+                    ShardCore.GetCore().Write("Sent registration packet to Heart.");                // ###########################
                     break;
                 case Packet.PacketType.Handshake:
-                    ShardCore.GetCore().Write("Handshake received. Connection Established.");
+                    ShardCore.GetCore().Write("Handshake received. Connection Established.");       //############################
                     connected = true;
                     break;
                 case Packet.PacketType.CloseConnection:
                     string reason = p.packetString;
                     if (reason == null)
-                        reason = "No Reason Given.";
-                    ShardCore.GetCore().Write("Server is closing the connection. Reason: " + reason);
-                    ShardCore.GetCore().Write("Server is closing the connection. Reason: " + reason);
+                        reason = "It didn't specify a reason, so please reboot both my Heart and I.";
+                    ShardCore.GetCore().Write("Server is closing the connection. Reason: " + reason); // ########################
+                    ShardCore.GetCore().Speak("My Heart decided to close the connection. " + reason + ".");
                     Close();
                     break;
                 case Packet.PacketType.Command:
-                    ShardCore.GetCore().Write("Server sent the response: " + p.packetString);
-                    ShardCore.GetCore().Write(p.packetString);
+                    ShardCore.GetCore().Write("Server sent the command: " + p.packetString);  // ####################
+                    HandleCommand(p.packetString);
                     break;
                 default:
                     break;
             }
+        }
+
+        private void HandleCommand(string c)
+        {
+
         }
 
         public void Close()
