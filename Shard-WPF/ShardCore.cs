@@ -19,10 +19,10 @@ namespace Shard_WPF
         {
             this.mw = mw;
             core = this;
-            Write("##################Crystal Shard Dev has been Started##################");
+            Write("##################Crystal Shard Dev has been Started##################"); // ##################
 
             Write("Setting up client...");
-            client = new Client("localhost", 6977, Guid.NewGuid());
+            client = new Client("127.0.0.1", 6977, Guid.NewGuid());
         }
 
         public void Write(string s)
