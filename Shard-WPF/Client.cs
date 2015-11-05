@@ -36,29 +36,29 @@ namespace Shard_WPF
 	public class Client
 	{
 
-		private int socket;
+		private int port;
 		private string ipAddress, guid, serverGuid;
 		private bool running = false, connected = false;
 
-		public Socket master;
+		public Socket socket;
 		private Thread listeningThread;
 
 		// requires an IP and socket constructor
-		public Client (string ipAddress, int socket, Guid guid)
+		public Client (string ipAddress, int port, Guid guid)
 		{
-			this.socket = socket;
+			this.port = port;
 			this.ipAddress = ipAddress;
 			this.guid = guid.ToString ();
 
-			master = new Socket (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-			IPEndPoint ip = new IPEndPoint (IPAddress.Parse (ipAddress), socket);
+			socket = new Socket (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			IPEndPoint ip = new IPEndPoint (IPAddress.Parse (ipAddress), port);
 
 			try {
 				// tries to connect to the socket located at the IP and socket given
-				master.Connect (ip);
-				ShardCore.GetCore().Write("Connected to Heart at IP " + ipAddress + " Socket: " + socket);
+				socket.Connect (ip);
+				ShardCore.GetCore().Write("Connected to Heart at IP " + ipAddress + " Socket: " + port);
 			} catch {
-				ShardCore.GetCore().Write ("Could not connect to " + ipAddress + " on Socket: " + socket);
+				ShardCore.GetCore().Write ("Could not connect to " + ipAddress + " on Socket: " + port);
 				Thread.Sleep (1000);
 
 				// we dont want the client socket continuing if we were not able to connect
@@ -80,10 +80,10 @@ namespace Shard_WPF
 			// infinite loop, same goes for in the Heart/Server.cs
 			while (running) {
 				// creates the buffer array to be as large as possible to receive
-				buffer = new byte[master.SendBufferSize];
+				buffer = new byte[socket.SendBufferSize];
 				// gets the number of bytes received
 				try{
-					readBytes = master.Receive (buffer);
+					readBytes = socket.Receive (buffer);
 				}catch(Exception e){
 					return;
 				}
@@ -103,7 +103,7 @@ namespace Shard_WPF
 				ShardCore.GetCore ().Write ("We are not connected yet. Please try restarting...");
 				return;
 			}
-			master.Send (p.ToBytes ());
+			socket.Send (p.ToBytes ());
 		}
 
 		// for handling received data
@@ -150,8 +150,8 @@ namespace Shard_WPF
 			Data_OUT (new Packet (Packet.PacketType.CloseConnection, guid));
 			ShardCore.GetCore ().Write ("Closing connection with Heart.");
 			running = false;
-			master.Close ();
-			master.Dispose ();
+			socket.Close ();
+			socket.Dispose ();
 			listeningThread.Abort ();
 		}
 	}
