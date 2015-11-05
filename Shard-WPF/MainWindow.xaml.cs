@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using ConnectionData;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -31,6 +32,9 @@ namespace Shard_WPF
 
         private void exit_Click(object sender, RoutedEventArgs e)
         {
+            Packet temp = new Packet(Packet.PacketType.CloseConnection, core.guid.ToString());
+            temp.packetString = "User closed connection";
+            core.SendPacket(temp);
             Environment.Exit(0);
         }
     }

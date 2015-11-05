@@ -13,16 +13,18 @@ namespace Shard_WPF
         private Client client;
         private static ShardCore core;
         private MainWindow mw;
+        public Guid guid;
         public static string commandKey; // the command key that the speach uses to tell if you're talking to it. example: Ok Crystal
 
         public ShardCore(MainWindow mw)
         {
+            guid = Guid.NewGuid();
             this.mw = mw;
             core = this;
             Write("##################Crystal Shard Dev has been Started##################"); // ##################
 
             Write("Setting up client...");
-            client = new Client("127.0.0.1", 6977, Guid.NewGuid());
+            client = new Client("127.0.0.1", 6976, guid);
         }
 
         public void Write(string s)
