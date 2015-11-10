@@ -132,11 +132,9 @@ namespace HeartConsole
             if (HeartCore.cfg_set)
             {
                 HeartCore.GetCore().Write("Registering with client " + clientSocket.AddressFamily.ToString());
-                Register();
-
-                // after we accept a connection, we start a new thread for listening to the client
                 clientThread = new Thread(Data_IN);
                 clientThread.Start(clientSocket);
+                Register();
             }
             else
             {
@@ -221,7 +219,11 @@ namespace HeartConsole
                 // if the client is sending something other than a registration packet, bounce the request
                 // (only the registration packet is allowed when the connection isn't verified)
                 if (p.packetType != Packet.PacketType.Registration)
+                {
                     return;
+                }
+
+                HeartCore.GetCore().Write("Recieved registration packet");
 
                 // assign the local GUID var to the packet's sender ID
                 id = p.senderID;
@@ -232,7 +234,6 @@ namespace HeartConsole
                     verified = true;
 
                     // shard information is loaded into the local var's from the RetrieveShard() function
-
                     // confirm successful connection
                     HeartCore.GetCore().Write("Shard " + shardName + " registered and connected successfully. Sending handshake.");
                     Data_OUT(new Packet(Packet.PacketType.Handshake, Server.guid));

@@ -104,6 +104,7 @@ namespace Shard_WPF
         // Unable to send data if bool connected = false
         public void Data_OUT(Packet p)
         {
+            ShardCore.GetCore().Write("Sending " + p.packetType.ToString());
             if (connected && p.packetType != Packet.PacketType.Registration)
                 socket.Send(p.ToBytes());
         }
