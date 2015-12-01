@@ -129,6 +129,7 @@ namespace HeartConsole
 
             HeartCore.GetCore().Write("Incoming connection from Shard. IP: " + clientSocket.AddressFamily.ToString());
 
+            // if the Heart CFG is set up, accept connection. Otherwise, refuse it with an error message
             if (HeartCore.cfg_set)
             {
                 HeartCore.GetCore().Write("Registering with client " + clientSocket.AddressFamily.ToString());
@@ -140,7 +141,7 @@ namespace HeartConsole
             {
                 HeartCore.GetCore().Write("Refusing connection with client " + clientSocket.AddressFamily.ToString() + ". Please set up the config file.");
                 HeartCore.GetCore().Write("After config is set up, try again.");
-                SendClientError("Heart configuration is not set up. All connections will be refused until it is.");
+                SendClientError("Heart configuration is not set up. All connections will be refused until it is. Please restart Shard to connect again.");
                 Close();
             }
         }
@@ -223,10 +224,12 @@ namespace HeartConsole
                     return;
                 }
 
-                HeartCore.GetCore().Write("Recieved registration packet");
+                HeartCore.GetCore().Write("Received registration packet");
 
                 // assign the local GUID var to the packet's sender ID
                 id = p.senderID;
+
+                // ############################ this is where the connection data will stop for now till I set up a shard file #################################
 
                 // search shard cfg files that have been created previously for the client's id. if there's a match, continue
                 if (RetrieveShard(id))
