@@ -290,7 +290,7 @@ namespace HeartConsole
         // if there is a match, load the info to variables
         private bool RetrieveShard(string guid)
         {
-            string baseDir = Variables.Default.baseDir + Variables.Default.shardFileDir;
+            string baseDir = HeartCore.shardDir;
 
             // make sure the baseDir exists first
             if (!Directory.Exists(baseDir))

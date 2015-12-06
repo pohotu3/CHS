@@ -33,8 +33,8 @@ namespace HeartConsole
     class HeartCore
     {
 
-        public static string systemName = "", musicDir = "", movieDir = "", commandKey = "", baseDir = Variables.Default.baseDir, configDir = baseDir + Variables.Default.configDir, logBaseDir = baseDir + Variables.Default.logBaseDir;
-        private int serverPort = Variables.Default.serverPort;
+        public static string systemName, musicDir = "", movieDir = "", commandKey = "", baseDir = "/CrystalHomeSys/Heart/", configDir = "heart_config.cfg", logBaseDir = "Logs/", shardDir = "Shard_Files/";
+        private int serverPort = 6976;
         public static bool cfg_set = false;
 
         // unique identifier for the server
@@ -51,13 +51,16 @@ namespace HeartConsole
         {
             core = this;
 
-            baseDir = System.Environment.GetEnvironmentVariable("HOME") + baseDir;
+            baseDir = System.Environment.GetEnvironmentVariable("HOME") + baseDir;            
 
             // allows the log file to be created in the home directory
-            logBaseDir = System.Environment.GetEnvironmentVariable("HOME") + logBaseDir;
+            logBaseDir = baseDir + logBaseDir;
 
             // allows the config file to be created in the home directory. ie: /home/austin/
-            configDir = System.Environment.GetEnvironmentVariable("HOME") + configDir;
+            configDir = baseDir + configDir;
+
+            // allows the shard files to be accessed and created in the home directory
+            shardDir = baseDir + shardDir;
 
             Init();
         }
@@ -138,7 +141,7 @@ namespace HeartConsole
             try
             {
                 // these two settings are guarenteed to be in the file. if they're not, re create the file
-                cfg_set = Boolean.Parse(cfg.get("cfg_set"));
+                cfg_set = bool.Parse(cfg.get("cfg_set"));
                 guid = Guid.Parse(cfg.get("guid"));
             }
             catch (Exception e) {

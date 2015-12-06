@@ -19,7 +19,7 @@ namespace Shard_WPF
 
         public ShardCore(MainWindow mw)
         {
-            guid = Guid.NewGuid();
+            guid = Guid.Parse("9b9b181f-3def-4ae1-b3f3-199ed2f08f90");
             this.mw = mw;
             core = this;
             Write("##################Crystal Shard Dev has been Started##################"); // ##################
