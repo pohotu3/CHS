@@ -195,8 +195,9 @@ namespace HeartConsole
                 {
                     readBytes = clientSocket.Receive(buffer);
                 }
-                catch (ObjectDisposedException e)
+                catch (Exception e)
                 {
+                    HeartCore.GetCore().Write(e.Message);
                     return;
                 }
 
