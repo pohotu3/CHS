@@ -104,14 +104,14 @@ namespace Shard_WPF
         // Unable to send data if bool connected = false
         public void Data_OUT(Packet p)
         {
-            if (connected && p.packetType != Packet.PacketType.Registration)
+            if (connected)
             {
                 ShardCore.GetCore().Write("Sending " + p.packetType.ToString());
                 socket.Send(p.ToBytes());
             }
             else
             {
-                ShardCore.GetCore().Write("I was unable to send a packet to my Heart. Either I'm not connected, or it was a registration packet. Please restart me and try again.");
+                ShardCore.GetCore().Write("I am not connected to my Heart, so I cant send data. Please restart me to attempt to fix the problem.");
                 return;
             }
         }
@@ -126,7 +126,10 @@ namespace Shard_WPF
                     serverGuid = p.senderID;
                     ShardCore.commandKey = p.packetString; // set the commandKey from the server registration packet
 
-                    Data_OUT(new Packet(Packet.PacketType.Registration, guid)); // send client registration packet
+                    Packet temp = new Packet(Packet.PacketType.Registration, guid); // client registration packet
+                    ShardCore.GetCore().Write("Sending Registration");
+                    socket.Send(temp.ToBytes());    // send packet to heart
+
                     ShardCore.GetCore().Write("Sent registration packet to Heart.");                // ###########################
                     break;
                 case Packet.PacketType.Handshake:
@@ -144,6 +147,9 @@ namespace Shard_WPF
                 case Packet.PacketType.Command:
                     ShardCore.GetCore().Write("Server sent the command: " + p.packetString);  // ####################
                     HandleCommand(p.packetString);
+                    break;
+                case Packet.PacketType.Error:
+                    ShardCore.GetCore().Write("Server sent us an error message. Message: " + p.packetString);
                     break;
                 default:
                     break;
