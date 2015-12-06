@@ -197,7 +197,7 @@ namespace HeartConsole
                 }
                 catch (Exception e)
                 {
-                    HeartCore.GetCore().Write(e.Message);
+                    HeartCore.GetCore().Write(clientSocket.AddressFamily.ToString() + " was disconnected remotely without warning. Error message: " + e.Message);
                     return;
                 }
 

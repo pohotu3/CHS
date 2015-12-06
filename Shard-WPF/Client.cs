@@ -104,9 +104,16 @@ namespace Shard_WPF
         // Unable to send data if bool connected = false
         public void Data_OUT(Packet p)
         {
-            ShardCore.GetCore().Write("Sending " + p.packetType.ToString());
             if (connected && p.packetType != Packet.PacketType.Registration)
+            {
+                ShardCore.GetCore().Write("Sending " + p.packetType.ToString());
                 socket.Send(p.ToBytes());
+            }
+            else
+            {
+                ShardCore.GetCore().Write("I was unable to send a packet to my Heart. Either I'm not connected, or it was a registration packet. Please restart me and try again.");
+                return;
+            }
         }
 
         // for handling received data
