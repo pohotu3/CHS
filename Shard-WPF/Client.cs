@@ -149,7 +149,10 @@ namespace Shard_WPF
                     HandleCommand(p.packetString);
                     break;
                 case Packet.PacketType.Error:
-                    ShardCore.GetCore().Write("Server sent us an error message. Message: " + p.packetString);
+                    ShardCore.GetCore().Write("The Heart sent us an error message. Message: " + p.packetString);
+                    ShardCore.GetCore().Write("I'm shutting down the connection. Please address the problem, and then start me back up.");
+                    Close();
+                    Environment.Exit(0);
                     break;
                 default:
                     break;
