@@ -111,8 +111,11 @@ namespace Shard_WPF
             }
             else
             {
-                ShardCore.GetCore().Write("I am not connected to my Heart, so I cant send data. Please restart me to attempt to fix the problem.");
-                return;
+                if (p.packetType != Packet.PacketType.CloseConnection)
+                {
+                    ShardCore.GetCore().Write("I am not connected to my Heart, so I cant send data. Please restart me to attempt to fix the problem.");
+                    return;
+                }
             }
         }
 
@@ -149,10 +152,8 @@ namespace Shard_WPF
                     HandleCommand(p.packetString);
                     break;
                 case Packet.PacketType.Error:
-                    ShardCore.GetCore().Write("The Heart sent us an error message. Message: " + p.packetString);
-                    ShardCore.GetCore().Write("I'm shutting down the connection. Please address the problem, and then start me back up.");
-                    Close();
-                    Environment.Exit(0);
+                    ShardCore.GetCore().Write("The Heart sent us an error message. Message: " + p.packetString + " I'm shutting down the connection. Please address the problem, and then start me back up.");
+                    ShardCore.GetCore().Shutdown();
                     break;
                 default:
                     break;
