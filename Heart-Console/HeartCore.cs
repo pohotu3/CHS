@@ -33,7 +33,7 @@ namespace HeartConsole
     class HeartCore
     {
 
-        public static string systemName, musicDir = "", movieDir = "", commandKey = "", baseDir = "/CrystalHomeSys/", heartDir = "/Heart/", shardLogsDir = "/Shard_Logs/", configDir = "heart_config.cfg", logBaseDir = "Logs/", shardFileDir = "Shard_Files/";
+        public static string systemName, musicDir = "", movieDir = "", commandKey = "", baseDir = "/CrystalHomeSys/", heartDir = "Heart/", shardLogsDir = "Shard_Logs/", configDir = "heart_config.cfg", logBaseDir = "Logs/", shardFileDir = "Shard_Files/";
         private int serverPort = 6976;
         public static bool cfg_set = false;
 

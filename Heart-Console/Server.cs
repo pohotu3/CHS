@@ -240,6 +240,7 @@ namespace HeartConsole
                     // shard information is loaded into the local var's from the RetrieveShard() function
                     // confirm successful connection
                     HeartCore.GetCore().Write("Shard " + shardName + " registered and connected successfully. Sending handshake.");
+                    HeartCore.GetCore().Write("Connection with " + shardName + " has been established.");
                     Data_OUT(new Packet(Packet.PacketType.Handshake, Server.guid));
                     return;
                 }
