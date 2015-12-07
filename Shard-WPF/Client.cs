@@ -107,7 +107,13 @@ namespace Shard_WPF
             if (connected)
             {
                 ShardCore.GetCore().Write("Sending " + p.packetType.ToString());
-                socket.Send(p.ToBytes());
+                try
+                {
+                    socket.Send(p.ToBytes());
+                }
+                catch (Exception e)
+                {
+                }
             }
             else
             {
@@ -122,6 +128,12 @@ namespace Shard_WPF
         // for handling received data
         private void DataManager(Packet p)
         {
+            if (p.senderID != serverGuid && connected) // if the packet ID isn't from the server
+            {
+                ShardCore.GetCore().Write("An unauthorized connection is attempting to control me. Shutting down.");
+                ShardCore.GetCore().Shutdown();
+            }
+
             switch (p.packetType)
             {
                 case Packet.PacketType.Registration: // if the server is sending the registration packet (start of connection)

@@ -56,7 +56,6 @@ namespace Shard_WPF
         public void Shutdown()
         {
             client.Close();
-            
         }
     }
 }
