@@ -33,7 +33,7 @@ namespace HeartConsole
     class HeartCore
     {
 
-        public static string systemName, musicDir = "", movieDir = "", commandKey = "", baseDir = "/CrystalHomeSys/Heart/", configDir = "heart_config.cfg", logBaseDir = "Logs/", shardDir = "Shard_Files/";
+        public static string systemName, musicDir = "", movieDir = "", commandKey = "", baseDir = "/CrystalHomeSys/", heartDir = "/Heart/", shardDir = "/Shard/", configDir = "heart_config.cfg", logBaseDir = "Logs/", shardFileDir = "Shard_Files/";
         private int serverPort = 6976;
         public static bool cfg_set = false;
 
@@ -51,16 +51,19 @@ namespace HeartConsole
         {
             core = this;
 
-            baseDir = System.Environment.GetEnvironmentVariable("HOME") + baseDir;            
+            baseDir = System.Environment.GetEnvironmentVariable("HOME") + baseDir;
+
+            heartDir = baseDir + heartDir;
+            shardDir = baseDir + shardDir;
 
             // allows the log file to be created in the home directory
-            logBaseDir = baseDir + logBaseDir;
+            logBaseDir = heartDir + logBaseDir;
 
             // allows the config file to be created in the home directory. ie: /home/austin/
-            configDir = baseDir + configDir;
+            configDir = heartDir + configDir;
 
             // allows the shard files to be accessed and created in the home directory
-            shardDir = baseDir + shardDir;
+            shardFileDir = heartDir + shardFileDir;
 
             Init();
         }
