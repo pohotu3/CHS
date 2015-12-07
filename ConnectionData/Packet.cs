@@ -106,7 +106,7 @@ namespace ConnectionData
 		// List of packet types
 		public enum PacketType
 		{
-			Registration, CloseConnection, Command, Handshake, Error, Log
+			Registration, CloseConnection, Command, Handshake, Error, ShardLog
 		}
 	}
 }

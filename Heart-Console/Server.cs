@@ -119,6 +119,8 @@ namespace HeartConsole
         public Thread clientThread;
         public string id;
         private bool verified = false;
+        private string shardLogDir = "";
+        private Log shardLog;
 
         // shard details loaded from verification
         private string shardName = "", shardType = "", shardLocation = "";
@@ -242,6 +244,11 @@ namespace HeartConsole
                     HeartCore.GetCore().Write("Shard " + shardName + " registered and connected successfully. Sending handshake.");
                     HeartCore.GetCore().Write("Connection with " + shardName + " has been established.");
                     Data_OUT(new Packet(Packet.PacketType.Handshake, Server.guid));
+
+                    shardLogDir = HeartCore.shardLogsDir + shardName + "/";
+                    shardLog = new Log(shardLogDir);
+                    HeartCore.GetCore().Write("Created Shard Log at " + shardLogDir);
+
                     return;
                 }
                 // if there isnt a match, inform the client that it needs to be initialized. Maintain connection though, don't close it.
@@ -271,6 +278,9 @@ namespace HeartConsole
                         default:
                             break;
                     }
+                    break;
+                case Packet.PacketType.ShardLog:
+                    LogShard(p.packetString);
                     break;
                 default:
                     HeartCore.GetCore().Write(shardName + " sent an unrecognized packet type. Command ignored.");
@@ -317,6 +327,11 @@ namespace HeartConsole
             }
 
             return false; // returns false if there's no match
+        }
+
+        private void LogShard(string s)
+        {
+            shardLog.write(s);
         }
     }
 }

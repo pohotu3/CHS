@@ -34,7 +34,6 @@ namespace Shard_WPF
             log = new Log(logBaseDir);
 
             core = this;
-            Write("##################Crystal Shard Dev has been Started##################"); // ##################
             Log("##################Crystal Shard Dev has been Started##################");
 
             cfg = new Config(configDir);
@@ -52,7 +51,15 @@ namespace Shard_WPF
 
         public void Log(string s)
         {
+            Write(s);
             log.write(s);
+            try
+            {
+                Packet logPacket = new Packet(Packet.PacketType.ShardLog, guid.ToString());
+                logPacket.packetString = s;
+                SendPacket(logPacket);
+            }
+            catch (Exception e) { }
         }
 
         private void LoadConfig()
@@ -60,7 +67,6 @@ namespace Shard_WPF
             try
             {
                 guid = Guid.Parse(cfg.get("guid"));
-                Write("Configuration file found. Loading settings.");//#######################
                 Log("Configuration file found. Loading settings.");
             }
             catch (Exception e)
@@ -71,7 +77,6 @@ namespace Shard_WPF
 
         private void CreateCFG()
         {
-            Write("Configuration file does not exist. Creating file."); // #############################
             Log("Configuration file does not exist. Creating file.");
             try
             {
@@ -93,12 +98,13 @@ namespace Shard_WPF
 
         public void SendPacket(Packet p)
         {
-            client.Data_OUT(p);
+            if (client.connected)
+                client.Data_OUT(p);
         }
 
         public void Speak(string s)
         {
-            Write(s);
+
         }
 
         public static ShardCore GetCore()
