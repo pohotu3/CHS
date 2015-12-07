@@ -38,14 +38,7 @@ namespace Shard_WPF
             Log("##################Crystal Shard Dev has been Started##################");
 
             cfg = new Config(configDir);
-            if (cfg.exists())
-            {
-                LoadConfig();
-            }
-            else
-            {
-                CreateCFG();
-            }
+            LoadConfig();
 
             Write("Setting up client...");
             Log("Setting up client...");

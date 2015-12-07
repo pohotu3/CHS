@@ -80,17 +80,7 @@ namespace HeartConsole
             Write("Setting up configuration...");
             cfg = new Config(configDir);
 
-            // if the cfg file already exists, load the settings. If not, set up the basics and wait for it to be set up remotely
-            if (cfg.exists())
-            {
-                Write("Configuration file found. Loading settings.");
-                LoadConfig();
-            }
-            else
-            {
-                Write("Configuration file does not exist. Creating file. Please configure your server with your web browser.");
-                CreateCFG();
-            }
+            LoadConfig();
 
             // set up all the network information and objects, do NOT start
             Write("Creating Server on port " + serverPort);
@@ -101,7 +91,7 @@ namespace HeartConsole
             server.Start();
             Write("Heart Server started listening on IP: " + server.ip.Address + " Port: " + serverPort);
 
-            
+
 
             python_api = new PythonScript("HeartAPI.py" + " " + server.ip.Address + " " + serverPort + " " + baseDir, Write);
         }
@@ -146,15 +136,18 @@ namespace HeartConsole
                 // these two settings are guarenteed to be in the file. if they're not, re create the file
                 cfg_set = bool.Parse(cfg.get("cfg_set"));
                 guid = Guid.Parse(cfg.get("guid"));
+                Write("Configuration file found. Loading settings.");
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 // if the file cannot be read, recreate the file
                 CreateCFG();
+                return;
             }
 
             if (!cfg_set)
             {
-                Write("Config is not set up. Shards will be refused until that is set.");
+                Write("Config is not set up. Shards will be refused until it is set.");
             }
             else
             {
@@ -177,6 +170,8 @@ namespace HeartConsole
         // this function creates a new CFG, and it will try to delete the old version (whether or not it exists) just to be safe
         private void CreateCFG()
         {
+            Write("Configuration file does not exist. Creating file. Please configure your server with your web browser.");
+
             try
             {
                 File.Delete(cfg.FileName());
