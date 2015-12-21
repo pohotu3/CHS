@@ -93,7 +93,7 @@ namespace HeartConsole
 
 
 
-            python_api = new PythonScript("HeartAPI.py" + " " + server.ip.Address + " " + serverPort + " " + baseDir, Write);
+            //python_api = new PythonScript("HeartAPI.py" + " " + server.ip.Address + " " + serverPort + " " + baseDir, Write);
         }
 
         public static HeartCore GetCore()
