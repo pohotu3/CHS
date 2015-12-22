@@ -90,11 +90,7 @@ namespace HeartConsole
             // start listening for connections
             server.Start();
             Write("Heart Server started listening on IP: " + server.ip.Address + " Port: " + serverPort);
-
-
-
-            //python_api = new PythonScript("HeartAPI.py" + " " + server.ip.Address + " " + serverPort + " " + baseDir, Write);
-        }
+		}
 
         public static HeartCore GetCore()
         {
