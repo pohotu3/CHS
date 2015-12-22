@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heart-Console", "Heart-Cons
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shard-WPF", "Shard-WPF\Shard-WPF.csproj", "{73D5E0F3-FCAB-4121-A052-DD6CB67DC4D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nerv", "Nerv\Nerv.csproj", "{1C664660-03A6-44C4-8D04-D103CE168E5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,14 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Debug|x86.Build.0 = Debug|Any CPU
+		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Release|x86.ActiveCfg = Release|Any CPU
+		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Release|x86.Build.0 = Release|Any CPU
 		{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}.Debug|x86.ActiveCfg = Debug|Any CPU
