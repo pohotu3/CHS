@@ -59,13 +59,11 @@ namespace Nerv
             {
                 // tries to connect to the socket located at the IP and socket given
                 socket.Connect(ip);
-                Core.GetCore().Log("Connected to Heart at IP " + ipAddress + " Socket: " + port);
-                Core.GetCore().Speak("Connected.");
+				Core.GetCore().Notify("Connected to Heart");
             }
             catch
             {
-                Core.GetCore().Log("Could not connect to " + ipAddress + " on Socket: " + port);
-                Core.GetCore().Speak("I was unable to connect to my Heart. Please reboot me and try again.");
+				Core.GetCore().Notify("Could not connect to Heart");
                 Thread.Sleep(1000);
 
                 return; // we dont want the client socket continuing if we were not able to connect
@@ -118,9 +116,8 @@ namespace Nerv
             {
                 if (p.packetType != Packet.PacketType.CloseConnection)
                 {
-                    Core.GetCore().Log("Not connected to Heart. Cannot send packet. Packet type: " + p.packetType.ToString() + " Packet String: " + p.packetString);
-                    Core.GetCore().Speak("I am not connected to my Heart, so I cant send data. Please restart me to attempt to fix the problem.");
-                    return;
+					Core.GetCore().Notify("Not connected to Heart. Cannot send packet. Packet type: " + p.packetType.ToString() + " Packet String: " + p.packetString);
+                     return;
                 }
             }
         }
@@ -130,44 +127,41 @@ namespace Nerv
         {
             if (p.senderID != serverGuid && connected) // if the packet ID isn't from the server
             {
-                Core.GetCore().Log("Unauthorized Packet SenderID found. Closing connection.");
-                Core.GetCore().Write("An unauthorized connection is attempting to control me. Shutting down.");
+				Core.GetCore().Notify("Unauthorized Packet SenderID found. Closing connection");
                 Core.GetCore().Shutdown();
             }
 
             switch (p.packetType)
             {
                 case Packet.PacketType.Registration: // if the server is sending the registration packet (start of connection)
-                    Core.GetCore().Log("Received registration packet from Heart.");
+					Core.GetCore().Notify("Received registration packet from Heart");
                     serverGuid = p.senderID;
                     Core.commandKey = p.packetString; // set the commandKey from the server registration packet
 
                     Packet temp = new Packet(Packet.PacketType.Registration, guid); // client registration packet
-                    Core.GetCore().Log("Sending Registration");
+					Core.GetCore().Notify("Sending Registration");
                     socket.Send(temp.ToBytes());    // send packet to heart
 
-                    Core.GetCore().Log("Sent registration packet to Heart.");
+					Core.GetCore().Notify("Sent registration packet to Heart");
                     break;
-                case Packet.PacketType.Handshake:
-                    connected = true;
-                    Core.GetCore().Log("Handshake received. Connection Established.");
-                    Core.GetCore().Speak("I've connected to my Heart!");
+				case Packet.PacketType.Handshake:
+					connected = true;
+					Core.GetCore ().Notify ("Handshake received");
+					Core.GetCore ().Notify ("Connection Established");
                     break;
                 case Packet.PacketType.CloseConnection:
                     string reason = p.packetString;
                     if (reason == null)
-                        reason = "It didn't specify a reason, so please reboot both my Heart and I.";
-                    Core.GetCore().Log("Server is closing the connection. Reason: " + reason);
-                    Core.GetCore().Speak("My Heart decided to close the connection. " + reason + ".");
+                        reason = "No reason. Please reboot Heart";
+					Core.GetCore().Notify("Server closed connection. Reason: " + reason);
                     Close();
                     break;
                 case Packet.PacketType.Command:
-                    Core.GetCore().Log("Server sent the command: " + p.packetString);
+                    Core.GetCore().Notify("Server sent command: " + p.packetString);
                     HandleCommand(p.packetString);
                     break;
                 case Packet.PacketType.Error:
-                    Core.GetCore().Log("Error message from Heart. Message: " + p.packetString + ". Shutting down.");
-                    Core.GetCore().Speak("We recieved an error from the Heart. Shutting down. Please view logs for further details.");
+                    Core.GetCore().Notify("Error message: " + p.packetString + ". Shutting down.");
                     Core.GetCore().Shutdown();
                     break;
                 default:
@@ -183,7 +177,7 @@ namespace Nerv
         public void Close()
         {
             Data_OUT(new Packet(Packet.PacketType.CloseConnection, guid));
-            Core.GetCore().Write("Closing connection with Heart.");
+            Core.GetCore().Notify("Closing connection with Heart.");
             running = false;
             socket.Close();
             socket.Dispose();

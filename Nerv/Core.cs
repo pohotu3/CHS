@@ -8,29 +8,33 @@ namespace Nerv
 
 		private static Core core;
 		private static MainWindow mw;
+		private static Client client;
+		private static int port = 6976;
+		private static Guid guid = Guid.NewGuid();
 
 		public static string commandKey = "";
 
-		public Core(){
+		public Core()
+		{
 			core = this;
+
+			// set up client info
+			client = new Client("127.0.0.1", port, guid);
 		}
 
-		public static Core GetCore(){
+		public static Core GetCore()
+		{
 			return core;
 		}
 
-		public void Log(string s){
+		public void Notify(string s)
+		{
 
 		}
 
-		public void Speak(string s){
+		public void Shutdown()
+		{
 
-		}
-
-		public void Write(string s){
-		}
-
-		public void Shutdown(){
 		}
 
 		public static void Main (string[] args)
