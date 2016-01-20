@@ -39,7 +39,7 @@ namespace Shard
 
         public void Write(string s)
         {
-
+            Console.WriteLine(s);
         }
 
         public void Log(string s)
