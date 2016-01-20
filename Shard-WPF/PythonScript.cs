@@ -29,7 +29,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 
-namespace HeartConsole
+namespace Shard_WPF
 {
     public class PythonScript
     {
@@ -72,10 +72,10 @@ namespace HeartConsole
             }
             catch (Exception e)
             {
-                HeartCore.GetCore().Write("Unable to start Python process. Details: " + e.Message);
-                HeartCore.GetCore().Close();
+                // CATCH IF THE SCRIPT CANNOT BE OPENED FOR X REASON
             }
 
+            // STORES THE OUTPUT DATA OF THE SCRIPT
             while (script_thread.IsAlive)
             {
                 string foo = p.StandardOutput.ReadLine();
