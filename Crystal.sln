@@ -1,13 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionData", "ConnectionData\ConnectionData.csproj", "{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heart-Console", "Heart-Console\Heart-Console.csproj", "{7D55261A-4FA7-4B96-B69B-26930BDB5B18}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heart", "Heart-Console\Heart.csproj", "{7D55261A-4FA7-4B96-B69B-26930BDB5B18}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shard-WPF", "Shard-WPF\Shard-WPF.csproj", "{73D5E0F3-FCAB-4121-A052-DD6CB67DC4D9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nerv", "Nerv\Nerv.csproj", "{1C664660-03A6-44C4-8D04-D103CE168E5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shard", "Shard\Shard.csproj", "{2EE6D42A-1088-4FFA-95F6-3883F5AEFB5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,14 +21,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Debug|x86.Build.0 = Debug|Any CPU
-		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Release|x86.ActiveCfg = Release|Any CPU
-		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Release|x86.Build.0 = Release|Any CPU
 		{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -33,6 +29,12 @@ Global
 		{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}.Release|x86.ActiveCfg = Release|Any CPU
 		{3CF1C315-40DD-4F9F-8FDD-E469BB3F013B}.Release|x86.Build.0 = Release|Any CPU
+		{7D55261A-4FA7-4B96-B69B-26930BDB5B18}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{7D55261A-4FA7-4B96-B69B-26930BDB5B18}.Debug|x86.ActiveCfg = Debug|x86
+		{7D55261A-4FA7-4B96-B69B-26930BDB5B18}.Debug|x86.Build.0 = Debug|x86
+		{7D55261A-4FA7-4B96-B69B-26930BDB5B18}.Release|Any CPU.ActiveCfg = Release|x86
+		{7D55261A-4FA7-4B96-B69B-26930BDB5B18}.Release|x86.ActiveCfg = Release|x86
+		{7D55261A-4FA7-4B96-B69B-26930BDB5B18}.Release|x86.Build.0 = Release|x86
 		{73D5E0F3-FCAB-4121-A052-DD6CB67DC4D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{73D5E0F3-FCAB-4121-A052-DD6CB67DC4D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73D5E0F3-FCAB-4121-A052-DD6CB67DC4D9}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -41,17 +43,27 @@ Global
 		{73D5E0F3-FCAB-4121-A052-DD6CB67DC4D9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{73D5E0F3-FCAB-4121-A052-DD6CB67DC4D9}.Release|x86.ActiveCfg = Release|Any CPU
 		{73D5E0F3-FCAB-4121-A052-DD6CB67DC4D9}.Release|x86.Build.0 = Release|Any CPU
-		{7D55261A-4FA7-4B96-B69B-26930BDB5B18}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{7D55261A-4FA7-4B96-B69B-26930BDB5B18}.Debug|x86.ActiveCfg = Debug|x86
-		{7D55261A-4FA7-4B96-B69B-26930BDB5B18}.Debug|x86.Build.0 = Debug|x86
-		{7D55261A-4FA7-4B96-B69B-26930BDB5B18}.Release|Any CPU.ActiveCfg = Release|x86
-		{7D55261A-4FA7-4B96-B69B-26930BDB5B18}.Release|x86.ActiveCfg = Release|x86
-		{7D55261A-4FA7-4B96-B69B-26930BDB5B18}.Release|x86.Build.0 = Release|x86
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Heart-Console\Heart-Console.csproj
+		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Debug|x86.Build.0 = Debug|Any CPU
+		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Release|x86.ActiveCfg = Release|Any CPU
+		{1C664660-03A6-44C4-8D04-D103CE168E5A}.Release|x86.Build.0 = Release|Any CPU
+		{2EE6D42A-1088-4FFA-95F6-3883F5AEFB5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EE6D42A-1088-4FFA-95F6-3883F5AEFB5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EE6D42A-1088-4FFA-95F6-3883F5AEFB5D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2EE6D42A-1088-4FFA-95F6-3883F5AEFB5D}.Debug|x86.Build.0 = Debug|Any CPU
+		{2EE6D42A-1088-4FFA-95F6-3883F5AEFB5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EE6D42A-1088-4FFA-95F6-3883F5AEFB5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EE6D42A-1088-4FFA-95F6-3883F5AEFB5D}.Release|x86.ActiveCfg = Release|Any CPU
+		{2EE6D42A-1088-4FFA-95F6-3883F5AEFB5D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Heart-Console\Heart-Console.csproj
 	EndGlobalSection
 EndGlobal

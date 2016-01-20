@@ -36,7 +36,7 @@ using System.Text;
 using System.IO;
 using ConnectionData;
 
-namespace HeartConsole
+namespace Heart
 {
     public class Server
     {

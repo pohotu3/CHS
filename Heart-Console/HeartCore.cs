@@ -28,7 +28,7 @@ using System;
 using ConnectionData;
 using System.IO;
 
-namespace HeartConsole
+namespace Heart
 {
     class HeartCore
     {
