@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Heart
 {
-    class Program
+    class HeartCore
     {
         static void Main(string[] args)
         {
