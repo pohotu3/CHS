@@ -8,8 +8,16 @@ namespace Heart
 {
     class HeartCore
     {
+        private HeartCore core;
+
+        public HeartCore()
+        {
+            core = this;
+        }
+
         static void Main(string[] args)
         {
+            new HeartCore();
         }
     }
 }
