@@ -1,0 +1,4 @@
+D:\Programming\Visual Studio Projects\Crystal-Home-Systems\ConnectionData\bin\Debug\ConnectionData.dll
+D:\Programming\Visual Studio Projects\Crystal-Home-Systems\ConnectionData\bin\Debug\ConnectionData.pdb
+D:\Programming\Visual Studio Projects\Crystal-Home-Systems\ConnectionData\obj\Debug\ConnectionData.dll
+D:\Programming\Visual Studio Projects\Crystal-Home-Systems\ConnectionData\obj\Debug\ConnectionData.pdb
